@@ -52,33 +52,38 @@
     <script>
         const ctx = document.getElementById('soilChart').getContext('2d');
         let activeIndex = null;
+        // Double the number of points for smoother lines
+        const timeLabels = [
+            '12:27 PM', '01:27 PM', '02:27 PM', '03:27 PM', '04:27 PM', '05:27 PM', '06:27 PM', '07:27 PM', '08:27 PM', '09:27 PM', '10:27 PM', '11:27 PM',
+            '12:27 AM', '01:27 AM', '02:27 AM', '03:27 AM', '04:27 AM', '05:27 AM', '06:27 AM', '07:27 AM', '08:27 AM', '09:27 AM', '10:27 AM', '11:27 AM'
+        ];
+        // Interpolated data for smoother lines
+        const humidityData = [63.4, 61.0, 58.2, 60.0, 61.7, 58.6, 55.5, 57.8, 60.1, 59.0, 57.8, 56.0, 54.2, 55.5, 56.7, 58.0, 59.3, 56.5, 53.8, 55.5, 57.1, 58.6, 60.2, 61.0];
+        const temperatureData = [21.4, 21.8, 22.1, 22.6, 23.2, 23.8, 24.5, 24.8, 25.1, 25.0, 24.8, 24.2, 23.6, 23.8, 22.9, 23.0, 23.2, 23.7, 24.1, 24.5, 25.0, 25.1, 25.1, 25.0];
         const soilChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: [
-                    '12:27 PM', '02:27 PM', '04:27 PM', '06:27 PM', '08:27 PM', '10:27 PM',
-                    '12:27 AM', '02:27 AM', '04:27 AM', '06:27 AM', '08:27 AM', '10:27 AM'
-                ],
+                labels: timeLabels,
                 datasets: [
                     {
                         label: 'Humidity (%)',
-                        data: [63.4, 58.2, 61.7, 55.5, 60.1, 57.8, 54.2, 56.7, 59.3, 53.8, 57.1, 60.2],
+                        data: humidityData,
                         borderColor: '#2196f3',
                         backgroundColor: 'rgba(33,150,243,0.08)',
                         pointBackgroundColor: '#2196f3',
-                        pointRadius: 5,
-                        pointHoverRadius: 7,
+                        pointRadius: 0,
+                        pointHoverRadius: 0,
                         fill: false,
                         tension: 0.3
                     },
                     {
                         label: 'Temperature (°C)',
-                        data: [21.4, 22.1, 23.2, 24.5, 25.1, 24.8, 23.6, 22.9, 23.2, 24.1, 25.0, 25.1],
+                        data: temperatureData,
                         borderColor: '#ff9800',
                         backgroundColor: 'rgba(255,152,0,0.08)',
                         pointBackgroundColor: '#ff9800',
-                        pointRadius: 5,
-                        pointHoverRadius: 7,
+                        pointRadius: 0,
+                        pointHoverRadius: 0,
                         fill: false,
                         tension: 0.3
                     }
@@ -149,30 +154,26 @@
                         const point1 = meta1.data[activeIndex];
                         const point2 = meta2.data[activeIndex];
                         if (point1 && point2) {
-                            // Draw connecting line
+                            // Draw solid vertical line from top to bottom
                             ctx.save();
                             ctx.beginPath();
-                            ctx.moveTo(point1.x, point1.y);
-                            ctx.lineTo(point2.x, point2.y);
-                            ctx.strokeStyle = '#888';
+                            ctx.moveTo(point1.x, chart.scales.y.top);
+                            ctx.lineTo(point1.x, chart.scales.y.bottom);
+                            ctx.strokeStyle = '#222';
                             ctx.lineWidth = 2;
-                            ctx.setLineDash([5, 5]);
                             ctx.stroke();
-                            ctx.setLineDash([]);
                             ctx.restore();
-                            // Draw highlight points
+                            // Draw solid highlight points
                             ctx.beginPath();
                             ctx.arc(point1.x, point1.y, 8, 0, 2 * Math.PI);
                             ctx.fillStyle = '#2196f3';
-                            ctx.globalAlpha = 0.8;
-                            ctx.fill();
                             ctx.globalAlpha = 1;
+                            ctx.fill();
                             ctx.beginPath();
                             ctx.arc(point2.x, point2.y, 8, 0, 2 * Math.PI);
                             ctx.fillStyle = '#ff9800';
-                            ctx.globalAlpha = 0.8;
-                            ctx.fill();
                             ctx.globalAlpha = 1;
+                            ctx.fill();
                         }
                     }
                 }
