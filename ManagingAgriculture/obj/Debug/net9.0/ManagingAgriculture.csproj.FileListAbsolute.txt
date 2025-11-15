@@ -15,7 +15,6 @@ C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\ManagingAgriculture.RazorAssemblyInfo.cs
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\ManagingAgriculture.sourcelink.json
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\scopedcss\bundle\ManagingAgriculture.styles.css
-C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\compressed\o22admou70-phlw6p4qog.gz
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\compressed\0o7uo0kghv-61n19gt1b8.gz
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\compressed\gas34c1qis-xtxxf3hu2r.gz
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\compressed\pf9r8ieqr2-bqjiyaj88i.gz
@@ -91,3 +90,4 @@ C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\ManagingAgriculture.pdb
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\ManagingAgriculture.genruntimeconfig.cache
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\ref\ManagingAgriculture.dll
+C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\compressed\o22admou70-aobfplwr6k.gz

@@ -46,7 +46,13 @@
 
         <main class="main-content">
             <header class="top-header">
-                <h1>@ViewData["Title"]</h1>
+                <div class="header-row">
+                    <button id="sidebarToggle" class="sidebar-toggle-btn" title="Toggle sidebar">
+                        <span class="toggle-line"></span>
+                        <span class="toggle-line"></span>
+                    </button>
+                    <h1>@ViewData["Title"]</h1>
+                </div>
             </header>
             <div class="content-wrapper">
                 @RenderBody()
@@ -57,5 +63,22 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+    <script>
+        $(function () {
+            // Restore sidebar state from localStorage
+            if (localStorage.getItem('sidebarShrink') === 'true') {
+                $('nav.sidebar').addClass('sidebar-shrink');
+                $('.main-content').addClass('main-content-shrink');
+            }
+            $('#sidebarToggle').on('click', function () {
+                $('nav.sidebar').toggleClass('sidebar-shrink');
+                $('.main-content').toggleClass('main-content-shrink');
+                // Save state to localStorage
+                var isShrunk = $('nav.sidebar').hasClass('sidebar-shrink');
+                localStorage.setItem('sidebarShrink', isShrunk ? 'true' : 'false');
+            });
+        });
+    </script>
 </body>
 </html>

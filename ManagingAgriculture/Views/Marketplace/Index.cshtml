@@ -1,0 +1,103 @@
+@{
+    ViewData["Title"] = "Marketplace";
+}
+
+<div class="marketplace-container">
+    <div class="page-header">
+        <div>
+            <h2>Marketplace</h2>
+            <p class="subtitle">Buy, sell, or rent farm equipment</p>
+        </div>
+        <button class="btn-post-listing">
+            <i class="fas fa-plus"></i> Post Listing
+        </button>
+    </div>
+    <div class="marketplace-filters">
+        <input type="text" class="marketplace-search" placeholder="Search equipment..." />
+        <select class="marketplace-category">
+            <option>All Categories</option>
+            <option>Tractors</option>
+            <option>Balers</option>
+            <option>Utility Vehicles</option>
+        </select>
+    </div>
+    <div class="marketplace-grid">
+        <!-- Tractor Card -->
+        <div class="marketplace-card">
+            <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80" class="marketplace-img" alt="Tractor" />
+            <div class="marketplace-card-body">
+                <div class="marketplace-card-header">
+                    <h3>John Deere 6120M Tractor</h3>
+                    <span class="listing-badge good">Good</span>
+                </div>
+                <span class="listing-category">Tractors</span>
+                <p class="listing-desc">Well-maintained tractor with 1200 hours. Perfect for medium-sized farms.</p>
+                <div class="listing-sale">
+                    <span class="sale-label">Sale or Rent</span>
+                    <span class="sale-price">$ 45,000</span>
+                    <span class="sale-rent">or $250/day rental</span>
+                </div>
+                <div class="listing-seller-row">
+                    <span class="seller-label">Seller</span>
+                    <span class="seller-name">Green Valley Farms</span>
+                </div>
+                <div class="listing-contact-row">
+                    <button class="btn-contact">
+                        <i class="fas fa-phone"></i> +1-555-0123
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Baler Card -->
+        <div class="marketplace-card">
+            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" class="marketplace-img" alt="Baler" />
+            <div class="marketplace-card-body">
+                <div class="marketplace-card-header">
+                    <h3>Massey Ferguson MF 1840M</h3>
+                    <span class="listing-badge excellent">Excellent</span>
+                </div>
+                <span class="listing-category">Balers</span>
+                <p class="listing-desc">Square baler in excellent condition. Recently serviced.</p>
+                <div class="listing-sale">
+                    <span class="sale-label">For Sale</span>
+                    <span class="sale-price">$ 28,000</span>
+                </div>
+                <div class="listing-seller-row">
+                    <span class="seller-label">Seller</span>
+                    <span class="seller-name">Riverside Equipment</span>
+                </div>
+                <div class="listing-contact-row">
+                    <button class="btn-contact">
+                        <i class="fas fa-phone"></i> +1-555-0124
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Utility Vehicle Card -->
+        <div class="marketplace-card">
+            <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80" class="marketplace-img" alt="Utility Vehicle" />
+            <div class="marketplace-card-body">
+                <div class="marketplace-card-header">
+                    <h3>Kubota RTV-X1140</h3>
+                    <span class="listing-badge good">Good</span>
+                </div>
+                <span class="listing-category">Utility Vehicles</span>
+                <p class="listing-desc">Utility vehicle for farm operations. Low mileage.</p>
+                <div class="listing-sale">
+                    <span class="sale-label">Sale or Rent</span>
+                    <span class="sale-price">$ 15,000</span>
+                    <span class="sale-rent">or $120/day rental</span>
+                </div>
+                <div class="listing-seller-row">
+                    <span class="seller-label">Seller</span>
+                    <span class="seller-name">Mountain Farm Supply</span>
+                </div>
+                <div class="listing-contact-row">
+                    <button class="btn-contact">
+                        <i class="fas fa-phone"></i> +1-555-0125
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,156 @@
+@{
+    ViewData["Title"] = "Plant Tracking";
+}
+
+<div class="plants-container">
+    <div class="page-header">
+        <div>
+            <h2>Plant Tracking</h2>
+            <p class="subtitle">Monitor your crops and growth stages</p>
+        </div>
+        <button class="btn-add-plant">
+            <i class="fas fa-plus"></i> Add Plant
+        </button>
+    </div>
+
+    <!-- Plants Grid -->
+    <div class="plants-grid">
+        <!-- Tomato Card -->
+        <div class="plant-card">
+            <div class="plant-header">
+                <h3>Tomato Garden A</h3>
+                <span class="plant-type">Tomato</span>
+            </div>
+            
+            <div class="plant-date">
+                <i class="fas fa-calendar"></i>
+                <span>Planted: 9/15/2025</span>
+            </div>
+
+            <div class="growth-info">
+                <div class="growth-label">
+                    <span>Growth Stage</span>
+                    <span class="growth-percent">65%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 65%;"></div>
+                </div>
+            </div>
+
+            <div class="harvest-info">
+                <div class="harvest-row">
+                    <i class="fas fa-seedling"></i>
+                    <div>
+                        <span class="label">Expected Harvest</span>
+                        <span class="date">12/15/2025</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="next-task-box">
+                <i class="fas fa-info-circle"></i>
+                <div>
+                    <span class="task-label">Next Task</span>
+                    <span class="task-text">Fertilize in 3 days</span>
+                </div>
+            </div>
+
+            <div class="notes-section">
+                <p class="notes-title">Notes</p>
+                <p class="notes-text">Growing well, regular watering needed</p>
+            </div>
+        </div>
+
+        <!-- Corn Card -->
+        <div class="plant-card">
+            <div class="plant-header">
+                <h3>Corn Field B</h3>
+                <span class="plant-type">Corn</span>
+            </div>
+            
+            <div class="plant-date">
+                <i class="fas fa-calendar"></i>
+                <span>Planted: 8/1/2025</span>
+            </div>
+
+            <div class="growth-info">
+                <div class="growth-label">
+                    <span>Growth Stage</span>
+                    <span class="growth-percent">85%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 85%;"></div>
+                </div>
+            </div>
+
+            <div class="harvest-info">
+                <div class="harvest-row">
+                    <i class="fas fa-seedling"></i>
+                    <div>
+                        <span class="label">Expected Harvest</span>
+                        <span class="date">11/20/2025</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="next-task-box">
+                <i class="fas fa-info-circle"></i>
+                <div>
+                    <span class="task-label">Next Task</span>
+                    <span class="task-text">Harvest in 6 days</span>
+                </div>
+            </div>
+
+            <div class="notes-section">
+                <p class="notes-title">Notes</p>
+                <p class="notes-text">Almost ready for harvest</p>
+            </div>
+        </div>
+
+        <!-- Wheat Card -->
+        <div class="plant-card">
+            <div class="plant-header">
+                <h3>Wheat Field C</h3>
+                <span class="plant-type">Wheat</span>
+            </div>
+            
+            <div class="plant-date">
+                <i class="fas fa-calendar"></i>
+                <span>Planted: 10/1/2025</span>
+            </div>
+
+            <div class="growth-info">
+                <div class="growth-label">
+                    <span>Growth Stage</span>
+                    <span class="growth-percent">45%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 45%;"></div>
+                </div>
+            </div>
+
+            <div class="harvest-info">
+                <div class="harvest-row">
+                    <i class="fas fa-seedling"></i>
+                    <div>
+                        <span class="label">Expected Harvest</span>
+                        <span class="date">1/15/2026</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="next-task-box">
+                <i class="fas fa-info-circle"></i>
+                <div>
+                    <span class="task-label">Next Task</span>
+                    <span class="task-text">Water tomorrow</span>
+                </div>
+            </div>
+
+            <div class="notes-section">
+                <p class="notes-title">Notes</p>
+                <p class="notes-text">Good germination rate</p>
+            </div>
+        </div>
+    </div>
+</div>
