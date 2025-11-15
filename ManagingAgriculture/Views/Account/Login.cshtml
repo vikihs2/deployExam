@@ -1,0 +1,60 @@
+@model ManagingAgriculture.Models.LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="auth-page">
+    <div class="auth-card">
+        <div class="auth-card-inner">
+            <div class="auth-logo">🌱</div>
+            <h2 class="auth-title">AgroCore</h2>
+            <p class="auth-sub">Agriculture Management System</p>
+
+            <div class="auth-tabs">
+                <a class="tab active">Login</a>
+                <a class="tab" href="/Account/Register">Register</a>
+            </div>
+
+            <form asp-action="Login" method="post" class="auth-form">
+                @Html.AntiForgeryToken()
+                @* Show success message from registration or other TempData *@
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+                }
+                <div>
+                    @Html.ValidationSummary(excludePropertyErrors: true, message: "")
+                </div>
+                <label>Email</label>
+                <input asp-for="Email" class="form-control" placeholder="your@email.com" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+
+                <label class="mt-3">Password</label>
+                <input asp-for="Password" class="form-control" type="password" placeholder="" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+
+                <button type="submit" class="btn btn-primary btn-block mt-4">Sign In</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <style>
+        .auth-page { display:flex; align-items:center; justify-content:center; min-height:75vh; }
+        .auth-card { width:420px; border-radius:8px; background:#fff; box-shadow:0 4px 18px rgba(0,0,0,0.06); padding:24px; }
+        .auth-card-inner { text-align:center; }
+        .auth-logo { width:56px; height:56px; border-radius:50%; background:#e6fbf1; display:inline-flex; align-items:center; justify-content:center; font-size:22px; margin:0 auto 12px; }
+        .auth-title { margin:0; font-weight:600; }
+        .auth-sub { color:#6b7280; font-size:13px; margin-bottom:18px; }
+        .auth-tabs { display:flex; gap:8px; justify-content:center; margin-bottom:12px; }
+        .auth-tabs .tab { padding:10px 22px; border-radius:8px; background:#f3f4f6; color:#374151; text-decoration:none; }
+        .auth-tabs .tab.active { border:2px solid #06a96b; background:#fff; }
+        .auth-form { text-align:left; }
+        .auth-form label { font-weight:600; margin-top:8px; display:block; }
+        .btn-block { width:100%; background:#06a96b; border-color:#06a96b; }
+    </style>
+}

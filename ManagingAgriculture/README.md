@@ -1,6 +1,6 @@
-# Project: SmartAgro — Frontend (Razor MVC)
+# Project: AgroCore — Frontend (Razor MVC)
 
-This README documents the frontend work I implemented for the SmartAgro project. I wrote this as if I performed the entire front-end implementation locally.
+This README documents the frontend work I implemented for the AgroCore project. I wrote this as if I performed the entire front-end implementation locally.
 
 ---
 
