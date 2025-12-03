@@ -1,0 +1,125 @@
+@model ManagingAgriculture.Models.PlantCreateViewModel
+@{
+    ViewData["Title"] = "Add Plant";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card mx-auto" style="max-width:720px;">
+        <div class="card-body">
+            <h3 class="card-title mb-3">Add Plant</h3>
+            <form asp-action="Add" method="post">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="CropType" class="form-label"></label>
+                    <input asp-for="CropType" class="form-control" />
+                    <span asp-validation-for="CropType" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="PlantedDate" class="form-label"></label>
+                        <input asp-for="PlantedDate" class="form-control" type="date" />
+                        <span asp-validation-for="PlantedDate" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="ExpectedHarvest" class="form-label"></label>
+                        <input asp-for="ExpectedHarvest" class="form-control" type="date" />
+                        <span asp-validation-for="ExpectedHarvest" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="GrowthStage" class="form-label"></label>
+                    <input asp-for="GrowthStage" class="form-control" type="number" min="0" max="100" />
+                    <span asp-validation-for="GrowthStage" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="NextTask" class="form-label"></label>
+                    <input asp-for="NextTask" class="form-control" />
+                    <span asp-validation-for="NextTask" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Notes" class="form-label"></label>
+                    <textarea asp-for="Notes" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Notes" class="text-danger"></span>
+                </div>
+
+                <hr class="my-4" />
+                <h5 class="mb-3">Agronomic Details</h5>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="SoilType" class="form-label"></label>
+                        <select asp-for="SoilType" class="form-control">
+                            <option value="">-- Select Soil Type --</option>
+                            <option value="Clay">Clay</option>
+                            <option value="Sandy">Sandy</option>
+                            <option value="Loamy">Loamy</option>
+                            <option value="Silty">Silty</option>
+                            <option value="Peaty">Peaty</option>
+                            <option value="Chalky">Chalky</option>
+                        </select>
+                        <span asp-validation-for="SoilType" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="SunlightExposure" class="form-label"></label>
+                        <select asp-for="SunlightExposure" class="form-control">
+                            <option value="">-- Select Sunlight --</option>
+                            <option value="Full Sun">Full Sun (6+ hrs)</option>
+                            <option value="Partial Sun">Partial Sun (3-6 hrs)</option>
+                            <option value="Partial Shade">Partial Shade (1-3 hrs)</option>
+                            <option value="Full Shade">Full Shade (&lt;1 hr)</option>
+                        </select>
+                        <span asp-validation-for="SunlightExposure" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="form-check">
+                            <input asp-for="IsIndoor" class="form-check-input" type="checkbox" />
+                            <label asp-for="IsIndoor" class="form-check-label">
+                                Indoor Plant
+                            </label>
+                        </div>
+                        <span asp-validation-for="IsIndoor" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="AvgTemperatureCelsius" class="form-label"></label>
+                        <input asp-for="AvgTemperatureCelsius" class="form-control" type="number" min="-50" max="60" step="0.5" placeholder="e.g. 22.5" />
+                        <span asp-validation-for="AvgTemperatureCelsius" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="WateringFrequencyDays" class="form-label"></label>
+                        <input asp-for="WateringFrequencyDays" class="form-control" type="number" min="0" max="365" placeholder="e.g. 2 days" />
+                        <span asp-validation-for="WateringFrequencyDays" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a class="btn btn-secondary" href="@Url.Action("Index", "Plants")">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Create Plant</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

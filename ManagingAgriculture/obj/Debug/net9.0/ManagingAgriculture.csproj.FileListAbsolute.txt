@@ -90,7 +90,6 @@ C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\ManagingAgriculture.pdb
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\ManagingAgriculture.genruntimeconfig.cache
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\ref\ManagingAgriculture.dll
-C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\compressed\o22admou70-aobfplwr6k.gz
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\bin\Debug\net9.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.dll
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Abstractions.dll
@@ -98,3 +97,4 @@ C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Relational.dll
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\ManagingAgriculture.csproj.AssemblyReference.cache
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\Managing.D50E96B8.Up2Date
+C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\compressed\o22admou70-5tymydpf4x.gz

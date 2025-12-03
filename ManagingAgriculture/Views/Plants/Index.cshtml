@@ -1,156 +1,110 @@
+@model IEnumerable<ManagingAgriculture.Models.Plant>
 @{
     ViewData["Title"] = "Plant Tracking";
 }
 
 <div class="plants-container">
-    <div class="page-header">
+    <div class="page-header d-flex justify-content-between align-items-center">
         <div>
             <h2>Plant Tracking</h2>
             <p class="subtitle">Monitor your crops and growth stages</p>
         </div>
-        <button class="btn-add-plant">
+        <a class="btn btn-success" href="@Url.Action("Add", "Plants")">
             <i class="fas fa-plus"></i> Add Plant
-        </button>
+        </a>
     </div>
 
-    <!-- Plants Grid -->
-    <div class="plants-grid">
-        <!-- Tomato Card -->
-        <div class="plant-card">
-            <div class="plant-header">
-                <h3>Tomato Garden A</h3>
-                <span class="plant-type">Tomato</span>
-            </div>
-            
-            <div class="plant-date">
-                <i class="fas fa-calendar"></i>
-                <span>Planted: 9/15/2025</span>
-            </div>
-
-            <div class="growth-info">
-                <div class="growth-label">
-                    <span>Growth Stage</span>
-                    <span class="growth-percent">65%</span>
+    <div class="plants-grid mt-4">
+        @foreach (var plant in Model)
+        {
+            <div class="plant-card mb-3">
+                <div class="plant-header d-flex justify-content-between align-items-center">
+                    <h3>@plant.Name</h3>
+                    <span class="plant-type">@plant.PlantType</span>
                 </div>
-                <div class="progress-bar-container">
-                    <div class="progress-bar" style="width: 65%;"></div>
-                </div>
-            </div>
 
-            <div class="harvest-info">
-                <div class="harvest-row">
-                    <i class="fas fa-seedling"></i>
-                    <div>
-                        <span class="label">Expected Harvest</span>
-                        <span class="date">12/15/2025</span>
+                <div class="plant-date">
+                    <i class="fas fa-calendar"></i>
+                    <span>Planted: @plant.PlantedDate.ToString("d")</span>
+                </div>
+
+                <div class="growth-info">
+                    <div class="growth-label d-flex justify-content-between">
+                        <span>Growth Stage</span>
+                        <span class="growth-percent">@plant.GrowthStagePercent%</span>
+                    </div>
+                    <div class="progress" style="height:8px; background:#e6e6e6; border-radius:4px;">
+                        <div class="progress-bar bg-success" role="progressbar" style="width:@plant.GrowthStagePercent%" aria-valuenow="@plant.GrowthStagePercent" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
-            </div>
 
-            <div class="next-task-box">
-                <i class="fas fa-info-circle"></i>
-                <div>
-                    <span class="task-label">Next Task</span>
-                    <span class="task-text">Fertilize in 3 days</span>
-                </div>
-            </div>
-
-            <div class="notes-section">
-                <p class="notes-title">Notes</p>
-                <p class="notes-text">Growing well, regular watering needed</p>
-            </div>
-        </div>
-
-        <!-- Corn Card -->
-        <div class="plant-card">
-            <div class="plant-header">
-                <h3>Corn Field B</h3>
-                <span class="plant-type">Corn</span>
-            </div>
-            
-            <div class="plant-date">
-                <i class="fas fa-calendar"></i>
-                <span>Planted: 8/1/2025</span>
-            </div>
-
-            <div class="growth-info">
-                <div class="growth-label">
-                    <span>Growth Stage</span>
-                    <span class="growth-percent">85%</span>
-                </div>
-                <div class="progress-bar-container">
-                    <div class="progress-bar" style="width: 85%;"></div>
-                </div>
-            </div>
-
-            <div class="harvest-info">
-                <div class="harvest-row">
-                    <i class="fas fa-seedling"></i>
-                    <div>
-                        <span class="label">Expected Harvest</span>
-                        <span class="date">11/20/2025</span>
+                <div class="harvest-info mt-2">
+                    <div class="harvest-row d-flex align-items-center">
+                        <i class="fas fa-seedling me-2"></i>
+                        <div>
+                            <span class="label">Expected Harvest</span>
+                            <div class="date">@plant.ExpectedHarvestDate?.ToString("d")</div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="next-task-box">
-                <i class="fas fa-info-circle"></i>
-                <div>
-                    <span class="task-label">Next Task</span>
-                    <span class="task-text">Harvest in 6 days</span>
-                </div>
-            </div>
-
-            <div class="notes-section">
-                <p class="notes-title">Notes</p>
-                <p class="notes-text">Almost ready for harvest</p>
-            </div>
-        </div>
-
-        <!-- Wheat Card -->
-        <div class="plant-card">
-            <div class="plant-header">
-                <h3>Wheat Field C</h3>
-                <span class="plant-type">Wheat</span>
-            </div>
-            
-            <div class="plant-date">
-                <i class="fas fa-calendar"></i>
-                <span>Planted: 10/1/2025</span>
-            </div>
-
-            <div class="growth-info">
-                <div class="growth-label">
-                    <span>Growth Stage</span>
-                    <span class="growth-percent">45%</span>
-                </div>
-                <div class="progress-bar-container">
-                    <div class="progress-bar" style="width: 45%;"></div>
-                </div>
-            </div>
-
-            <div class="harvest-info">
-                <div class="harvest-row">
-                    <i class="fas fa-seedling"></i>
+                <div class="next-task-box mt-2 d-flex align-items-start">
+                    <i class="fas fa-info-circle me-2"></i>
                     <div>
-                        <span class="label">Expected Harvest</span>
-                        <span class="date">1/15/2026</span>
+                        <span class="task-label">Next Task</span>
+                        <div class="task-text">@plant.NextTask</div>
                     </div>
                 </div>
-            </div>
 
-            <div class="next-task-box">
-                <i class="fas fa-info-circle"></i>
-                <div>
-                    <span class="task-label">Next Task</span>
-                    <span class="task-text">Water tomorrow</span>
+                <div class="notes-section mt-2">
+                    <p class="notes-title">Notes</p>
+                    <p class="notes-text">@plant.Notes</p>
                 </div>
-            </div>
 
-            <div class="notes-section">
-                <p class="notes-title">Notes</p>
-                <p class="notes-text">Good germination rate</p>
+                @if (!string.IsNullOrEmpty(plant.SoilType) || !string.IsNullOrEmpty(plant.SunlightExposure) || plant.IsIndoor || plant.AvgTemperatureCelsius.HasValue || plant.WateringFrequencyDays.HasValue)
+                {
+                    <div class="agronomic-section mt-3 pt-3" style="border-top: 1px solid #e6e6e6;">
+                        <p class="section-title" style="font-weight: 600; font-size: 0.9rem; margin-bottom: 10px;">Agronomic Details</p>
+                        <div class="agronomic-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; font-size: 0.85rem;">
+                            @if (!string.IsNullOrEmpty(plant.SoilType))
+                            {
+                                <div class="detail-item">
+                                    <span class="detail-label">Soil Type:</span>
+                                    <span class="detail-value">@plant.SoilType</span>
+                                </div>
+                            }
+                            @if (!string.IsNullOrEmpty(plant.SunlightExposure))
+                            {
+                                <div class="detail-item">
+                                    <span class="detail-label">Sunlight:</span>
+                                    <span class="detail-value">@plant.SunlightExposure</span>
+                                </div>
+                            }
+                            @if (plant.IsIndoor)
+                            {
+                                <div class="detail-item">
+                                    <span class="detail-label">Location:</span>
+                                    <span class="detail-value">Indoor</span>
+                                </div>
+                            }
+                            @if (plant.AvgTemperatureCelsius.HasValue)
+                            {
+                                <div class="detail-item">
+                                    <span class="detail-label">Temperature:</span>
+                                    <span class="detail-value">@plant.AvgTemperatureCelsius.Value.ToString("F1")°C</span>
+                                </div>
+                            }
+                            @if (plant.WateringFrequencyDays.HasValue)
+                            {
+                                <div class="detail-item">
+                                    <span class="detail-label">Water Frequency:</span>
+                                    <span class="detail-value">Every @plant.WateringFrequencyDays days</span>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
             </div>
-        </div>
+        }
     </div>
 </div>

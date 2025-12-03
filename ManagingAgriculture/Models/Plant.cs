@@ -38,6 +38,21 @@ namespace ManagingAgriculture.Models
 		[StringLength(20)]
 		public string Status { get; set; } = "Active";
 
+		// Agronomic fields
+		[StringLength(50)]
+		public string? SoilType { get; set; }
+
+		[StringLength(50)]
+		public string? SunlightExposure { get; set; }
+
+		public bool IsIndoor { get; set; }
+
+		[Range(-50, 60)]
+		public decimal? AvgTemperatureCelsius { get; set; }
+
+		[Range(0, 365)]
+		public int? WateringFrequencyDays { get; set; }
+
 		public DateTime CreatedDate { get; set; }
 
 		public DateTime UpdatedDate { get; set; }

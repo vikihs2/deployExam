@@ -1,14 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
 
 namespace ManagingAgriculture.Controllers
 {
-    [Authorize]
-    public class DashboardController : Controller
+    public class HomeController : Controller
     {
         public IActionResult Index()
         {
-            ViewData["Title"] = "Dashboard";
+            ViewData["Title"] = "AgroCore - Agriculture Management";
             return View();
         }
     }

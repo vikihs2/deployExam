@@ -1,60 +1,67 @@
 @model ManagingAgriculture.Models.RegisterViewModel
 @{
     ViewData["Title"] = "Register";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
 
-<div class="auth-page">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - AgroCore</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #1b2b2b 0%, #27343d 100%); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; }
+        .auth-card { width:100%; max-width:420px; border-radius:12px; background:white; box-shadow:0 12px 30px rgba(0,0,0,0.12); padding:28px; max-height:95vh; overflow:auto; position:relative; }
+        .auth-logo { width:60px; height:60px; border-radius:50%; background:linear-gradient(135deg,#06a96b 0%,#058a56 100%); display:inline-flex; align-items:center; justify-content:center; font-size:28px; margin:0 auto 14px; }
+        .auth-form label{ font-weight:600; margin-top:12px; display:block; color:#374151; }
+        .auth-form input{ width:100%; padding:10px 12px; border:1px solid #d1d5db; border-radius:8px; margin-top:6px; }
+        .auth-form input:focus{ outline:none; border-color:#06a96b; box-shadow:none; }
+        .btn-block{ display:block; width:100%; padding:10px; margin-top:18px; background:#06a96b; color:white; border:none; border-radius:8px; text-align:center; text-decoration:none; }
+        .auth-footer{ text-align:center; margin-top:14px; color:#6b7280; font-size:14px; }
+        .auth-footer a{ color:#06a96b; text-decoration:none; font-weight:600; }
+        .home-btn{ display:block; margin-top:12px; padding:10px; border-radius:8px; background:#f3f4f6; color:#1f2937; text-align:center; text-decoration:none; border:1px solid #d1d5db; }
+    </style>
+</head>
+<body>
     <div class="auth-card">
-        <div class="auth-card-inner">
-            <div class="auth-logo">🌱</div>
-            <h2 class="auth-title">AgroCore</h2>
-            <p class="auth-sub">Agriculture Management System</p>
+        <div class="auth-logo">🌱</div>
 
-            <div class="auth-tabs">
-                <a class="tab" href="/Account/Login">Login</a>
-                <a class="tab active">Register</a>
+            <div class="auth-tabs" style="display:flex;gap:12px;justify-content:center;margin-bottom:18px;border-bottom:1px solid #e5e7eb;padding-bottom:10px;">
+                <a class="tab" href="/Account/Login" style="padding:8px 18px;color:#9ca3af;text-decoration:none;">Login</a>
+                <a class="tab active" href="/Account/Register" style="padding:8px 18px;color:#06a96b;text-decoration:none;font-weight:600;border-bottom:3px solid #06a96b;">Register</a>
             </div>
 
             <form asp-action="Register" method="post" class="auth-form">
-                @Html.AntiForgeryToken()
-                @* Show model-level validation errors *@
-                <div>
-                    @Html.ValidationSummary(excludePropertyErrors: true, message: "")
-                </div>
-                <label>Email</label>
-                <input asp-for="Email" class="form-control" placeholder="your@email.com" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+            @Html.AntiForgeryToken()
+            <div>
+                @Html.ValidationSummary(excludePropertyErrors: true, message: "")
+            </div>
 
-                <label class="mt-3">Password</label>
-                <input asp-for="Password" class="form-control" type="password" placeholder="" />
-                <span asp-validation-for="Password" class="text-danger"></span>
+            <label>Email</label>
+            <input asp-for="Email" placeholder="your@email.com" />
+            <span asp-validation-for="Email" class="text-danger"></span>
 
-                <label class="mt-3">Confirm Password</label>
-                <input asp-for="ConfirmPassword" class="form-control" type="password" placeholder="" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            <label>Password</label>
+            <input asp-for="Password" type="password" placeholder="••••••••" />
+            <span asp-validation-for="Password" class="text-danger"></span>
 
-                <button type="submit" class="btn btn-primary btn-block mt-4">Create Account</button>
-            </form>
+            <label>Confirm Password</label>
+            <input asp-for="ConfirmPassword" type="password" placeholder="••••••••" />
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+
+            <button type="submit" class="btn-block">Create Account</button>
+        </form>
+
+        <div class="auth-footer">
+            Already have an account? <a href="/Account/Login">Sign in</a>
+            <a class="home-btn" href="/">Home</a>
         </div>
     </div>
-</div>
 
-@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-    <style>
-        .auth-page { display:flex; align-items:center; justify-content:center; min-height:75vh; }
-        .auth-card { width:420px; border-radius:8px; background:#fff; box-shadow:0 4px 18px rgba(0,0,0,0.06); padding:24px; }
-        .auth-card-inner { text-align:center; }
-        .auth-logo { width:56px; height:56px; border-radius:50%; background:#e6fbf1; display:inline-flex; align-items:center; justify-content:center; font-size:22px; margin:0 auto 12px; }
-        .auth-title { margin:0; font-weight:600; }
-        .auth-sub { color:#6b7280; font-size:13px; margin-bottom:18px; }
-        .auth-tabs { display:flex; gap:8px; justify-content:center; margin-bottom:12px; }
-        .auth-tabs .tab { padding:10px 22px; border-radius:8px; background:#f3f4f6; color:#374151; text-decoration:none; }
-        .auth-tabs .tab.active { border:2px solid #06a96b; background:#fff; }
-        .auth-form { text-align:left; }
-        .auth-form label { font-weight:600; margin-top:8px; display:block; }
-        .btn-block { width:100%; background:#06a96b; border-color:#06a96b; }
-    </style>
-}
+</body>
+</html>

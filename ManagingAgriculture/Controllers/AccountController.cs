@@ -49,6 +49,12 @@ namespace ManagingAgriculture.Controllers
             }
 
             // Use PasswordSignInAsync with the user's username to ensure proper sign-in behavior
+            if (string.IsNullOrEmpty(user.UserName))
+            {
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                return View(model);
+            }
+
             var signInResult = await _signInManager.PasswordSignInAsync(user.UserName, model.Password, isPersistent: false, lockoutOnFailure: false);
             if (signInResult.Succeeded)
             {
@@ -92,7 +98,7 @@ namespace ManagingAgriculture.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Dashboard");
+            return RedirectToAction("Index", "Home");
         }
     }
 }
