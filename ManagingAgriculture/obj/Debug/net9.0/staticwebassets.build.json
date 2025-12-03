@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "il9HTXrrcukyKGUeiVki3U+j8hAEcpRR+KqsbW76J4g=",
+  "Hash": "SNb0l5OrB4eDqgVWzYMvbiEZc5ahSelN3ojt63llKU0=",
   "Source": "ManagingAgriculture",
   "BasePath": "_content/ManagingAgriculture",
   "Mode": "Default",
@@ -1359,6 +1359,69 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\images\\machinery.jpg",
+      "SourceId": "ManagingAgriculture",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\",
+      "BasePath": "_content/ManagingAgriculture",
+      "RelativePath": "images/machinery#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "jlba5qfg9b",
+      "Integrity": "yel4qW7QF4yttHTXJERlAeCsKtoUgN9031vSEXScPZ0=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\machinery.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\images\\plants.jpg",
+      "SourceId": "ManagingAgriculture",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\",
+      "BasePath": "_content/ManagingAgriculture",
+      "RelativePath": "images/plants#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "7v5df93yyv",
+      "Integrity": "80GpQNxI1ZEHkLcWfu6GzCbRakQSW/5OG/xsirdBf7Y=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\plants.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\images\\resources.jpg",
+      "SourceId": "ManagingAgriculture",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\",
+      "BasePath": "_content/ManagingAgriculture",
+      "RelativePath": "images/resources#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "au0wwmt8kd",
+      "Integrity": "QtSzPrtXER5PJCxAE32NXwNKK4voNkMp6lYGBairBYk=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\resources.jpg"
     },
     {
       "Identity": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\js\\site.js",
@@ -3236,6 +3299,252 @@
         {
           "Name": "integrity",
           "Value": "sha256-wfFuuYm+Lh6RbCeeiUqxw334b/hIOkp5j9eokGUM1Y0="
+        }
+      ]
+    },
+    {
+      "Route": "images/machinery.jlba5qfg9b.jpg",
+      "AssetFile": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\images\\machinery.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2449265"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"yel4qW7QF4yttHTXJERlAeCsKtoUgN9031vSEXScPZ0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 17:13:21 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "jlba5qfg9b"
+        },
+        {
+          "Name": "label",
+          "Value": "images/machinery.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-yel4qW7QF4yttHTXJERlAeCsKtoUgN9031vSEXScPZ0="
+        }
+      ]
+    },
+    {
+      "Route": "images/machinery.jpg",
+      "AssetFile": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\images\\machinery.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2449265"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"yel4qW7QF4yttHTXJERlAeCsKtoUgN9031vSEXScPZ0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 17:13:21 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-yel4qW7QF4yttHTXJERlAeCsKtoUgN9031vSEXScPZ0="
+        }
+      ]
+    },
+    {
+      "Route": "images/plants.7v5df93yyv.jpg",
+      "AssetFile": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\images\\plants.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2018716"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"80GpQNxI1ZEHkLcWfu6GzCbRakQSW/5OG/xsirdBf7Y=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 16:59:41 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "7v5df93yyv"
+        },
+        {
+          "Name": "label",
+          "Value": "images/plants.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-80GpQNxI1ZEHkLcWfu6GzCbRakQSW/5OG/xsirdBf7Y="
+        }
+      ]
+    },
+    {
+      "Route": "images/plants.jpg",
+      "AssetFile": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\images\\plants.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2018716"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"80GpQNxI1ZEHkLcWfu6GzCbRakQSW/5OG/xsirdBf7Y=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 16:59:41 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-80GpQNxI1ZEHkLcWfu6GzCbRakQSW/5OG/xsirdBf7Y="
+        }
+      ]
+    },
+    {
+      "Route": "images/resources.au0wwmt8kd.jpg",
+      "AssetFile": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\images\\resources.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2889923"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"QtSzPrtXER5PJCxAE32NXwNKK4voNkMp6lYGBairBYk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 17:19:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "au0wwmt8kd"
+        },
+        {
+          "Name": "label",
+          "Value": "images/resources.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-QtSzPrtXER5PJCxAE32NXwNKK4voNkMp6lYGBairBYk="
+        }
+      ]
+    },
+    {
+      "Route": "images/resources.jpg",
+      "AssetFile": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\images\\resources.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2889923"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"QtSzPrtXER5PJCxAE32NXwNKK4voNkMp6lYGBairBYk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 17:19:48 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-QtSzPrtXER5PJCxAE32NXwNKK4voNkMp6lYGBairBYk="
         }
       ]
     },

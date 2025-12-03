@@ -9,6 +9,18 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\images\\machinery.jpg",
+      "PackagePath": "staticwebassets\\images\\machinery.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\images\\plants.jpg",
+      "PackagePath": "staticwebassets\\images\\plants.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\images\\resources.jpg",
+      "PackagePath": "staticwebassets\\images\\resources.jpg"
+    },
+    {
       "Id": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
