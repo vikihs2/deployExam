@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="d-flex">
-        <nav class="sidebar">
+        <nav class="sidebar@(User?.Identity?.IsAuthenticated == true ? " sidebar-expanded" : "")">
             <div class="sidebar-brand">
                 <i class="fas fa-leaf"></i>
             </div>
@@ -55,7 +55,7 @@
             </div>
         </nav>
 
-        <main class="main-content">
+        <main class="main-content@(User?.Identity?.IsAuthenticated == true ? " main-content-expanded" : "")">
             <header class="top-header">
                 <div class="header-row">
                     <div class="logo-icon">
