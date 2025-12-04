@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "SNb0l5OrB4eDqgVWzYMvbiEZc5ahSelN3ojt63llKU0=",
+  "Hash": "Ef7eV7PPscco6I081a/x3WO0dB9BGNUiC8a46Nlex4s=",
   "Source": "ManagingAgriculture",
   "BasePath": "_content/ManagingAgriculture",
   "Mode": "Default",
@@ -1359,6 +1359,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\images\\homeBackground.webp",
+      "SourceId": "ManagingAgriculture",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\",
+      "BasePath": "_content/ManagingAgriculture",
+      "RelativePath": "images/homeBackground#[.{fingerprint}]?.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "n8de3rmh4q",
+      "Integrity": "efZPkM13JBGdAAP9OzUWhu7Di99TdyJOPHVyV9iOXh4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\homeBackground.webp"
     },
     {
       "Identity": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\images\\machinery.jpg",
@@ -3299,6 +3320,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-wfFuuYm+Lh6RbCeeiUqxw334b/hIOkp5j9eokGUM1Y0="
+        }
+      ]
+    },
+    {
+      "Route": "images/homeBackground.n8de3rmh4q.webp",
+      "AssetFile": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\images\\homeBackground.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "372778"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"efZPkM13JBGdAAP9OzUWhu7Di99TdyJOPHVyV9iOXh4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 17:28:14 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "n8de3rmh4q"
+        },
+        {
+          "Name": "label",
+          "Value": "images/homeBackground.webp"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-efZPkM13JBGdAAP9OzUWhu7Di99TdyJOPHVyV9iOXh4="
+        }
+      ]
+    },
+    {
+      "Route": "images/homeBackground.webp",
+      "AssetFile": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\images\\homeBackground.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "372778"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"efZPkM13JBGdAAP9OzUWhu7Di99TdyJOPHVyV9iOXh4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 17:28:14 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-efZPkM13JBGdAAP9OzUWhu7Di99TdyJOPHVyV9iOXh4="
         }
       ]
     },
