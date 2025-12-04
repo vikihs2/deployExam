@@ -48,8 +48,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>n8de3rmh4q</Fingerprint>
-      <Integrity>efZPkM13JBGdAAP9OzUWhu7Di99TdyJOPHVyV9iOXh4=</Integrity>
+      <Fingerprint>fwuyn7fadd</Fingerprint>
+      <Integrity>7zOi+DdFzCRnbMEOodpuPeIvzZXufztUObO28qiL9kk=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\homeBackground.webp'))</OriginalItemSpec>
