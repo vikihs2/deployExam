@@ -1,3 +1,4 @@
+@model IEnumerable<ManagingAgriculture.Models.Machinery>
 @{
     ViewData["Title"] = "Machinery Management";
 }
@@ -8,100 +9,69 @@
             <h2>Machinery Management</h2>
             <p class="subtitle">Track equipment and maintenance schedules</p>
         </div>
-        <button class="btn-add-equipment">
+        <a href="@Url.Action("Add", "Machinery")" class="btn btn-success">
             <i class="fas fa-plus"></i> Add Equipment
-        </button>
+        </a>
     </div>
     <div class="machinery-grid">
-        <!-- John Deere Card -->
-        <div class="machinery-card">
-            <div class="machinery-header">
-                <div class="machinery-title">
-                    <i class="fas fa-tractor machinery-icon"></i>
+        @foreach (var machinery in Model)
+        {
+            <!-- Determine status badge style -->
+            string statusClass = machinery.Status switch
+            {
+                "Excellent" => "excellent",
+                "Good" => "good",
+                "Fair" => "fair",
+                "Poor" => "poor",
+                _ => "unknown"
+            };
+
+            <!-- Determine days until next service -->
+            int daysUntilService = machinery.NextServiceDate.HasValue ? (int)(machinery.NextServiceDate.Value - DateTime.Now).TotalDays : 0;
+            string serviceUrgency = daysUntilService < 0 ? "Overdue!" : daysUntilService == 0 ? "Today" : $"In {daysUntilService} days";
+            string urgencyClass = daysUntilService < 0 ? "urgency-overdue" : daysUntilService < 7 ? "urgency-soon" : "urgency-normal";
+
+            <div class="machinery-card">
+                <div class="machinery-header">
+                    <div class="machinery-title">
+                        <i class="fas fa-tractor machinery-icon"></i>
+                        <div>
+                            <h3>@machinery.Name</h3>
+                            <span class="machinery-type">@machinery.Type</span>
+                        </div>
+                    </div>
+                    <span class="status-badge @statusClass">@machinery.Status</span>
+                </div>
+                <div class="machinery-info-row">
                     <div>
-                        <h3>John Deere 5075E</h3>
-                        <span class="machinery-type">Tractor</span>
+                        <span class="info-label">Purchase Date</span>
+                        <span class="info-value">@(machinery.PurchaseDate?.ToShortDateString() ?? "N/A")</span>
+                    </div>
+                    <div>
+                        <span class="info-label">Last Service</span>
+                        <span class="info-value">@(machinery.LastServiceDate?.ToShortDateString() ?? "N/A")</span>
                     </div>
                 </div>
-                <span class="status-badge excellent">excellent</span>
-            </div>
-            <div class="machinery-info-row">
-                <div>
-                    <span class="info-label">Purchase Date</span>
-                    <span class="info-value">3/15/2023</span>
-                </div>
-                <div>
-                    <span class="info-label">Last Service</span>
-                    <span class="info-value">10/1/2025</span>
-                </div>
-            </div>
-            <div class="next-service-box">
-                <i class="fas fa-calendar"></i>
-                <div>
-                    <span class="service-label">Next Service</span>
-                    <span class="service-date">1/1/2026</span>
-                    <span class="service-days">In 47 days</span>
-                </div>
-            </div>
-            <div class="maintenance-section">
-                <p class="maintenance-title"><i class="fas fa-wrench"></i> Maintenance History</p>
-                <div class="maintenance-item">
-                    <span>Oil change and filter replacement</span>
-                    <span class="maintenance-date">10/1/2025</span>
-                    <span class="maintenance-cost">$250</span>
-                </div>
-                <div class="maintenance-item">
-                    <span>Tire rotation</span>
-                    <span class="maintenance-date">7/15/2025</span>
-                    <span class="maintenance-cost">$120</span>
-                </div>
-                <button class="btn-view-history">View Full History</button>
-            </div>
-        </div>
-        <!-- Kubota Card -->
-        <div class="machinery-card">
-            <div class="machinery-header">
-                <div class="machinery-title">
-                    <i class="fas fa-tractor machinery-icon"></i>
+                <div class="next-service-box @urgencyClass">
+                    <i class="fas fa-calendar"></i>
                     <div>
-                        <h3>Kubota M5-091</h3>
-                        <span class="machinery-type">Tractor</span>
+                        <span class="service-label">Next Service</span>
+                        <span class="service-date">@(machinery.NextServiceDate?.ToShortDateString() ?? "N/A")</span>
+                        <span class="service-days">@serviceUrgency</span>
                     </div>
                 </div>
-                <span class="status-badge good">good</span>
-            </div>
-            <div class="machinery-info-row">
-                <div>
-                    <span class="info-label">Purchase Date</span>
-                    <span class="info-value">5/20/2022</span>
-                </div>
-                <div>
-                    <span class="info-label">Last Service</span>
-                    <span class="info-value">9/15/2025</span>
-                </div>
-            </div>
-            <div class="next-service-box">
-                <i class="fas fa-calendar"></i>
-                <div>
-                    <span class="service-label">Next Service</span>
-                    <span class="service-date">12/15/2025</span>
-                    <span class="service-days">In 30 days</span>
+                <div class="machinery-actions">
+                    <a href="@Url.Action("Edit", "Machinery", new { id = machinery.Id })" class="btn btn-sm btn-primary">
+                        <i class="fas fa-edit"></i> Edit
+                    </a>
+                    <form method="post" action="@Url.Action("Delete", "Machinery")" style="display: inline-block;">
+                        <input type="hidden" name="id" value="@machinery.Id" />
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </form>
                 </div>
             </div>
-            <div class="maintenance-section">
-                <p class="maintenance-title"><i class="fas fa-wrench"></i> Maintenance History</p>
-                <div class="maintenance-item">
-                    <span>Full service inspection</span>
-                    <span class="maintenance-date">9/15/2025</span>
-                    <span class="maintenance-cost">$350</span>
-                </div>
-                <div class="maintenance-item">
-                    <span>Hydraulic fluid replacement</span>
-                    <span class="maintenance-date">6/10/2025</span>
-                    <span class="maintenance-cost">$180</span>
-                </div>
-                <button class="btn-view-history">View Full History</button>
-            </div>
-        </div>
+        }
     </div>
 </div>

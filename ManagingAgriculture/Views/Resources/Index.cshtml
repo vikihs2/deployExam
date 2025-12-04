@@ -1,5 +1,7 @@
+@model IEnumerable<ManagingAgriculture.Models.Resource>
 @{
     ViewData["Title"] = "Resource Management";
+    var selectedCategory = ViewBag.SelectedCategory;
 }
 
 <div class="resources-container">
@@ -12,183 +14,71 @@
 
     <!-- Category Tabs -->
     <div class="category-tabs">
-        <button class="tab-btn active" data-category="all">All</button>
-        <button class="tab-btn" data-category="fertilizer">Fertilizer</button>
-        <button class="tab-btn" data-category="seed">Seed</button>
-        <button class="tab-btn" data-category="chemical">Chemical</button>
-        <button class="tab-btn" data-category="water">Water</button>
-        <button class="tab-btn" data-category="fuel">Fuel</button>
+        <a href="@Url.Action("Index", "Resources", new { category = "all" })" class="tab-btn @(selectedCategory == "all" ? "active" : "")">All</a>
+        <a href="@Url.Action("Index", "Resources", new { category = "Fertilizer" })" class="tab-btn @(selectedCategory == "Fertilizer" ? "active" : "")">Fertilizer</a>
+        <a href="@Url.Action("Index", "Resources", new { category = "Seed" })" class="tab-btn @(selectedCategory == "Seed" ? "active" : "")">Seed</a>
+        <a href="@Url.Action("Index", "Resources", new { category = "Chemical" })" class="tab-btn @(selectedCategory == "Chemical" ? "active" : "")">Chemical</a>
+        <a href="@Url.Action("Index", "Resources", new { category = "Water" })" class="tab-btn @(selectedCategory == "Water" ? "active" : "")">Water</a>
+        <a href="@Url.Action("Index", "Resources", new { category = "Fuel" })" class="tab-btn @(selectedCategory == "Fuel" ? "active" : "")">Fuel</a>
     </div>
 
     <!-- Resources Grid -->
     <div class="resources-grid">
-        <!-- NPK Fertilizer Card -->
-        <div class="resource-card">
-            <div class="resource-header">
-                <div class="resource-title">
-                    <i class="fas fa-leaf resource-icon"></i>
-                    <div>
-                        <h3>NPK Fertilizer 20-20-20</h3>
-                        <span class="resource-category">Fertilizer</span>
+        @foreach (var resource in Model)
+        {
+            <!-- Determine stock status -->
+            string stockStatus = resource.Quantity < resource.LowStockThreshold ? "low-stock" : "in-stock";
+            string stockStatusText = resource.Quantity < resource.LowStockThreshold ? "Low Stock" : "In Stock";
+
+            <div class="resource-card">
+                <div class="resource-header">
+                    <div class="resource-title">
+                        @{
+                            string iconClass = resource.Category switch
+                            {
+                                "Fertilizer" => "fa-leaf",
+                                "Seed" => "fa-seedling",
+                                "Chemical" => "fa-spray-can",
+                                "Water" => "fa-droplet",
+                                "Fuel" => "fa-gas-pump",
+                                _ => "fa-box"
+                            };
+                        }
+                        <i class="fas @iconClass resource-icon"></i>
+                        <div>
+                            <h3>@resource.Name</h3>
+                            <span class="resource-category">@resource.Category</span>
+                        </div>
                     </div>
+                    <span class="status-badge @stockStatus">@stockStatusText</span>
                 </div>
-                <span class="status-badge in-stock">In Stock</span>
-            </div>
 
-            <div class="resource-amount">
-                <span class="amount-number">150</span>
-                <span class="amount-unit">kg</span>
-            </div>
-
-            <div class="stock-info">
-                <span class="low-stock-label">Low stock at</span>
-                <span class="low-stock-value">50 kg</span>
-            </div>
-
-            <div class="usage-section">
-                <p class="usage-title">Recent Usage</p>
-                <div class="usage-item">
-                    <span class="usage-date">11/10/2025 - Field A</span>
-                    <span class="usage-amount">-25 kg</span>
+                <div class="resource-amount">
+                    <span class="amount-number">@resource.Quantity</span>
+                    <span class="amount-unit">@resource.Unit</span>
                 </div>
-                <div class="usage-item">
-                    <span class="usage-date">11/5/2025 - Field B</span>
-                    <span class="usage-amount">-30 kg</span>
-                </div>
-            </div>
-        </div>
 
-        <!-- Corn Seeds Card -->
-        <div class="resource-card">
-            <div class="resource-header">
-                <div class="resource-title">
-                    <i class="fas fa-seedling resource-icon"></i>
-                    <div>
-                        <h3>Corn Seeds</h3>
-                        <span class="resource-category">Seed</span>
+                <div class="stock-info">
+                    <span class="low-stock-label">Low stock at</span>
+                    <span class="low-stock-value">@resource.LowStockThreshold @resource.Unit</span>
+                </div>
+
+                @if (!string.IsNullOrEmpty(resource.Supplier))
+                {
+                    <div class="supplier-info">
+                        <span class="supplier-label">Supplier</span>
+                        <span class="supplier-name">@resource.Supplier</span>
                     </div>
-                </div>
-                <span class="status-badge low-stock">Low Stock</span>
-            </div>
+                }
 
-            <div class="resource-amount">
-                <span class="amount-number">25</span>
-                <span class="amount-unit">kg</span>
-            </div>
-
-            <div class="stock-info">
-                <span class="low-stock-label">Low stock at</span>
-                <span class="low-stock-value">30 kg</span>
-            </div>
-
-            <div class="alert-box">
-                <i class="fas fa-exclamation-triangle"></i>
-                <span>Restock needed</span>
-            </div>
-
-            <div class="usage-section">
-                <p class="usage-title">Recent Usage</p>
-                <div class="usage-item">
-                    <span class="usage-date">8/1/2025 - Field B</span>
-                    <span class="usage-amount">-15 kg</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Pesticide Spray Card -->
-        <div class="resource-card">
-            <div class="resource-header">
-                <div class="resource-title">
-                    <i class="fas fa-spray-can resource-icon"></i>
-                    <div>
-                        <h3>Pesticide Spray</h3>
-                        <span class="resource-category">Chemical</span>
+                @if (resource.Quantity < resource.LowStockThreshold)
+                {
+                    <div class="alert-box">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Restock needed soon</span>
                     </div>
-                </div>
-                <span class="status-badge in-stock">In Stock</span>
+                }
             </div>
-
-            <div class="resource-amount">
-                <span class="amount-number">80</span>
-                <span class="amount-unit">liters</span>
-            </div>
-
-            <div class="stock-info">
-                <span class="low-stock-label">Low stock at</span>
-                <span class="low-stock-value">20 liters</span>
-            </div>
-
-            <div class="usage-section">
-                <p class="usage-title">Recent Usage</p>
-                <div class="usage-item">
-                    <span class="usage-date">11/8/2025 - Field A</span>
-                    <span class="usage-amount">-10 liters</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Irrigation Water Card -->
-        <div class="resource-card">
-            <div class="resource-header">
-                <div class="resource-title">
-                    <i class="fas fa-droplet resource-icon"></i>
-                    <div>
-                        <h3>Irrigation Water</h3>
-                        <span class="resource-category">Water</span>
-                    </div>
-                </div>
-                <span class="status-badge in-stock">In Stock</span>
-            </div>
-
-            <div class="resource-amount">
-                <span class="amount-number">5000</span>
-                <span class="amount-unit">liters</span>
-            </div>
-
-            <div class="stock-info">
-                <span class="low-stock-label">Low stock at</span>
-                <span class="low-stock-value">1000 liters</span>
-            </div>
-
-            <div class="usage-section">
-                <p class="usage-title">Recent Usage</p>
-                <div class="usage-item">
-                    <span class="usage-date">11/13/2025 - Field A</span>
-                    <span class="usage-amount">-500 liters</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Diesel Fuel Card -->
-        <div class="resource-card">
-            <div class="resource-header">
-                <div class="resource-title">
-                    <i class="fas fa-gas-pump resource-icon"></i>
-                    <div>
-                        <h3>Diesel Fuel</h3>
-                        <span class="resource-category">Fuel</span>
-                    </div>
-                </div>
-                <span class="status-badge in-stock">In Stock</span>
-            </div>
-
-            <div class="resource-amount">
-                <span class="amount-number">200</span>
-                <span class="amount-unit">liters</span>
-            </div>
-
-            <div class="stock-info">
-                <span class="low-stock-label">Low stock at</span>
-                <span class="low-stock-value">50 liters</span>
-            </div>
-
-            <div class="usage-section">
-                <p class="usage-title">Recent Usage</p>
-                <div class="usage-item">
-                    <span class="usage-date">11/11/2025 - Tractor Operations</span>
-                    <span class="usage-amount">-45 liters</span>
-                </div>
-            </div>
-        </div>
+        }
     </div>
 </div>
