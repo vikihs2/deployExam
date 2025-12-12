@@ -1,562 +1,177 @@
 @{
     Layout = null;
-    ViewData["Title"] = "AgroCore - Agriculture Management System";
+    ViewData["Title"] = "AgroCore - Home";
 }
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>@ViewData["Title"]</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* Page reset */
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family: 'Helvetica Neue', Arial, sans-serif;color:#222;background:#fff}
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #333;
-        }
+        /* Navbar */
+        .top-nav{position:fixed;left:0;right:0;top:0;height:72px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 28px;border-bottom:1px solid rgba(0,0,0,0.06);z-index:1200}
+        .nav-left{display:flex;align-items:center;gap:14px}
+        .logo-badge{width:44px;height:44;background:#3f7a3f;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
+        .brand{font-weight:800;font-size:20px;color:#2d2d2d}
+        /* center nav removed intentionally per request */
+        .nav-right{display:flex;gap:12px;align-items:center}
+        .btn-login{color:#2d2d2d;background:transparent;border:none;cursor:pointer}
+        .btn-register{background:#6b8e49;color:#fff;padding:8px 14px;border-radius:8px;border:none;cursor:pointer}
 
-        /* Top Navigation */
-        .top-nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(30, 30, 40, 0.85);
-            backdrop-filter: blur(10px);
-            padding: 15px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(6, 169, 107, 0.1);
-        }
+        /* Hero */
+        .hero{height:640px;background:url('/images/homeBackground.webp') center/cover no-repeat;position:relative;display:flex;align-items:center;justify-content:center}
+        .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.35),rgba(0,0,0,0.55));}
+        .hero-inner{position:relative;z-index:2;text-align:center;color:#fff;max-width:1100px;padding:40px}
+        .hero h1{font-family: 'Georgia', serif;font-size:62px;line-height:1.02;font-weight:900;margin-bottom:14px;text-shadow:0 16px 40px rgba(0,0,0,0.6)}
+        .hero h1 .accent{color:#e0b03b;display:block;font-size:1.02em}
+        .hero p{max-width:760px;margin:0 auto 30px;color:rgba(255,255,255,0.92);font-size:18px;text-shadow:0 6px 18px rgba(0,0,0,0.5)}
 
-        .nav-brand {
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: #06a96b;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+        /* Center stats */
+        .stats{position:absolute;left:50%;transform:translateX(-50%);bottom:48px;display:flex;gap:120px;z-index:2}
+        .stat{color:#fff;text-align:center}
+        .stat .num{font-size:36px;font-weight:900;letter-spacing:-1px}
+        .stat .label{opacity:0.9;margin-top:6px}
 
-        .nav-brand:hover {
-            color: #058a56;
-        }
+        /* Content cards */
+        .content-section{padding:64px 28px;background:#fbf7f2}
+        .section-title{max-width:1100px;margin:0 auto 28px;text-align:center}
+        .section-title h2{font-family:'Georgia',serif;font-size:40px;color:#2b2b2b}
+        .cards{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+        .card{background:#fff;border-radius:10px;padding:22px;border:1px solid rgba(0,0,0,0.06);box-shadow:0 6px 18px rgba(15,15,15,0.02);min-height:120px}
+        .card .icon{width:44px;height:44;background:#eef7ea;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;margin-bottom:12px}
+        .card h3{font-size:20px;margin-bottom:8px;color:#2b2b2b}
+        .card p{color:#6b6b6b;font-size:14px}
 
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
+        /* CTA dark strip */
+        .cta{background:#452b20;color:#fff;padding:72px 28px;text-align:center}
+        .cta h2{font-family:'Georgia',serif;font-size:44px;margin-bottom:14px}
+        .cta p{opacity:0.9;margin-bottom:24px}
+        .cta .cta-actions{display:flex;gap:16px;justify-content:center}
+        .cta .btn-primary{background:#e0b03b;border:none;padding:12px 26px;border-radius:6px;color:#2b2b2b}
+        .cta .btn-outline{background:transparent;border:1px solid rgba(255,255,255,0.2);color:#fff;padding:10px 20px;border-radius:6px}
 
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 8px 16px;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-links .btn-login {
-            border: 2px solid #06a96b;
-            color: #06a96b;
-        }
-
-        .nav-links .btn-login:hover {
-            background: rgba(6, 169, 107, 0.1);
-        }
-
-        .nav-links .btn-register {
-            background: #06a96b;
-            color: white;
-        }
-
-        .nav-links .btn-register:hover {
-            background: #058a56;
-        }
-
-        .nav-links .btn-signout {
-            color: #999;
-        }
-
-        .nav-links .btn-signout:hover {
-            color: #06a96b;
-        }
-
-        .authenticated-section {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        /* Animations */
-        @@keyframes fadeInLeft {
-            from { opacity: 0; transform: translateX(-50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        /* Hero Section */
-        .hero-section {
-    position: relative;
-    height: 100vh;
-    background: 
-        linear-gradient(135deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.25) 100%), 
-        url('/images/homeBackground.webp') center/cover no-repeat;
-    display: flex;
-    align-items: center;
-    color: white;
-    overflow: hidden;
-    margin-top: 60px;
-}
+        /* Footer */
+        .site-footer{background:#2b201b;color:rgba(255,255,255,0.9);padding:36px 28px}
+        .footer-inner{max-width:1100px;margin:0 auto;display:flex;gap:40px}
+        .footer-col{flex:1}
+        .footer-col h4{color:#fff;margin-bottom:12px}
+        .footer-col p,a{color:rgba(255,255,255,0.85);text-decoration:none}
 
 
-    .hero-content {
-        max-width: 600px;
-        padding: 60px 40px;
-        z-index: 2;
-        animation: fadeInLeft 1s ease-out;
-    }
-
-    .hero-content h1 {
-        font-size: 4rem;
-        font-weight: 900;
-        margin: 0 0 20px 0;
-        letter-spacing: -2px;
-        line-height: 1.2;
-    }
-
-    .hero-content p {
-        font-size: 1.1rem;
-        line-height: 1.6;
-        margin-bottom: 30px;
-        opacity: 0.95;
-        color: #e0e0e0;
-    }
-
-    /* hero steps removed per request */
-    /* Features Section */
-    .features-section {
-        background: rgba(20, 20, 30, 0.95);
-        padding: 80px 40px;
-        color: white;
-    }
-
-    .features-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 30px;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    .feature-card {
-        background: rgba(255,255,255,0.05);
-        border: 1px solid rgba(6, 169, 107, 0.3);
-        padding: 30px;
-        border-radius: 8px;
-        transition: all 0.3s ease;
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .feature-card:hover {
-        background: rgba(6, 169, 107, 0.1);
-        border-color: rgba(6, 169, 107, 0.6);
-        transform: translateY(-5px);
-    }
-
-    .feature-icon {
-        font-size: 2.5rem;
-        color: #06a96b;
-    }
-
-    .feature-card h3 {
-        font-size: 1.3rem;
-        margin: 0;
-    }
-
-    .feature-card p {
-        margin: 0;
-        opacity: 0.8;
-    }
-
-    /* Tours/Modules Section */
-    .tours-section {
-        background: linear-gradient(180deg, rgba(20, 20, 30, 0.9) 0%, rgba(0,0,0,0.95) 100%);
-        padding: 80px 40px;
-        color: white;
-    }
-
-    .section-title {
-        text-align: center;
-        margin-bottom: 60px;
-    }
-
-    .section-title h2 {
-        font-size: 3rem;
-        margin: 0 0 15px 0;
-        font-weight: 900;
-    }
-
-    .section-title p {
-        opacity: 0.7;
-        margin: 0;
-    }
-
-    .tours-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 25px;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    .tour-card {
-        position: relative;
-        height: 300px;
-        border-radius: 8px;
-        overflow: hidden;
-        cursor: pointer;
-        group: 'tour';
-    }
-
-    .tour-card img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.4s ease;
-    }
-
-    .tour-card:hover img {
-        transform: scale(1.05);
-    }
-
-    .tour-overlay {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
-        padding: 30px 20px 20px;
-        color: white;
-        transform: translateY(50px);
-        transition: transform 0.3s ease;
-    }
-
-    .tour-card:hover .tour-overlay {
-        transform: translateY(0);
-    }
-
-    .tour-overlay h3 {
-        margin: 0 0 10px 0;
-        font-size: 1.3rem;
-    }
-
-    .tour-overlay p {
-        margin: 0;
-        font-size: 0.9rem;
-        opacity: 0.9;
-    }
-
-    /* Video Section */
-    .video-section {
-        background: rgba(20, 20, 30, 0.95);
-        padding: 80px 40px;
-        color: white;
-    }
-
-    .video-content {
-        max-width: 1000px;
-        margin: 0 auto;
-    }
-
-    .video-content h2 {
-        font-size: 2.5rem;
-        margin-bottom: 20px;
-    }
-
-    .video-content p {
-        font-size: 1rem;
-        margin-bottom: 40px;
-        opacity: 0.8;
-        max-width: 600px;
-    }
-
-    .video-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 20px;
-    }
-
-    .video-thumb {
-        position: relative;
-        aspect-ratio: 16/9;
-        background: rgba(0,0,0,0.5);
-        border-radius: 8px;
-        overflow: hidden;
-        cursor: pointer;
-    }
-
-    .video-thumb img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .play-button {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 60px;
-        height: 60px;
-        background: rgba(6, 169, 107, 0.8);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 24px;
-        transition: background 0.3s ease;
-    }
-
-    .video-thumb:hover .play-button {
-        background: rgba(6, 169, 107, 1);
-    }
-
-    /* CTA Button */
-    .btn-cta {
-        display: inline-block;
-        background: #06a96b;
-        color: white;
-        padding: 12px 30px;
-        border-radius: 4px;
-        text-decoration: none;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        border: none;
-        cursor: pointer;
-    }
-
-    .btn-cta:hover {
-        background: #058a56;
-        transform: translateY(-2px);
-    }
-
-    /* Footer */
-    .home-footer {
-        background: rgba(0,0,0,0.8);
-        padding: 40px;
-        text-align: center;
-        color: #999;
-        border-top: 1px solid rgba(6,169,107,0.2);
-    }
-
-    .social-links {
-        margin-bottom: 20px;
-    }
-
-    .social-links a {
-        color: #999;
-        margin: 0 15px;
-        font-size: 1.5rem;
-        text-decoration: none;
-        transition: color 0.3s ease;
-    }
-
-    .social-links a:hover {
-        color: #06a96b;
-    }
-
-    /* Form Input Focus Override */
-    input:focus, textarea:focus, select:focus {
-        border-color: #06a96b !important;
-        box-shadow: 0 0 0 0.2rem rgba(6, 169, 107, 0.25) !important;
-    }
-
-    /* Responsive */
-    @@media (max-width: 768px) {
-        .top-nav {
-            flex-direction: column;
-            gap: 15px;
-            padding: 15px 20px;
-        }
-
-        .hero-content {
-            padding: 40px 20px;
-            max-width: 100%;
-        }
-
-        .hero-content h1 {
-            font-size: 2.5rem;
-        }
-
-        .hero-steps {
-            right: 30px;
-            gap: 20px;
-            font-size: 1.5rem;
-        }
-
-        .section-title h2 {
-            font-size: 2rem;
-        }
-    }
+        /* Simple fade-in animation classes (preserved) */
+        .fade-in{animation:fadeIn 900ms ease both}
     </style>
 </head>
 <body>
 
-<!-- Top Navigation -->
-<nav class="top-nav">
-    <a href="@Url.Action("Index", "Home")" class="nav-brand">
-        <i class="fas fa-leaf" style="margin-right:8px;color:#06a96b;"></i> AgroCore
-    </a>
-    <div class="nav-links">
-        @if (User?.Identity?.IsAuthenticated == true)
-        {
-            <span style="color: #999; font-size: 0.9rem;">Welcome, @User?.Identity?.Name</span>
-            <a href="@Url.Action("Index", "Dashboard")">Dashboard</a>
-            <form method="post" action="@Url.Action("Logout", "Account")" style="display: inline;">
-                <button type="submit" class="btn-signout" style="background: none; border: none; padding: 8px 16px; cursor: pointer; font-weight: 500;">Sign Out</button>
-            </form>
-        }
-        else
-        {
-            <a href="@Url.Action("Login", "Account")" class="btn-login">Login</a>
-            <a href="@Url.Action("Register", "Account")" class="btn-register">Register</a>
-        }
-    </div>
-</nav>
+    <nav class="top-nav">
+        <div class="nav-left">
+            <div class="logo-badge">🌾</div>
+            <div class="brand">AgroCore</div>
+        </div>
 
-<!-- Hero Section -->
-<section class="hero-section">
-    <div class="hero-content">
-        <h1>AGRICULTURE MANAGEMENT</h1>
-        <p>Optimize your farming operations with real-time tracking, smart insights, and comprehensive management tools for modern agriculture.</p>
-        @if (User?.Identity?.IsAuthenticated == true)
-        {
-            <a class="btn-cta" href="@Url.Action("Index", "Dashboard")">Go to Dashboard</a>
-        }
-        else
-        {
-            <a class="btn-cta" href="@Url.Action("Login", "Account")">Get Started</a>
-        }
-    </div>
-</section>
+        <!-- center nav intentionally removed per request -->
 
-<!-- Features Section -->
-<section class="features-section">
-    <div class="features-grid">
-        <div class="feature-card">
-            <div class="feature-icon">🌱</div>
-            <h3>Plant Tracking</h3>
-            <p>Monitor crop growth stages, track planting dates, and manage expected harvest timelines with detailed progress tracking.</p>
+        <div class="nav-right">
+            <a href="@Url.Action("Login","Account")" class="btn-login">Login</a>
+            <a href="@Url.Action("Register","Account")" class="btn-register">Register</a>
         </div>
-        <div class="feature-card">
-            <div class="feature-icon">📊</div>
-            <h3>Resource Management</h3>
-            <p>Track fertilizers, seeds, and other resources. Get alerts for low stock levels and optimize inventory management.</p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">🔧</div>
-            <h3>Machinery Control</h3>
-            <p>Maintain complete records of farm equipment, schedule maintenance, and track service history for all machinery.</p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">💰</div>
-            <h3>Marketplace</h3>
-            <p>Buy and sell agricultural products and equipment. Connect with other farmers and expand your business network.</p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">💧</div>
-            <h3>Soil Monitoring</h3>
-            <p>Real-time soil humidity and temperature monitoring with advanced charts for precise irrigation management.</p>
-        </div>
-        <div class="feature-card">
-            <div class="feature-icon">📈</div>
-            <h3>Analytics Dashboard</h3>
-            <p>Comprehensive dashboard with key metrics, trends, and actionable insights for data-driven farming decisions.</p>
-        </div>
-    </div>
-</section>
+    </nav>
 
-<!-- Tours/Modules Section -->
-<section class="tours-section">
-    <div class="section-title">
-        <h2>EXPLORE MODULES</h2>
-        <p>Discover all the features available in AgroCore</p>
-    </div>
-    <div class="tours-grid">
-        <div class="tour-card">
-            <img src="~/images/plants.jpg" alt="farm" />
-            <div class="tour-overlay">
-                <h3>PLANTS</h3>
-                <p>Track your crops</p>
-            </div>
+    <header class="hero">
+        <div class="hero-inner fade-in">
+            <h1>Smarter Farming for <span class="accent">Better Yields</span></h1>
+            <p>Manage your crops, resources, and machinery in one simple platform. Track field conditions, irrigation, supplies, and daily farm operations.</p>
         </div>
-        <div class="tour-card">
-           <img src="~/images/resources.jpg" alt="farm" />
-            <div class="tour-overlay">
-                <h3>RESOURCES</h3>
-                <p>Manage supplies</p>
-            </div>
-        </div>
-        <div class="tour-card">
-            <img src="~/images/machinery.jpg" alt="farm" />
-            <div class="tour-overlay">
-                <h3>MACHINERY</h3>
-                <p>Equipment control</p>
-            </div>
-        </div>
-        <div class="tour-card">
-            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=600&fit=crop" alt="Sensors">
-            <div class="tour-overlay">
-                <h3>SENSORS</h3>
-                <p>Monitor conditions</p>
-            </div>
-        </div>
-    </div>
-</section>
 
-<!-- Video Section -->
-<section class="video-section">
-    <div class="video-content">
-        <h2>DISCOVER THE PLATFORM IN ACTION</h2>
-        <p>Watch how AgroCore helps farmers optimize their operations and increase productivity through modern technology and data insights.</p>
-        
-        <div class="video-grid">
-            <div class="video-thumb">
-                <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=500" alt="Video 1">
-                <div class="play-button">▶</div>
+        <div class="stats fade-in" style="animation-delay:200ms">
+            <div class="stat">
+                <div class="num">4K+</div>
+                <div class="label">Farms Using the System</div>
             </div>
-            <div class="video-thumb">
-                <img src="https://images.unsplash.com/photo-1560493676-04071c5f467b?w=500" alt="Video 2">
-                <div class="play-button">▶</div>
+            <div class="stat">
+                <div class="num">1.2M</div>
+                <div class="label">Acres Tracked</div>
+            </div>
+            <div class="stat">
+                <div class="num">95%</div>
+                <div class="label">Satisfaction</div>
             </div>
         </div>
-    </div>
-</section>
+    </header>
 
-<!-- Footer -->
-<div class="home-footer">
-    <div class="social-links">
-        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
-        <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-        <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
-    </div>
-    <p>&copy; 2025 AgroCore. All rights reserved.</p>
-</div>
+    <section class="content-section">
+        <div class="section-title fade-in">
+            <h2>Everything You Need to Run Your Farm</h2>
+            <p style="opacity:0.8">Simple, reliable tools designed for real farmers with real needs.</p>
+        </div>
+
+        <div class="cards">
+            <div class="card fade-in">
+                <div class="icon">🌱</div>
+                <h3>Crop Management</h3>
+                <p>Track planting schedules, growth stages, and harvest timelines for all your crops in one place.</p>
+            </div>
+            <div class="card fade-in" style="animation-delay:80ms">
+                <div class="icon">💧</div>
+                <h3>Irrigation Tracking</h3>
+                <p>Monitor water usage and irrigation schedules to optimize your resources and reduce waste.</p>
+            </div>
+            <div class="card fade-in" style="animation-delay:160ms">
+                <div class="icon">🔧</div>
+                <h3>Machinery Logs</h3>
+                <p>Keep records of equipment maintenance, fuel usage, and operational hours.</p>
+            </div>
+            <div class="card fade-in" style="animation-delay:240ms">
+                <div class="icon">📈</div>
+                <h3>Yield Reports</h3>
+                <p>Generate detailed reports on crop yields, costs, and productivity over time.</p>
+            </div>
+            <div class="card fade-in" style="animation-delay:320ms">
+                <div class="icon">📅</div>
+                <h3>Task Scheduling</h3>
+                <p>Plan and assign daily farm tasks to your team with easy calendar management.</p>
+            </div>
+            <div class="card fade-in" style="animation-delay:400ms">
+                <div class="icon">📦</div>
+                <h3>Supply Inventory</h3>
+                <p>Track seeds, fertilizers, and supplies to ensure you never run short during critical seasons.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta fade-in">
+        <h2>Ready to Simplify Your Farm Operations?</h2>
+        <p>Join thousands of farmers who trust our platform to manage their daily work, track resources, and grow their yields.</p>
+        <div class="cta-actions">
+            <button class="btn-primary">Start Your Free Trial</button>
+            <button class="btn-outline">Contact Us</button>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-col">
+                <h4>AgroCore</h4>
+                <p>Helping farmers manage their operations simply and effectively since 2018.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <p><a href="#">Dashboard</a><br /><a href="#">Marketplace</a><br /><a href="#">Resources</a><br /><a href="#">Support</a></p>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <p>support@agrocore.example<br/>1-800-FARM-MGR</p>
+            </div>
+        </div>
+    </footer>
 
 </body>
 </html>

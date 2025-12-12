@@ -7,7 +7,17 @@
   --text-secondary: #757575;
   --border-color: #e0e0e0;
   --alert-color: #ff9800;
-  --accent-green: #06a96b;
+  --accent-green: #16a34a;
+}
+
+/* Override Bootstrap success button to match brand green */
+.btn-success {
+  --bs-btn-bg: #16a34a;
+  --bs-btn-border-color: #16a34a;
+}
+.btn-success:hover, .btn-success:focus {
+  --bs-btn-bg: #15803d;
+  --bs-btn-border-color: #15803d;
 }
 
 html {
