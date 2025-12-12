@@ -11,62 +11,94 @@
     <title>@ViewData["Title"]</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* Page reset */
+        /* Reset */
         *{box-sizing:border-box;margin:0;padding:0}
         body{font-family: 'Helvetica Neue', Arial, sans-serif;color:#222;background:#fff}
-
-        /* Navbar */
-        .top-nav{position:fixed;left:0;right:0;top:0;height:72px;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 28px;border-bottom:1px solid rgba(0,0,0,0.06);z-index:1200}
-        .nav-left{display:flex;align-items:center;gap:14px}
-        .logo-badge{width:44px;height:44;background:#3f7a3f;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
-        .brand{font-weight:800;font-size:20px;color:#2d2d2d}
-        /* center nav removed intentionally per request */
-        .nav-right{display:flex;gap:12px;align-items:center}
-        .btn-login{color:#2d2d2d;background:transparent;border:none;cursor:pointer}
-        .btn-register{background:#6b8e49;color:#fff;padding:8px 14px;border-radius:8px;border:none;cursor:pointer}
+    /* Avoid re-declaring ViewData inside head */
+        .btn-register{background:var(--accent-green,#16a34a);color:#fff;padding:8px 14px;border-radius:8px;border:none;cursor:pointer;text-decoration:none}
+        .btn-register:hover{background:#15803d}
 
         /* Hero */
-        .hero{height:640px;background:url('/images/homeBackground.webp') center/cover no-repeat;position:relative;display:flex;align-items:center;justify-content:center}
-        .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.35),rgba(0,0,0,0.55));}
-        .hero-inner{position:relative;z-index:2;text-align:center;color:#fff;max-width:1100px;padding:40px}
-        .hero h1{font-family: 'Georgia', serif;font-size:62px;line-height:1.02;font-weight:900;margin-bottom:14px;text-shadow:0 16px 40px rgba(0,0,0,0.6)}
-        .hero h1 .accent{color:#e0b03b;display:block;font-size:1.02em}
-        .hero p{max-width:760px;margin:0 auto 30px;color:rgba(255,255,255,0.92);font-size:18px;text-shadow:0 6px 18px rgba(0,0,0,0.5)}
+        .hero{height:560px;background:url('/images/homeBackground.webp') center/cover no-repeat;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:72px;gap:8px}
+        .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.45),rgba(0,0,0,0.65));}
+        .hero-inner{position:relative;z-index:2;text-align:center;color:#fff;max-width:1100px;padding:20px}
+        .hero h1{font-family: 'Georgia', serif;font-size:46px;line-height:1.04;font-weight:900;margin-bottom:12px;text-shadow:0 10px 20px rgba(0,0,0,0.6)}
+        .hero h1 .accent{color:#e0b03b;display:inline-block}
+        .hero p{max-width:760px;margin:0 auto 18px;color:rgba(255,255,255,0.96);font-size:16px;text-shadow:0 6px 18px rgba(0,0,0,0.5)}
+        .hero .btn-primary{background:#e0b03b;color:#111;border:none;padding:10px 16px;border-radius:8px}
+        .hero .btn-primary:hover{background:#caa447}
+        .btn-login{color:#fff;padding:8px 12px;text-decoration:none}
 
-        /* Center stats */
-        .stats{position:absolute;left:50%;transform:translateX(-50%);bottom:48px;display:flex;gap:120px;z-index:2}
-        .stat{color:#fff;text-align:center}
-        .stat .num{font-size:36px;font-weight:900;letter-spacing:-1px}
-        .stat .label{opacity:0.9;margin-top:6px}
+        /* Center stats: stacked below hero text */
+        .stats{position:relative;left:auto;top:auto;transform:none;display:flex;gap:48px;z-index:2;justify-content:center;align-items:center;width:100%;margin-top:18px}
+        .stat{color:#fff;text-align:center;min-width:120px}
+        .stat .num{font-size:22px;font-weight:800}
+        .stat .label{opacity:0.9;margin-top:6px;font-size:12px}
+        /* Hero CTA */
+        .hero-cta{display:flex;justify-content:center;margin-top:14px;z-index:2;width:100%}
+        .hero-cta a{background:#e0b03b;color:#111;border:none;padding:10px 20px;border-radius:8px;text-decoration:none;display:inline-block}
+        .hero-cta a:hover{background:#caa447}
 
         /* Content cards */
-        .content-section{padding:64px 28px;background:#fbf7f2}
-        .section-title{max-width:1100px;margin:0 auto 28px;text-align:center}
-        .section-title h2{font-family:'Georgia',serif;font-size:40px;color:#2b2b2b}
-        .cards{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-        .card{background:#fff;border-radius:10px;padding:22px;border:1px solid rgba(0,0,0,0.06);box-shadow:0 6px 18px rgba(15,15,15,0.02);min-height:120px}
-        .card .icon{width:44px;height:44;background:#eef7ea;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;margin-bottom:12px}
-        .card h3{font-size:20px;margin-bottom:8px;color:#2b2b2b}
-        .card p{color:#6b6b6b;font-size:14px}
+        .content-section{padding:48px 16px;background:#fbf7f2}
+        .section-title{max-width:1100px;margin:0 auto 18px;text-align:center}
+        .section-title h2{font-family:'Georgia',serif;font-size:28px;color:#2b2b2b}
+        .cards{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+        .card{background:#fff;border-radius:10px;padding:18px;border:1px solid rgba(0,0,0,0.06);box-shadow:0 6px 18px rgba(15,15,15,0.02);min-height:110px}
+        .card .icon{width:40px;height:40;background:#eef7ea;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;margin-bottom:12px}
+        .card h3{font-size:18px;margin-bottom:8px;color:#2b2b2b}
+        .card p{color:#6b6b6b;font-size:13px}
 
         /* CTA dark strip */
-        .cta{background:#452b20;color:#fff;padding:72px 28px;text-align:center}
-        .cta h2{font-family:'Georgia',serif;font-size:44px;margin-bottom:14px}
-        .cta p{opacity:0.9;margin-bottom:24px}
-        .cta .cta-actions{display:flex;gap:16px;justify-content:center}
-        .cta .btn-primary{background:#e0b03b;border:none;padding:12px 26px;border-radius:6px;color:#2b2b2b}
-        .cta .btn-outline{background:transparent;border:1px solid rgba(255,255,255,0.2);color:#fff;padding:10px 20px;border-radius:6px}
+        .cta{background:#452b20;color:#fff;padding:48px 20px;text-align:center}
+        .cta h2{font-family:'Georgia',serif;font-size:24px;margin-bottom:12px}
+        .cta p{opacity:0.9;margin-bottom:16px}
+        .cta .cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+        /* CTA: use gold/yellow for visual emphasis */
+        .cta .btn-primary{background:#e0b03b;border:none;padding:10px 18px;border-radius:6px;color:#111;text-decoration:none}
+        .cta .btn-primary:hover{background:#caa447}
+        .cta .btn-outline{background:transparent;border:1px solid rgba(255,255,255,0.2);color:#fff;padding:10px 16px;border-radius:6px;text-decoration:none}
+        .cta .btn-outline:hover{background:rgba(255,255,255,0.08)}
+
+        /* Top nav */
+        .top-nav{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;position:fixed;left:0;right:0;top:0;z-index:100;background:rgba(0,0,0,0.25);-webkit-backdrop-filter: blur(6px);backdrop-filter: blur(6px);color:#fff}
+        .nav-left{display:flex;align-items:center;gap:10px}
+        .logo-badge{width:42px;height:42px;border-radius:8px;background:rgba(255,255,255,0.06);display:inline-flex;align-items:center;justify-content:center;font-size:20px}
+        .brand{font-weight:700;color:#fff;margin-left:6px}
+        .nav-right{display:flex;align-items:center;gap:10px}
+        .btn-login{background:transparent;border:none;color:#fff}
 
         /* Footer */
-        .site-footer{background:#2b201b;color:rgba(255,255,255,0.9);padding:36px 28px}
-        .footer-inner{max-width:1100px;margin:0 auto;display:flex;gap:40px}
-        .footer-col{flex:1}
-        .footer-col h4{color:#fff;margin-bottom:12px}
-        .footer-col p,a{color:rgba(255,255,255,0.85);text-decoration:none}
+        .site-footer{background:#2b201b;color:rgba(255,255,255,0.95);padding:28px 16px}
+        .footer-inner{max-width:1100px;margin:0 auto;display:flex;gap:20px;flex-wrap:wrap}
+        .footer-col{flex:1;min-width:160px}
+        .footer-col h4{color:#fff;margin-bottom:10px}
+        .footer-col p,a{color:rgba(255,255,255,0.85);text-decoration:none;font-size:14px}
 
+        /* Responsive (mobile-first) */
+        @@media (max-width:1000px){
+            .cards{grid-template-columns:repeat(2,1fr)}
+            .hero{height:520px}
+        }
+        @@media (max-width:640px){
+            .hero{height:420px;background-position:center top}
+            .hero h1{font-size:28px}
+            .hero p{font-size:14px}
+            .stats{position:static;transform:none;left:auto;flex-direction:column;margin-top:14px;bottom:auto;gap:8px;align-items:center;justify-content:center;width:100%}
+            .cards{grid-template-columns:1fr}
+            .cta h2{font-size:20px}
+            .top-nav{height:64px;padding:0 12px}
+            .brand{font-size:18px}
+            .logo-badge{width:38px;height:38px}
+            .nav-right{gap:6px}
+            .btn-register{padding:6px 10px;font-size:14px}
+            .section-title h2{font-size:22px}
+            .card h3{font-size:16px}
+        }
 
         /* Simple fade-in animation classes (preserved) */
         .fade-in{animation:fadeIn 900ms ease both}
+        @@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
     </style>
 </head>
 <body>
@@ -77,7 +109,7 @@
             <div class="brand">AgroCore</div>
         </div>
 
-        <!-- center nav intentionally removed per request -->
+        
 
         <div class="nav-right">
             <a href="@Url.Action("Login","Account")" class="btn-login">Login</a>
@@ -88,7 +120,8 @@
     <header class="hero">
         <div class="hero-inner fade-in">
             <h1>Smarter Farming for <span class="accent">Better Yields</span></h1>
-            <p>Manage your crops, resources, and machinery in one simple platform. Track field conditions, irrigation, supplies, and daily farm operations.</p>
+            <p>Manage your crops, resources and machinery in one simple platform. Track field conditions, irrigation, supplies, and daily farm operations.</p>
+            <!-- Hero CTA removed per user request (hero buttons moved to CTA strip below) -->
         </div>
 
         <div class="stats fade-in" style="animation-delay:200ms">
@@ -105,6 +138,9 @@
                 <div class="label">Satisfaction</div>
             </div>
         </div>
+        <div class="hero-cta fade-in" style="animation-delay:320ms">
+            <a class="btn-primary" href="@Url.Action("Register","Account")">Start Tracking Now</a>
+        </div>
     </header>
 
     <section class="content-section">
@@ -119,30 +155,30 @@
                 <h3>Crop Management</h3>
                 <p>Track planting schedules, growth stages, and harvest timelines for all your crops in one place.</p>
             </div>
-            <div class="card fade-in" style="animation-delay:80ms">
+            <div class="card fade-in">
                 <div class="icon">💧</div>
                 <h3>Irrigation Tracking</h3>
                 <p>Monitor water usage and irrigation schedules to optimize your resources and reduce waste.</p>
             </div>
-            <div class="card fade-in" style="animation-delay:160ms">
+            <div class="card fade-in">
                 <div class="icon">🔧</div>
                 <h3>Machinery Logs</h3>
                 <p>Keep records of equipment maintenance, fuel usage, and operational hours.</p>
             </div>
-            <div class="card fade-in" style="animation-delay:240ms">
-                <div class="icon">📈</div>
-                <h3>Yield Reports</h3>
-                <p>Generate detailed reports on crop yields, costs, and productivity over time.</p>
+            <div class="card fade-in">
+                <div class="icon">🐛</div>
+                <h3>Pest & Disease</h3>
+                <p>Identify, log, and monitor pest or disease outbreaks with recommended steps and tracking.</p>
             </div>
-            <div class="card fade-in" style="animation-delay:320ms">
-                <div class="icon">📅</div>
-                <h3>Task Scheduling</h3>
-                <p>Plan and assign daily farm tasks to your team with easy calendar management.</p>
-            </div>
-            <div class="card fade-in" style="animation-delay:400ms">
+            <div class="card fade-in">
                 <div class="icon">📦</div>
-                <h3>Supply Inventory</h3>
-                <p>Track seeds, fertilizers, and supplies to ensure you never run short during critical seasons.</p>
+                <h3>Inventory</h3>
+                <p>Keep an accurate inventory of seeds, fertilizers, and other inputs for better procurement planning.</p>
+            </div>
+            <div class="card fade-in">
+                <div class="icon">📊</div>
+                <h3>Reporting</h3>
+                <p>Generate harvest and resource usage reports for compliance and internal review.</p>
             </div>
         </div>
     </section>
@@ -151,8 +187,8 @@
         <h2>Ready to Simplify Your Farm Operations?</h2>
         <p>Join thousands of farmers who trust our platform to manage their daily work, track resources, and grow their yields.</p>
         <div class="cta-actions">
-            <button class="btn-primary">Start Your Free Trial</button>
-            <button class="btn-outline">Contact Us</button>
+            <a class="btn-primary" href="@Url.Action("Register","Account")">Start Tracking Now</a>
+            <a class="btn-outline" href="@Url.Action("Contact","Home")">Contact Us</a>
         </div>
     </section>
 
@@ -160,15 +196,20 @@
         <div class="footer-inner">
             <div class="footer-col">
                 <h4>AgroCore</h4>
-                <p>Helping farmers manage their operations simply and effectively since 2018.</p>
+                <p>Helping farmers manage their operations simply and effectively since 2025.</p>
             </div>
             <div class="footer-col">
                 <h4>Quick Links</h4>
-                <p><a href="#">Dashboard</a><br /><a href="#">Marketplace</a><br /><a href="#">Resources</a><br /><a href="#">Support</a></p>
+                <p>
+                    <a href="@Url.Action("Register","Account")">Dashboard</a><br />
+                    <a href="@Url.Action("Register","Account")">Marketplace</a><br />
+                    <a href="@Url.Action("Register","Account")">Resources</a><br />
+                    <a href="@Url.Action("Register","Account")">Support</a>
+                </p>
             </div>
             <div class="footer-col">
                 <h4>Contact</h4>
-                <p>support@agrocore.example<br/>1-800-FARM-MGR</p>
+                <p><a href="mailto:victor.stefanov.highschool@buditel.bg">victor.stefanov.highschool@buditel.bg</a></p>
             </div>
         </div>
     </footer>

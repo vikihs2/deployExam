@@ -9,5 +9,12 @@ namespace ManagingAgriculture.Controllers
             ViewData["Title"] = "AgroCore - Agriculture Management";
             return View();
         }
+
+        [HttpGet]
+        public IActionResult Contact()
+        {
+            ViewData["Title"] = "Contact - AgroCore";
+            return View();
+        }
     }
 }

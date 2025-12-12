@@ -1,0 +1,31 @@
+@{
+    ViewData["Title"] = "Contact - AgroCore";
+}
+
+<h2>Contact & FAQ</h2>
+
+<p>If you have any questions, feature requests, or need help getting started, please contact us at:</p>
+<p><strong><a href="mailto:victor.stefanov.highschool@buditel.bg">victor.stefanov.highschool@buditel.bg</a></strong></p>
+
+<hr />
+
+<h3>Frequently Asked Questions</h3>
+
+<div class="faq">
+    <div class="faq-item">
+        <h4>How do I create an account?</h4>
+        <p>Click the <a href="@Url.Action("Register","Account")">Register</a> button at the top-right or use the "Start Tracking Now" CTA on the homepage.</p>
+    </div>
+    <div class="faq-item">
+        <h4>How do I add a new plant or resource?</h4>
+        <p>After signing in, navigate to the Plant Tracking or Resources section from the left sidebar and use the Add button.</p>
+    </div>
+    <div class="faq-item">
+        <h4>How do I report a bug or request a feature?</h4>
+        <p>Send an email to <a href="mailto:victor.stefanov.highschool@buditel.bg">victor.stefanov.highschool@buditel.bg</a> with information about the issue or the feature you'd like to see.</p>
+    </div>
+</div>
+
+<p style="margin-top:18px">Prefer real-time chat? You can also email us and we'll schedule a call or demo.</p>
+
+<p><a href="@Url.Action("Register","Account")" class="btn btn-success">Create an account</a></p>
