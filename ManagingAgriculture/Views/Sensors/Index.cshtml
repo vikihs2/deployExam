@@ -9,25 +9,31 @@
             <p class="subtitle">Real-time soil moisture and temperature tracking</p>
         </div>
     </div>
+
     <div class="soil-stats-grid">
         <div class="soil-stat-card">
             <div class="soil-stat-header">
                 <span>Current Humidity</span>
                 <i class="fas fa-tint"></i>
             </div>
-            <div class="soil-stat-value">55.5%</div>
-            <div class="soil-stat-sub">24h avg: 53.4%</div>
-            <span class="soil-badge optimal">Optimal Range</span>
+
+            <!-- LIVE VALUE -->
+            <div class="soil-stat-value" id="humidityValue">--%</div>
+
+            <div class="soil-stat-sub">Live sensor data</div>
+            <span class="soil-badge optimal">Live</span>
         </div>
+
         <div class="soil-stat-card">
             <div class="soil-stat-header">
                 <span>Temperature</span>
                 <i class="fas fa-thermometer-half"></i>
             </div>
             <div class="soil-stat-value">25.1°C</div>
-            <div class="soil-stat-sub">24h avg: 23.6°C</div>
+            <div class="soil-stat-sub">Mock data</div>
             <span class="soil-badge normal">Normal</span>
         </div>
+
         <div class="soil-stat-card">
             <div class="soil-stat-header">
                 <span>Sensor Status</span>
@@ -36,9 +42,13 @@
             <div class="soil-stat-value status-online">
                 <i class="fas fa-circle"></i> Online
             </div>
-            <div class="soil-stat-sub">Field A - Sensor 1<br />Last update: 10:27:10 AM</div>
+            <div class="soil-stat-sub">
+                Field A - Sensor 1<br />
+                Last update: <span id="lastUpdate">--</span>
+            </div>
         </div>
     </div>
+
     <div class="soil-readings-section">
         <h3>24-Hour Readings</h3>
         <p class="section-subtitle">Soil humidity and temperature trends</p>
@@ -47,19 +57,46 @@
         </div>
     </div>
 </div>
+
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        // LIVE SENSOR FETCH
+        function updateSensor() {
+            fetch('/Sensors/GetWaterLevel')
+                .then(r => r.json())
+                .then(d => {
+                    const percent = Math.min(100, Math.round((d.value / 1023) * 100));
+                    document.getElementById('humidityValue').innerText = percent + '%';
+                    document.getElementById('lastUpdate').innerText =
+                        new Date().toLocaleTimeString();
+                })
+                .catch(() => {
+                    document.getElementById('humidityValue').innerText = '--%';
+                });
+        }
+
+        setInterval(updateSensor, 1000);
+    </script>
+
     <script>
         const ctx = document.getElementById('soilChart').getContext('2d');
         let activeIndex = null;
-        // Double the number of points for smoother lines
+
         const timeLabels = [
-            '12:27 PM', '01:27 PM', '02:27 PM', '03:27 PM', '04:27 PM', '05:27 PM', '06:27 PM', '07:27 PM', '08:27 PM', '09:27 PM', '10:27 PM', '11:27 PM',
-            '12:27 AM', '01:27 AM', '02:27 AM', '03:27 AM', '04:27 AM', '05:27 AM', '06:27 AM', '07:27 AM', '08:27 AM', '09:27 AM', '10:27 AM', '11:27 AM'
+            '12:27 PM', '01:27 PM', '02:27 PM', '03:27 PM', '04:27 PM', '05:27 PM',
+            '06:27 PM', '07:27 PM', '08:27 PM', '09:27 PM', '10:27 PM', '11:27 PM',
+            '12:27 AM', '01:27 AM', '02:27 AM', '03:27 AM', '04:27 AM', '05:27 AM',
+            '06:27 AM', '07:27 AM', '08:27 AM', '09:27 AM', '10:27 AM', '11:27 AM'
         ];
-        // Interpolated data for smoother lines
-        const humidityData = [63.4, 61.0, 58.2, 60.0, 61.7, 58.6, 55.5, 57.8, 60.1, 59.0, 57.8, 56.0, 54.2, 55.5, 56.7, 58.0, 59.3, 56.5, 53.8, 55.5, 57.1, 58.6, 60.2, 61.0];
-        const temperatureData = [21.4, 21.8, 22.1, 22.6, 23.2, 23.8, 24.5, 24.8, 25.1, 25.0, 24.8, 24.2, 23.6, 23.8, 22.9, 23.0, 23.2, 23.7, 24.1, 24.5, 25.0, 25.1, 25.1, 25.0];
+
+        const humidityData = [63.4, 61.0, 58.2, 60.0, 61.7, 58.6, 55.5, 57.8, 60.1, 59.0, 57.8, 56.0,
+            54.2, 55.5, 56.7, 58.0, 59.3, 56.5, 53.8, 55.5, 57.1, 58.6, 60.2, 61.0];
+
+        const temperatureData = [21.4, 21.8, 22.1, 22.6, 23.2, 23.8, 24.5, 24.8, 25.1, 25.0, 24.8, 24.2,
+            23.6, 23.8, 22.9, 23.0, 23.2, 23.7, 24.1, 24.5, 25.0, 25.1, 25.1, 25.0];
+
         const soilChart = new Chart(ctx, {
             type: 'line',
             data: {
@@ -70,10 +107,7 @@
                         data: humidityData,
                         borderColor: '#2196f3',
                         backgroundColor: 'rgba(33,150,243,0.08)',
-                        pointBackgroundColor: '#2196f3',
                         pointRadius: 0,
-                        pointHoverRadius: 0,
-                        fill: false,
                         tension: 0.3
                     },
                     {
@@ -81,10 +115,7 @@
                         data: temperatureData,
                         borderColor: '#ff9800',
                         backgroundColor: 'rgba(255,152,0,0.08)',
-                        pointBackgroundColor: '#ff9800',
                         pointRadius: 0,
-                        pointHoverRadius: 0,
-                        fill: false,
                         tension: 0.3
                     }
                 ]
@@ -92,98 +123,12 @@
             options: {
                 responsive: true,
                 plugins: {
-                    legend: {
-                        display: true,
-                        position: 'bottom',
-                        labels: {
-                            font: { size: 14 }
-                        }
-                    },
-                    tooltip: {
-                        enabled: true,
-                        mode: 'index',
-                        intersect: false,
-                        callbacks: {
-                            label: function(context) {
-                                if (context.dataset.label === 'Humidity (%)') {
-                                    return `Humidity (%) : ${context.parsed.y}`;
-                                } else {
-                                    return `Temperature (°C) : ${context.parsed.y}`;
-                                }
-                            }
-                        }
-                    }
+                    legend: { position: 'bottom' }
                 },
                 interaction: {
                     mode: 'index',
                     intersect: false
-                },
-                scales: {
-                    x: {
-                        grid: { display: false },
-                        ticks: { font: { size: 13 } }
-                    },
-                    y: {
-                        grid: { color: '#eee' },
-                        ticks: { font: { size: 13 } }
-                    }
-                },
-                hover: {
-                    mode: 'index',
-                    intersect: false
-                },
-                onHover: function(event, chartElements) {
-                    const points = soilChart.getElementsAtEventForMode(event, 'index', { intersect: false }, false);
-                    if (points.length > 0) {
-                        activeIndex = points[0].index;
-                        soilChart.draw();
-                    } else {
-                        if (activeIndex !== null) {
-                            activeIndex = null;
-                            soilChart.draw();
-                        }
-                    }
                 }
-            },
-            plugins: [{
-                afterDraw: function(chart) {
-                    if (activeIndex !== null) {
-                        const ctx = chart.ctx;
-                        const meta1 = chart.getDatasetMeta(0);
-                        const meta2 = chart.getDatasetMeta(1);
-                        const point1 = meta1.data[activeIndex];
-                        const point2 = meta2.data[activeIndex];
-                        if (point1 && point2) {
-                            // Draw solid vertical line from top to bottom
-                            ctx.save();
-                            ctx.beginPath();
-                            ctx.moveTo(point1.x, chart.scales.y.top);
-                            ctx.lineTo(point1.x, chart.scales.y.bottom);
-                            ctx.strokeStyle = '#222';
-                            ctx.lineWidth = 2;
-                            ctx.stroke();
-                            ctx.restore();
-                            // Draw solid highlight points
-                            ctx.beginPath();
-                            ctx.arc(point1.x, point1.y, 8, 0, 2 * Math.PI);
-                            ctx.fillStyle = '#2196f3';
-                            ctx.globalAlpha = 1;
-                            ctx.fill();
-                            ctx.beginPath();
-                            ctx.arc(point2.x, point2.y, 8, 0, 2 * Math.PI);
-                            ctx.fillStyle = '#ff9800';
-                            ctx.globalAlpha = 1;
-                            ctx.fill();
-                        }
-                    }
-                }
-            }]
-        });
-        // Hide highlights when mouse leaves chart area
-        document.getElementById('soilChart').addEventListener('mouseleave', function() {
-            if (activeIndex !== null) {
-                activeIndex = null;
-                soilChart.draw();
             }
         });
     </script>

@@ -2,8 +2,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ManagingAgriculture.Data;
 using ManagingAgriculture.Models;
+using ManagingAgriculture.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 // Add services
 builder.Services.AddControllersWithViews();
@@ -18,6 +21,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     })
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
+
+builder.Services.AddSingleton<ArduinoService>();
 
 var app = builder.Build();
 
