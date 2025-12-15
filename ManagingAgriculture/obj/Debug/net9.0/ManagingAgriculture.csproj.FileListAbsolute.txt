@@ -16,7 +16,6 @@ C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\ManagingAgriculture.sourcelink.json
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\scopedcss\bundle\ManagingAgriculture.styles.css
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\compressed\0o7uo0kghv-61n19gt1b8.gz
-C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\compressed\gas34c1qis-xtxxf3hu2r.gz
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\compressed\pf9r8ieqr2-bqjiyaj88i.gz
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\compressed\ypfrnq0gxt-c2jlpeoesf.gz
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\compressed\o536kqolqx-erw9l3u2r3.gz
@@ -97,7 +96,6 @@ C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Relational.dll
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\ManagingAgriculture.csproj.AssemblyReference.cache
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\Managing.D50E96B8.Up2Date
-C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\compressed\o22admou70-ad5nk3e4yv.gz
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\bin\Debug\net9.0\System.IO.Ports.dll
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\bin\Debug\net9.0\runtimes\android-arm\native\libSystem.IO.Ports.Native.so
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\bin\Debug\net9.0\runtimes\android-arm64\native\libSystem.IO.Ports.Native.so
@@ -117,3 +115,5 @@ C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\bin\Debug\net9.0\runtimes\osx-x64\native\libSystem.IO.Ports.Native.dylib
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\bin\Debug\net9.0\runtimes\unix\lib\net9.0\System.IO.Ports.dll
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\bin\Debug\net9.0\runtimes\win\lib\net9.0\System.IO.Ports.dll
+C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\compressed\o22admou70-to98tcgt3o.gz
+C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\compressed\gas34c1qis-zcdcnj0ulz.gz

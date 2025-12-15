@@ -7,7 +7,7 @@
 <div class="resources-container">
     <div class="resources-header">
         <div>
-            <h2>Resource Management</h2>
+
             <p class="subtitle">Track your farm inventory and supplies</p>
         </div>
     </div>
@@ -78,6 +78,11 @@
                         <span>Restock needed soon</span>
                     </div>
                 }
+                <div class="mt-3 d-flex gap-2 action-row">
+                    <a class="btn btn-sm btn-outline-primary action-btn" href="@Url.Action("Edit","Resources", new { id = resource.Id })"><i class="fas fa-edit"></i> Edit</a>
+                    <button class="btn btn-sm btn-success action-btn adjust-ajax" data-id="@resource.Id" data-delta="10"><i class="fas fa-plus"></i> + Add 10</button>
+                    <button class="btn btn-sm btn-danger action-btn adjust-ajax" data-id="@resource.Id" data-delta="-10"><i class="fas fa-trash"></i> - Use 10</button>
+                </div>
             </div>
         }
     </div>

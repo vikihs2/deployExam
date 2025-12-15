@@ -90,5 +90,17 @@ namespace ManagingAgriculture.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
+        {
+            var plant = _plants.FirstOrDefault(p => p.Id == id);
+            if (plant != null)
+            {
+                _plants.Remove(plant);
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -1,0 +1,78 @@
+@model IEnumerable<ManagingAgriculture.Models.MarketplaceListing>
+
+<div class="marketplace-grid">
+    @foreach (var listing in Model)
+    {
+        var listingTypeLabel = listing.ListingType switch
+        {
+            "Sale" => "For Sale",
+            "Rent" => "For Rent",
+            "Both" => "Sale or Rent",
+            _ => "For Sale"
+        };
+
+        var conditionClass = listing.ConditionStatus switch
+        {
+            "Excellent" => "excellent",
+            "Good" => "good",
+            "Fair" => "fair",
+            "Poor" => "poor",
+            "New" => "new",
+            _ => "good"
+        };
+
+        <div class="marketplace-card">
+            @if (!string.IsNullOrEmpty(listing.ImageUrl))
+            {
+                <img src="@listing.ImageUrl" class="marketplace-img" alt="@listing.ItemName" />
+            }
+            else
+            {
+                <div class="marketplace-img-placeholder">
+                    <i class="fas fa-image"></i>
+                </div>
+            }
+            <div class="marketplace-card-body">
+                <div class="marketplace-card-header">
+                    <h3>@listing.ItemName</h3>
+                    <span class="listing-badge @conditionClass">@listing.ConditionStatus</span>
+                </div>
+                <span class="listing-category">@listing.Category</span>
+                @if (!string.IsNullOrEmpty(listing.Description))
+                {
+                    <p class="listing-desc">@listing.Description</p>
+                }
+
+                <div class="listing-sale">
+                    <span class="sale-label">@listingTypeLabel</span>
+                    @if ((listing.SalePrice ?? 0) > 0)
+                    {
+                        <span class="sale-price">$ @(listing.SalePrice?.ToString("N") ?? "0")</span>
+                    }
+                    @if ((listing.RentalPricePerDay ?? 0) > 0)
+                    {
+                        <span class="sale-rent">or $@(listing.RentalPricePerDay?.ToString("N") ?? "0")/day rental</span>
+                    }
+                </div>
+
+                <div class="listing-seller-row">
+                    <span class="seller-label">Seller</span>
+                    <span class="seller-name">@listing.SellerName</span>
+                </div>
+
+                <div class="listing-contact-row">
+                    <span class="btn btn-contact" title="Seller phone"> <i class="fas fa-phone"></i> <span class="seller-phone">@listing.SellerPhone</span></span>
+                    <a href="@Url.Action("Edit", "Marketplace", new { id = listing.Id })" class="btn btn-sm btn-primary action-btn">
+                        <i class="fas fa-edit"></i> Edit
+                    </a>
+                    <form method="post" action="@Url.Action("Delete", "Marketplace")" style="display: inline-block;">
+                        <input type="hidden" name="id" value="@listing.Id" />
+                        <button type="submit" class="btn btn-sm btn-danger action-btn" onclick="return confirm('Are you sure?')">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>

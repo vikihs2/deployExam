@@ -1,3 +1,4 @@
+@using System.Linq
 @model IEnumerable<ManagingAgriculture.Models.MarketplaceListing>
 @{
     ViewData["Title"] = "Marketplace";
@@ -6,103 +7,47 @@
 <div class="marketplace-container">
     <div class="page-header">
         <div>
-            <h2>Marketplace</h2>
             <p class="subtitle">Buy, sell, or rent farm equipment</p>
         </div>
-        <a href="@Url.Action("Add", "Marketplace")" class="btn btn-success">
-            <i class="fas fa-plus"></i> Post Listing
-        </a>
     </div>
+
     <div class="marketplace-filters">
-        <input type="text" class="marketplace-search" placeholder="Search equipment..." />
-        <select class="marketplace-category">
-            <option>All Categories</option>
-            <option>Equipment</option>
-            <option>Seeds</option>
-            <option>Supplies</option>
-        </select>
-    </div>
-    <div class="marketplace-grid">
-        @foreach (var listing in Model)
-        {
-            <!-- Determine listing type display -->
-            string listingTypeLabel = listing.ListingType switch
-            {
-                "Sale" => "For Sale",
-                "Rent" => "For Rent",
-                "Both" => "Sale or Rent",
-                _ => "For Sale"
-            };
-
-            <!-- Determine condition badge style -->
-            string conditionClass = listing.ConditionStatus switch
-            {
-                "Excellent" => "excellent",
-                "Good" => "good",
-                "Fair" => "fair",
-                "Poor" => "poor",
-                "New" => "new",
-                _ => "good"
-            };
-
-            <div class="marketplace-card">
-                @if (!string.IsNullOrEmpty(listing.ImageUrl))
+        <form class="d-flex gap-2" onsubmit="return false;">
+            <input type="text" name="q" value="@(ViewBag.Query ?? "")" class="marketplace-search form-control" placeholder="Search equipment..." />
+            @{
+                var selectedCat = (ViewBag.SelectedCategory as string) ?? "All";
+            }
+            <select name="category" class="marketplace-category form-select">
+                @if (selectedCat == "All")
                 {
-                    <img src="@listing.ImageUrl" class="marketplace-img" alt="@listing.ItemName" />
+                    <option value="All" selected>All</option>
                 }
                 else
                 {
-                    <div class="marketplace-img-placeholder">
-                        <i class="fas fa-image"></i>
-                    </div>
+                    <option value="All">All</option>
                 }
-                <div class="marketplace-card-body">
-                    <div class="marketplace-card-header">
-                        <h3>@listing.ItemName</h3>
-                        <span class="listing-badge @conditionClass">@listing.ConditionStatus</span>
-                    </div>
-                    <span class="listing-category">@listing.Category</span>
-                    @if (!string.IsNullOrEmpty(listing.Description))
+
+                @{
+                    var cats = (ViewBag.Categories as IEnumerable<string>) ?? Enumerable.Empty<string>();
+                    var extras = new[] { "Parts", "Tools" };
+                    foreach (var c in cats.Union(extras))
                     {
-                        <p class="listing-desc">@listing.Description</p>
+                        if (selectedCat == c)
+                        {
+                            <option value="@c" selected>@c</option>
+                        }
+                        else
+                        {
+                            <option value="@c">@c</option>
+                        }
                     }
+                }
+            </select>
+            <button type="submit" class="btn btn-outline-secondary">Filter</button>
+        </form>
+    </div>
 
-                    <!-- Pricing Display -->
-                    <div class="listing-sale">
-                        <span class="sale-label">@listingTypeLabel</span>
-                        @if (listing.SalePrice > 0)
-                        {
-                            <span class="sale-price">$ @listing.SalePrice?.ToString("N") ?? "0"</span>
-                        }
-                        @if (listing.RentalPricePerDay > 0)
-                        {
-                            <span class="sale-rent">or $@listing.RentalPricePerDay?.ToString("N") ?? "0"/day rental</span>
-                        }
-                    </div>
-
-                    <!-- Seller Information -->
-                    <div class="listing-seller-row">
-                        <span class="seller-label">Seller</span>
-                        <span class="seller-name">@listing.SellerName</span>
-                    </div>
-
-                    <!-- Contact and Actions -->
-                    <div class="listing-contact-row">
-                        <a href="tel:@listing.SellerPhone" class="btn btn-contact">
-                            <i class="fas fa-phone"></i> @listing.SellerPhone
-                        </a>
-                        <a href="@Url.Action("Edit", "Marketplace", new { id = listing.Id })" class="btn btn-sm btn-primary">
-                            <i class="fas fa-edit"></i> Edit
-                        </a>
-                        <form method="post" action="@Url.Action("Delete", "Marketplace")" style="display: inline-block;">
-                            <input type="hidden" name="id" value="@listing.Id" />
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
-                                <i class="fas fa-trash"></i> Delete
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        }
+    <div id="marketplace-grid">
+        @await Html.PartialAsync("_Grid", (object)Model)
     </div>
 </div>

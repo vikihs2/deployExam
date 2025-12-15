@@ -68,12 +68,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFya2V0cGxhY2VcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Viktor/Desktop/diplomna.rabota/managingAgriculture/Managing-agriculture/ManagingAgriculture/Views/Marketplace/_Grid.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFya2V0cGxhY2VcX0dyaWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Viktor/Desktop/diplomna.rabota/managingAgriculture/Managing-agriculture/ManagingAgriculture/Views/Plants/Add.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxhbnRzXEFkZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Viktor/Desktop/diplomna.rabota/managingAgriculture/Managing-agriculture/ManagingAgriculture/Views/Plants/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxhbnRzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Viktor/Desktop/diplomna.rabota/managingAgriculture/Managing-agriculture/ManagingAgriculture/Views/Resources/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzb3VyY2VzXEFkZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Viktor/Desktop/diplomna.rabota/managingAgriculture/Managing-agriculture/ManagingAgriculture/Views/Resources/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzb3VyY2VzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Viktor/Desktop/diplomna.rabota/managingAgriculture/Managing-agriculture/ManagingAgriculture/Views/Resources/Index.cshtml]
@@ -86,6 +98,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Viktor/Desktop/diplomna.rabota/managingAgriculture/Managing-agriculture/ManagingAgriculture/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Viktor/Desktop/diplomna.rabota/managingAgriculture/Managing-agriculture/ManagingAgriculture/Views/Shared/_Logo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Viktor/Desktop/diplomna.rabota/managingAgriculture/Managing-agriculture/ManagingAgriculture/Views/Shared/_ValidationScriptsPartial.cshtml]

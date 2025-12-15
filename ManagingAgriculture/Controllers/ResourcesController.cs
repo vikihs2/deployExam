@@ -45,5 +45,89 @@ namespace ManagingAgriculture.Controllers
             
             return View(resources.ToList());
         }
+
+        [HttpGet]
+        public IActionResult Add()
+        {
+            ViewData["Title"] = "Add Resource";
+            return View(new Resource());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Add(Resource model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var nextId = _resources.Any() ? _resources.Max(r => r.Id) + 1 : 1;
+            model.Id = nextId;
+            model.CreatedDate = DateTime.Now;
+            model.UpdatedDate = DateTime.Now;
+            _resources.Add(model);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var item = _resources.FirstOrDefault(r => r.Id == id);
+            if (item == null) return NotFound();
+            return View(item);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, Resource model)
+        {
+            var existing = _resources.FirstOrDefault(r => r.Id == id);
+            if (existing == null) return NotFound();
+            if (!ModelState.IsValid) return View(model);
+
+            model.Id = id;
+            model.CreatedDate = existing.CreatedDate;
+            model.UpdatedDate = DateTime.Now;
+
+            var idx = _resources.FindIndex(r => r.Id == id);
+            _resources[idx] = model;
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AdjustQuantity(int id, int delta)
+        {
+            var item = _resources.FirstOrDefault(r => r.Id == id);
+            if (item != null)
+            {
+                item.Quantity = Math.Max(0, item.Quantity + delta);
+                item.UpdatedDate = DateTime.Now;
+            }
+            return RedirectToAction("Index");
+        }
+
+        /// <summary>
+        /// AJAX endpoint to adjust resource quantity and return updated value
+        /// </summary>
+        [HttpPost]
+        public IActionResult AdjustQuantityAjax([FromBody] AdjustRequest req)
+        {
+            var item = _resources.FirstOrDefault(r => r.Id == req.Id);
+            if (item == null)
+                return Json(new { success = false });
+
+            item.Quantity = Math.Max(0, item.Quantity + req.Delta);
+            item.UpdatedDate = DateTime.Now;
+
+            return Json(new { success = true, quantity = item.Quantity });
+        }
+
+        public class AdjustRequest
+        {
+            public int Id { get; set; }
+            public int Delta { get; set; }
+        }
     }
 }

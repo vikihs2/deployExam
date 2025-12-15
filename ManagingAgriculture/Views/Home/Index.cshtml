@@ -23,10 +23,10 @@
         .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.45),rgba(0,0,0,0.65));}
         .hero-inner{position:relative;z-index:2;text-align:center;color:#fff;max-width:1100px;padding:20px}
         .hero h1{font-family: 'Georgia', serif;font-size:46px;line-height:1.04;font-weight:900;margin-bottom:12px;text-shadow:0 10px 20px rgba(0,0,0,0.6)}
-        .hero h1 .accent{color:#e0b03b;display:inline-block}
+        .hero h1 .accent{color:var(--brand-green);display:inline-block}
         .hero p{max-width:760px;margin:0 auto 18px;color:rgba(255,255,255,0.96);font-size:16px;text-shadow:0 6px 18px rgba(0,0,0,0.5)}
-        .hero .btn-primary{background:#e0b03b;color:#111;border:none;padding:10px 16px;border-radius:8px}
-        .hero .btn-primary:hover{background:#caa447}
+        .hero .btn-primary{background:var(--brand-green);color:#fff;border:none;padding:10px 16px;border-radius:8px}
+        .hero .btn-primary:hover{background:var(--brand-green-dark)}
         .btn-login{color:#fff;padding:8px 12px;text-decoration:none}
 
         /* Center stats: stacked below hero text */
@@ -36,8 +36,8 @@
         .stat .label{opacity:0.9;margin-top:6px;font-size:12px}
         /* Hero CTA */
         .hero-cta{display:flex;justify-content:center;margin-top:14px;z-index:2;width:100%}
-        .hero-cta a{background:#e0b03b;color:#111;border:none;padding:10px 20px;border-radius:8px;text-decoration:none;display:inline-block}
-        .hero-cta a:hover{background:#caa447}
+        .hero-cta a{background:var(--brand-green);color:#fff;border:none;padding:10px 20px;border-radius:8px;text-decoration:none;display:inline-block}
+        .hero-cta a:hover{background:var(--brand-green-dark)}
 
         /* Content cards */
         .content-section{padding:48px 16px;background:#fbf7f2}
@@ -50,13 +50,13 @@
         .card p{color:#6b6b6b;font-size:13px}
 
         /* CTA dark strip */
-        .cta{background:#452b20;color:#fff;padding:48px 20px;text-align:center}
+        .cta{background:var(--home-layer-upper);color:#fff;padding:48px 20px;text-align:center}
         .cta h2{font-family:'Georgia',serif;font-size:24px;margin-bottom:12px}
         .cta p{opacity:0.9;margin-bottom:16px}
         .cta .cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
         /* CTA: use gold/yellow for visual emphasis */
-        .cta .btn-primary{background:#e0b03b;border:none;padding:10px 18px;border-radius:6px;color:#111;text-decoration:none}
-        .cta .btn-primary:hover{background:#caa447}
+        .cta .btn-primary{background:var(--brand-green);border:none;padding:10px 18px;border-radius:6px;color:#fff;text-decoration:none}
+        .cta .btn-primary:hover{background:var(--brand-green-dark)}
         .cta .btn-outline{background:transparent;border:1px solid rgba(255,255,255,0.2);color:#fff;padding:10px 16px;border-radius:6px;text-decoration:none}
         .cta .btn-outline:hover{background:rgba(255,255,255,0.08)}
 
@@ -105,15 +105,37 @@
 
     <nav class="top-nav">
         <div class="nav-left">
-            <div class="logo-badge">🌾</div>
+            <div class="logo-badge">@await Html.PartialAsync("_Logo")</div>
             <div class="brand">AgroCore</div>
         </div>
 
         
 
         <div class="nav-right">
-            <a href="@Url.Action("Login","Account")" class="btn-login">Login</a>
-            <a href="@Url.Action("Register","Account")" class="btn-register">Register</a>
+            @if (User?.Identity?.IsAuthenticated == true)
+            {
+                var email = User.Identity?.Name ?? User.FindFirst("email")?.Value ?? "";
+                var name = "User";
+                if (!string.IsNullOrEmpty(email) && email.Contains("@"))
+                {
+                    name = email.Split('@')[0];
+                    if (name.Length > 0)
+                    {
+                        name = char.ToUpper(name[0]) + name.Substring(1);
+                    }
+                }
+                <span class="me-3">Welcome @name!</span>
+                <a class="btn btn-outline me-2" href="@Url.Action("Index", "Dashboard")">Dashboard</a>
+                <form asp-controller="Account" asp-action="Logout" method="post" style="display:inline-block;">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-cancel">Sign out</button>
+                </form>
+            }
+            else
+            {
+                <a href="@Url.Action("Login","Account")" class="btn-login">Login</a>
+                <a href="@Url.Action("Register","Account")" class="btn-register">Register</a>
+            }
         </div>
     </nav>
 

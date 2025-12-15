@@ -8,17 +8,38 @@
   --border-color: #e0e0e0;
   --alert-color: #ff9800;
   --accent-green: #16a34a;
+  --brand-green: #22c55e;
+  --brand-green-dark: #16a34a;
+  --home-layer-upper: #27343d;
+  --home-layer-bottom: #1b2b2b;
 }
 
 /* Override Bootstrap success button to match brand green */
 .btn-success {
-  --bs-btn-bg: #16a34a;
-  --bs-btn-border-color: #16a34a;
+  --bs-btn-bg: var(--brand-green);
+  --bs-btn-border-color: var(--brand-green);
 }
 .btn-success:hover, .btn-success:focus {
-  --bs-btn-bg: #15803d;
-  --bs-btn-border-color: #15803d;
+  --bs-btn-bg: var(--brand-green-dark);
+  --bs-btn-border-color: var(--brand-green-dark);
 }
+
+/* Unified brand button styles */
+.btn, .btn-primary, .btn-success {
+  background-color: var(--brand-green) !important;
+  border-color: var(--brand-green) !important;
+  color: #fff !important;
+}
+.btn:hover, .btn:focus, .btn-primary:hover, .btn-success:hover {
+  background-color: var(--brand-green-dark) !important;
+  border-color: var(--brand-green-dark) !important;
+  color: #fff !important;
+}
+.btn-outline {
+  color: var(--brand-green);
+  border-color: rgba(34,197,94,0.15);
+}
+.btn-outline:hover { background: rgba(34,197,94,0.06); }
 
 html {
   font-size: 14px;
@@ -70,8 +91,14 @@ input:focus, textarea:focus, select:focus {
 }
 
 .sidebar.sidebar-expanded {
-  width: 250px;
+  /* start visually collapsed; expand on hover to restore previous behavior */
+  width: 70px;
   padding: 20px;
+}
+
+/* When expanded and hovered, open to full width */
+.sidebar.sidebar-expanded:hover {
+  width: 250px;
 }
 
 .sidebar-brand {
@@ -163,6 +190,10 @@ input:focus, textarea:focus, select:focus {
   padding: 12px 0;
 }
 
+/* Adjust main content margin while sidebar is collapsed vs hovered */
+.main-content-expanded { margin-left: 70px; }
+.sidebar.sidebar-expanded:hover ~ .main-content { margin-left: 250px; }
+
 .sidebar.sidebar-shrink .sidebar-brand {
   justify-content: center;
 }
@@ -174,7 +205,7 @@ input:focus, textarea:focus, select:focus {
 
 .main-content {
   flex: 1;
-  margin-left: 70px;
+  margin-left: 0;
   min-height: 100vh;
   transition: all 0.3s ease;
 }
@@ -192,6 +223,30 @@ input:focus, textarea:focus, select:focus {
   padding: 20px 30px;
   border-bottom: 1px solid var(--border-color);
 }
+
+/* Home page layered colors */
+.cta { background: var(--home-layer-upper); }
+.site-footer { background: var(--home-layer-bottom); }
+
+/* Marketplace badge for 'new' */
+.listing-badge.new { background:#22c55e;color:#fff }
+
+/* Marketplace search box */
+.marketplace-search { min-width:220px; max-width:480px }
+
+/* Action button styles and layout */
+.action-row { display:flex; align-items:center; gap:8px }
+.action-row .btn-cancel { background:transparent;color:var(--text-primary); border:1px solid var(--border-color); }
+.action-row .btn-save, .action-row .btn-post { background:var(--brand-green); color:#fff }
+.action-btn { display:inline-flex; gap:8px; align-items:center }
+
+/* Logo emoji sizing for small contexts */
+.auth-logo { font-size:20px; display:inline-flex; align-items:center; justify-content:center }
+
+/* Global cancel/save button styles */
+.btn-cancel { background: transparent; border: 1px solid var(--border-color); color: var(--text-primary); padding: 6px 10px; border-radius:6px }
+.btn-save, .btn-post { background: var(--brand-green); color:#fff; padding:6px 10px; border-radius:6px }
+.btn-sm.btn-save, .btn-sm.btn-post { padding:4px 8px }
 
 .top-header h1 {
   margin: 0;
@@ -738,6 +793,87 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* Category Tabs */
+
+/* FAQ & Contact styles */
+.faq-hero {
+  padding: 60px 15px 20px 15px;
+}
+.faq-hero .icon-circle {
+  width: 56px;
+  height: 56px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #e9f6ee;
+  color: var(--secondary-color);
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+.faq-hero h1 {
+  font-size: 36px;
+  margin-bottom: 8px;
+}
+.faq-section .subtitle {
+  max-width: 700px;
+  margin: 0 auto 24px auto;
+}
+.faq-card .accordion-button {
+  background: #f7faf7;
+  border-radius: 10px;
+  padding: 18px 20px;
+  gap: 14px;
+  align-items: center;
+}
+.faq-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(29, 160, 82, 0.08);
+  color: var(--secondary-color);
+  margin-right: 12px;
+  font-weight: 700;
+}
+.faq-question {
+  font-weight: 600;
+}
+.need-help .icon-circle.small {
+  width: 48px;
+  height: 48px;
+  font-size: 20px;
+}
+.contact-card {
+  background: var(--card-bg);
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+}
+.contact-list a { color: var(--secondary-color); }
+
+.contact-list li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.contact-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(29, 160, 82, 0.08);
+  color: var(--secondary-color);
+  font-size: 18px;
+}
+
+@media (max-width: 768px) {
+  .faq-hero h1 { font-size: 28px; }
+  .faq-hero { padding: 30px 15px; }
+}
 .category-tabs {
   display: flex;
   gap: 10px;
@@ -1006,6 +1142,26 @@ input:focus, textarea:focus, select:focus {
 .status-badge.good {
   background-color: #e0f7fa;
   color: #009688;
+}
+
+.status-badge.fair {
+  background-color: #fff4e6;
+  color: #b45309;
+}
+
+.status-badge.poor {
+  background-color: #ffeaea;
+  color: #b91c1c;
+}
+
+.listing-badge.fair {
+  background-color: #fff4e6;
+  color: #b45309;
+}
+
+.listing-badge.poor {
+  background-color: #ffeaea;
+  color: #b91c1c;
 }
 
 .machinery-info-row {
@@ -1421,3 +1577,7 @@ input:focus, textarea:focus, select:focus {
     padding: 18px 15px 15px 15px;
   }
 }
+.home-link { display:inline-flex; align-items:center; margin-left:auto; }
+.home-icon { width:40px; height:40px; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; background:var(--accent-green); color:white; font-size:18px; }
+
+.auth-logo { width:60px; height:60px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; margin:0 auto 14px; }

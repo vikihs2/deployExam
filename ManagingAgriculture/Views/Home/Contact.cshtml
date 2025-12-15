@@ -1,31 +1,124 @@
+@model ManagingAgriculture.Models.ContactForm
+
 @{
     ViewData["Title"] = "Contact - AgroCore";
 }
 
-<h2>Contact & FAQ</h2>
-
-<p>If you have any questions, feature requests, or need help getting started, please contact us at:</p>
-<p><strong><a href="mailto:victor.stefanov.highschool@buditel.bg">victor.stefanov.highschool@buditel.bg</a></strong></p>
-
-<hr />
-
-<h3>Frequently Asked Questions</h3>
-
-<div class="faq">
-    <div class="faq-item">
-        <h4>How do I create an account?</h4>
-        <p>Click the <a href="@Url.Action("Register","Account")">Register</a> button at the top-right or use the "Start Tracking Now" CTA on the homepage.</p>
+<section class="faq-hero text-center">
+    <div class="container">
+        <h1>Frequently Asked Questions</h1>
+        <p class="subtitle">Find quick answers to common questions about our agricultural products, services, and support. Can't find what you're looking for? Our team is here to help.</p>
     </div>
-    <div class="faq-item">
-        <h4>How do I add a new plant or resource?</h4>
-        <p>After signing in, navigate to the Plant Tracking or Resources section from the left sidebar and use the Add button.</p>
-    </div>
-    <div class="faq-item">
-        <h4>How do I report a bug or request a feature?</h4>
-        <p>Send an email to <a href="mailto:victor.stefanov.highschool@buditel.bg">victor.stefanov.highschool@buditel.bg</a> with information about the issue or the feature you'd like to see.</p>
-    </div>
-</div>
+</section>
 
-<p style="margin-top:18px">Prefer real-time chat? You can also email us and we'll schedule a call or demo.</p>
+<section class="faq-section">
+    <div class="container">
+        <div class="accordion" id="faqAccordion">
+            @* List of FAQs from user *@
+            @{
+                var faqs = new[] {
+                    new { Id = "faq1", Q = "What is this platform used for?", A = "It helps farmers manage crops, resources, machinery, and daily farm activities in one place." },
+                    new { Id = "faq2", Q = "Who can use the system?", A = "The platform is designed for small, medium, and large farm owners, as well as agricultural managers." },
+                    new { Id = "faq3", Q = "Can I track multiple fields or crops at once?", A = "Yes. You can manage multiple fields, crops, and planting cycles from a single dashboard." },
+                    new { Id = "faq4", Q = "Does the system help with resource management?", A = "Yes. You can track supplies like seeds, fertilizer, fuel, and get low-stock alerts." },
+                    new { Id = "faq5", Q = "Can I manage farm machinery and maintenance?", A = "Yes. You can register machinery, track usage, and log maintenance history." },
+                    new { Id = "faq6", Q = "Is my data safe?", A = "Yes. All data is stored securely and access is protected through user authentication." },
+                    new { Id = "faq7", Q = "Can I access the platform from mobile devices?", A = "Yes. The website is responsive and works on phones, tablets, and desktops." },
+                    new { Id = "faq8", Q = "Do I need technical knowledge to use it?", A = "No. The system is designed to be simple and intuitive for everyday farm use." },
+                    new { Id = "faq9", Q = "Can I upload photos for crops or listings?", A = "Yes. You can upload images to better track crops and marketplace listings." },
+                    new { Id = "faq10", Q = "Is the platform free to use?", A = "Yes, the platform is completely free." }
+                };
+            }
 
-<p><a href="@Url.Action("Register","Account")" class="btn btn-success">Create an account</a></p>
+            @for (int i = 0; i < faqs.Length; i++) {
+                var f = faqs[i];
+                <div class="accordion-item faq-card mb-3">
+                    <h2 class="accordion-header" id="heading-@f.Id">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-@f.Id" aria-expanded="false" aria-controls="collapse-@f.Id">
+                            <span class="faq-icon">Q</span>
+                            <span class="faq-question">@f.Q</span>
+                        </button>
+                    </h2>
+                    <div id="collapse-@f.Id" class="accordion-collapse collapse" aria-labelledby="heading-@f.Id" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            @f.A
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="need-help text-center mt-5">
+            <h2>Need More Help?</h2>
+            <p class="subtitle">Our dedicated support team is ready to assist you with any questions or concerns. Reach out and we'll respond promptly.</p>
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="contact-card p-4">
+                        <h4>Contact Information</h4>
+                        <ul class="list-unstyled contact-list mt-3">
+                            <li>
+                                <span class="contact-icon"><i class="fas fa-envelope"></i></span>
+                                <div><strong>Email Support</strong><br /><a href="mailto:victor.stefanov.highschool@buditel.bg">victor.stefanov.highschool@buditel.bg</a></div>
+                            </li>
+                            <li class="mt-3">
+                                <span class="contact-icon"><i class="fas fa-phone"></i></span>
+                                <div><strong>Phone Support</strong><br />+359 89-082-2884</div>
+                            </li>
+                            <li class="mt-3">
+                                <span class="contact-icon"><i class="fas fa-clock"></i></span>
+                                <div><strong>Working Hours</strong><br />Monday – Friday: 8:00 AM – 6:00 PM<br />Saturday: 9:00 AM – 2:00 PM<br />Sunday: Closed</div>
+                            </li>
+                        </ul>
+                        <div class="alert alert-info mt-3">Response Time: We typically respond to all inquiries within 24-48 business hours. For urgent matters, please call our support line.</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="contact-card p-4">
+                        <h4>Send Us a Message</h4>
+                                @if (TempData["ContactSuccess"] != null) {
+                                    <div class="alert alert-success">@TempData["ContactSuccess"]</div>
+                                }
+                                @if (TempData["ContactError"] != null) {
+                                    <div class="alert alert-danger">@TempData["ContactError"]</div>
+                                }
+                                @if (ViewBag.SmtpConfigured == false)
+                                {
+                                    <div class="alert alert-warning">Email sending is not configured on this server. To enable sending to <strong>victor.stefanov.highschool@buditel.bg</strong>, add SMTP settings to <code>appsettings.json</code> (Smtp:Host, Username, Password, etc.).</div>
+                                }
+                                else
+                                {
+                                    <form asp-action="TestSmtp" method="post" style="display:inline-block;margin-top:8px;">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-outline-secondary">Send test email to victor.stefanov.highschool@buditel.bg</button>
+                                    </form>
+                                }
+                        <form asp-action="Contact" method="post">
+                            @Html.AntiForgeryToken()
+                            <div class="mb-3">
+                                <label asp-for="FullName" class="form-label">Full Name</label>
+                                <input asp-for="FullName" class="form-control" placeholder="Your name" />
+                                <span asp-validation-for="FullName" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Email" class="form-label">Email Address</label>
+                                <input asp-for="Email" class="form-control" placeholder="your@email.com" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Message" class="form-label">Message</label>
+                                <textarea asp-for="Message" class="form-control" rows="4" placeholder="How can we help you?"></textarea>
+                                <span asp-validation-for="Message" class="text-danger"></span>
+                            </div>
+                            <button type="submit" class="btn btn-success w-100 btn-lg"><i class="fas fa-paper-plane"></i> Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

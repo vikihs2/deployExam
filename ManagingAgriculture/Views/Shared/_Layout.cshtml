@@ -9,57 +9,105 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 </head>
 <body>
-    <div class="d-flex">
-        <nav class="sidebar@(User?.Identity?.IsAuthenticated == true ? " sidebar-expanded" : "")">
-            <div class="sidebar-brand">
-                <i class="fas fa-leaf"></i>
-                <span>AgroCore</span>
-            </div>
-            <div class="sidebar-menu">
-                <p class="menu-title">Main Menu</p>
-                <a href="@Url.Action("Index", "Dashboard")" class="menu-item">
-                    <i class="fas fa-home"></i>
-                    <span>Dashboard</span>
-                </a>
-                <a href="@Url.Action("Index", "Plants")" class="menu-item">
-                    <i class="fas fa-leaf"></i>
-                    <span>Plant Tracking</span>
-                </a>
-                <a href="@Url.Action("Index", "Resources")" class="menu-item">
-                    <i class="fas fa-box"></i>
-                    <span>Resources</span>
-                </a>
-                <a href="@Url.Action("Index", "Machinery")" class="menu-item">
-                    <i class="fas fa-cogs"></i>
-                    <span>Machinery</span>
-                </a>
-                <a href="@Url.Action("Index", "Marketplace")" class="menu-item">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>Marketplace</span>
-                </a>
-                <a href="@Url.Action("Index", "Sensors")" class="menu-item">
-                    <i class="fas fa-tint"></i>
-                    <span>Soil Humidity</span>
-                </a>
-                
-                <p class="menu-title">Account</p>
-                @if (User?.Identity?.IsAuthenticated == true)
-                {
-                    <form asp-controller="Account" asp-action="Logout" method="post" class="menu-item" style="display:flex;align-items:center;gap:8px;">
-                        @Html.AntiForgeryToken()
-                        <button type="submit" class="signout-btn" style="background:none;border:none;display:flex;align-items:center;gap:8px;color:inherit;padding:0;">
-                            <i class="fas fa-sign-out-alt"></i>
-                            <span class="signout-text">Sign out</span>
-                        </button>
-                    </form>
-                }
-            </div>
-        </nav>
+    @{
+        var controller = ViewContext.RouteData.Values["controller"]?.ToString();
+        var action = ViewContext.RouteData.Values["action"]?.ToString();
+        var showSidebar = !(controller == "Home" && action == "Contact");
+    }
 
-        <main class="main-content@(User?.Identity?.IsAuthenticated == true ? " main-content-expanded" : "")">
+    <div class="d-flex">
+        @if (showSidebar)
+        {
+            <nav class="sidebar@(User?.Identity?.IsAuthenticated == true ? " sidebar-expanded" : "")">
+                <div class="sidebar-brand">
+                    @await Html.PartialAsync("_Logo")
+                    <span>AgroCore</span>
+                </div>
+                <div class="sidebar-menu">
+                    <p class="menu-title">Main Menu</p>
+                    <a href="@Url.Action("Index", "Dashboard")" class="menu-item">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="@Url.Action("Index", "Plants")" class="menu-item">
+                        <i class="fas fa-leaf"></i>
+                        <span>Plant Tracking</span>
+                    </a>
+                    <a href="@Url.Action("Index", "Resources")" class="menu-item">
+                        <i class="fas fa-box"></i>
+                        <span>Resources</span>
+                    </a>
+                    <a href="@Url.Action("Index", "Machinery")" class="menu-item">
+                        <i class="fas fa-cogs"></i>
+                        <span>Machinery</span>
+                    </a>
+                    <a href="@Url.Action("Index", "Marketplace")" class="menu-item">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Marketplace</span>
+                    </a>
+                    <a href="@Url.Action("Index", "Sensors")" class="menu-item">
+                        <i class="fas fa-tint"></i>
+                        <span>Soil Humidity</span>
+                    </a>
+                    
+                    <p class="menu-title">Account</p>
+                    @if (User?.Identity?.IsAuthenticated == true)
+                    {
+                        <form asp-controller="Account" asp-action="Logout" method="post" class="menu-item" style="display:flex;align-items:center;gap:8px;">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="signout-btn" style="background:none;border:none;display:flex;align-items:center;gap:8px;color:inherit;padding:0;">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span class="signout-text">Sign out</span>
+                            </button>
+                        </form>
+                    }
+                </div>
+            </nav>
+        }
+
+        <main class="main-content@(showSidebar ? " main-content-expanded" : "")">
             <header class="top-header">
                 <div class="header-row">
                     <h1>@ViewData["Title"]</h1>
+
+                    @* Add button for common resource pages placed next to Home *@
+                    @if (new[] { "Plants", "Resources", "Machinery", "Marketplace" }.Contains(controller))
+                    {
+                        <a class="btn btn-success me-2" href="@Url.Action("Add", controller)">
+                            <i class="fas fa-plus"></i> Add
+                        </a>
+                    }
+
+                    <a href="@Url.Action("Index", "Home")" class="home-link ms-3" title="Home">
+                        <div class="home-icon"><i class="fas fa-home"></i></div>
+                    </a>
+
+                    <div class="ms-auto nav-right">
+                        @if (User?.Identity?.IsAuthenticated == true)
+                        {
+                            var email = User.Identity?.Name ?? User.FindFirst("email")?.Value ?? "";
+                            var name = "User";
+                            if (!string.IsNullOrEmpty(email) && email.Contains("@"))
+                            {
+                                name = email.Split('@')[0];
+                                if (name.Length > 0)
+                                {
+                                    name = char.ToUpper(name[0]) + name.Substring(1);
+                                }
+                            }
+                            <span class="me-3">Welcome @name!</span>
+                            <a class="btn btn-outline me-2" href="@Url.Action("Index", "Dashboard")">Dashboard</a>
+                            <form asp-controller="Account" asp-action="Logout" method="post" style="display:inline-block;">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-cancel">Sign out</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Login","Account")" class="btn btn-link">Login</a>
+                            <a href="@Url.Action("Register","Account")" class="btn btn-register ms-2">Register</a>
+                        }
+                    </div>
                 </div>
             </header>
             <div class="content-wrapper">
@@ -73,19 +121,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
     <script>
-        $(function () {
-            // Sidebar hover-based collapse
-            var $sidebar = $('nav.sidebar');
-            var $mainContent = $('.main-content');
-            
-            $sidebar.on('mouseenter', function () {
-                $sidebar.addClass('sidebar-expanded');
-                $mainContent.addClass('main-content-expanded');
-            }).on('mouseleave', function () {
-                $sidebar.removeClass('sidebar-expanded');
-                $mainContent.removeClass('main-content-expanded');
-            });
-        });
+        // Sidebar removed — no sidebar script required.
     </script>
 </body>
 </html>

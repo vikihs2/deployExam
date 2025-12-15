@@ -1,3 +1,6 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using ManagingAgriculture.Models;
@@ -76,17 +79,55 @@ namespace ManagingAgriculture.Controllers
         /// Returns listings filtered by active status, sorted by newest first.
         /// </summary>
         /// <returns>View with IEnumerable of MarketplaceListing</returns>
-        public IActionResult Index()
+        public IActionResult Index(string? category = null, string? q = null)
         {
             ViewData["Title"] = "Marketplace";
 
             // Filter active listings and sort by creation date (newest first)
             var listings = _listingsList
-                .Where(l => l.ListingStatus == "Active")
-                .OrderByDescending(l => l.CreatedDate)
-                .ToList();
+                .Where(l => l.ListingStatus == "Active");
 
-            return View(listings);
+            if (!string.IsNullOrWhiteSpace(category) && category != "All")
+            {
+                listings = listings.Where(l => l.Category.Equals(category, StringComparison.OrdinalIgnoreCase));
+            }
+
+            if (!string.IsNullOrWhiteSpace(q))
+            {
+                var qLower = q.ToLower();
+                listings = listings.Where(l => (l.ItemName ?? "").ToLower().Contains(qLower) || (l.Description ?? "").ToLower().Contains(qLower));
+            }
+
+            var results = listings.OrderByDescending(l => l.CreatedDate).ToList();
+
+            ViewBag.Categories = _listingsList.Select(l => l.Category).Distinct().ToList();
+            ViewBag.SelectedCategory = category ?? "All";
+            ViewBag.Query = q ?? string.Empty;
+
+            return View(results);
+        }
+
+        /// <summary>
+        /// Returns filtered listings as a partial view for AJAX updates
+        /// </summary>
+        [HttpGet]
+        public IActionResult Filter(string? category = null, string? q = null)
+        {
+            var listings = _listingsList.Where(l => l.ListingStatus == "Active");
+
+            if (!string.IsNullOrWhiteSpace(category) && category != "All")
+            {
+                listings = listings.Where(l => l.Category.Equals(category, StringComparison.OrdinalIgnoreCase));
+            }
+
+            if (!string.IsNullOrWhiteSpace(q))
+            {
+                var qLower = q.ToLower();
+                listings = listings.Where(l => (l.ItemName ?? "").ToLower().Contains(qLower) || (l.Description ?? "").ToLower().Contains(qLower));
+            }
+
+            var results = listings.OrderByDescending(l => l.CreatedDate).ToList();
+            return PartialView("_Grid", results);
         }
 
         /// <summary>
@@ -97,6 +138,7 @@ namespace ManagingAgriculture.Controllers
         [HttpGet]
         public IActionResult Add()
         {
+            ViewBag.UserMachinery = MachineryController.GetAll();
             return View(new MarketplaceListing());
         }
 
@@ -107,12 +149,24 @@ namespace ManagingAgriculture.Controllers
         /// <param name="listing">MarketplaceListing object populated from form submission</param>
         /// <returns>Redirects to Index on success, returns view with model on validation failure</returns>
         [HttpPost]
-        public IActionResult Add(MarketplaceListing listing)
+        public IActionResult Add(MarketplaceListing listing, int? selectedMachineryId)
         {
             // Validate model state
             if (!ModelState.IsValid)
             {
                 return View(listing);
+            }
+
+            // If user chose existing machinery, prefill some listing fields
+            if (selectedMachineryId.HasValue)
+            {
+                var mach = MachineryController.GetAll().FirstOrDefault(m => m.Id == selectedMachineryId.Value);
+                if (mach != null)
+                {
+                    listing.ItemName = string.IsNullOrWhiteSpace(listing.ItemName) ? mach.Name : listing.ItemName;
+                    listing.Description = string.IsNullOrWhiteSpace(listing.Description) ? $"{mach.Type} - {mach.Name}" : listing.Description;
+                    listing.Category = string.IsNullOrWhiteSpace(listing.Category) ? "Equipment" : listing.Category;
+                }
             }
 
             // Assign new ID (max ID + 1)

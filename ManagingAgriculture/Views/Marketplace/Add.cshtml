@@ -12,6 +12,20 @@
                 @Html.AntiForgeryToken()
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
+                @if (ViewBag.UserMachinery != null && ((List<ManagingAgriculture.Models.Machinery>)ViewBag.UserMachinery).Any())
+                {
+                    <div class="mb-3">
+                        <label class="form-label">Or choose from your existing machinery</label>
+                        <select name="selectedMachineryId" id="selectedMachineryId" class="form-select">
+                            <option value="">-- Use existing machinery (optional) --</option>
+                            @foreach (var m in (List<ManagingAgriculture.Models.Machinery>)ViewBag.UserMachinery)
+                            {
+                                <option value="@m.Id">@m.Name (@m.Type) - @m.Status</option>
+                            }
+                        </select>
+                    </div>
+                }
+
                 <!-- Item Name -->
                 <div class="mb-3">
                     <label asp-for="ItemName" class="form-label">Item Name</label>
@@ -108,10 +122,10 @@
 
                 <!-- Form Actions -->
                 <div class="d-flex gap-2 mt-4">
-                    <button type="submit" class="btn btn-success">
+                    <button type="submit" class="btn btn-save">
                         <i class="fas fa-save"></i> Post Listing
                     </button>
-                    <a href="@Url.Action("Index", "Marketplace")" class="btn btn-secondary">
+                    <a href="@Url.Action("Index", "Marketplace")" class="btn btn-cancel">
                         <i class="fas fa-times"></i> Cancel
                     </a>
                 </div>
@@ -119,3 +133,25 @@
         </div>
     </div>
 </div>
+
+<script>
+    (function(){
+        var select = document.getElementById('selectedMachineryId');
+        if (!select) return;
+        select.addEventListener('change', function(){
+            var id = this.value;
+            if (!id) return;
+            // Simple fill: send a small fetch to a new endpoint to get machinery details
+            fetch('/Machinery/DetailsApi/' + id)
+                .then(r => r.json())
+                .then(data => {
+                    if (data) {
+                        document.querySelector('[name="ItemName"]').value = data.name;
+                        document.querySelector('[name="Description"]').value = data.type + ' - ' + data.name;
+                        document.querySelector('[name="Category"]').value = 'Equipment';
+                    }
+                })
+                .catch(()=>{});
+        });
+    })();
+</script>

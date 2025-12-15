@@ -81,6 +81,17 @@ namespace ManagingAgriculture.Controllers
             return View(machinery);
         }
 
+        // Expose the in-memory list so other controllers can reference user machinery
+        public static List<Machinery> GetAll() => _machineryList;
+
+        [HttpGet]
+        public IActionResult DetailsApi(int id)
+        {
+            var mach = _machineryList.FirstOrDefault(m => m.Id == id);
+            if (mach == null) return NotFound();
+            return Json(new { id = mach.Id, name = mach.Name, type = mach.Type, status = mach.Status });
+        }
+
         /// <summary>
         /// Displays form to add new machinery.
         /// HTTP GET method for displaying empty form.

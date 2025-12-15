@@ -83,12 +83,8 @@
 
                 <!-- Form Actions -->
                 <div class="d-flex gap-2 mt-4">
-                    <button type="submit" class="btn btn-success">
-                        <i class="fas fa-save"></i> Save Equipment
-                    </button>
-                    <a href="@Url.Action("Index", "Machinery")" class="btn btn-secondary">
-                        <i class="fas fa-times"></i> Cancel
-                    </a>
+                    <a href="@Url.Action("Index", "Machinery")" class="btn btn-cancel"><i class="fas fa-times"></i> Cancel</a>
+                    <button type="submit" class="btn btn-save"><i class="fas fa-save"></i> Save Equipment</button>
                 </div>
             </form>
         </div>
