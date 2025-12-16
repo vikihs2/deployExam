@@ -6,7 +6,6 @@
 <div class="machinery-container">
     <div class="page-header">
         <div>
-
             <p class="subtitle">Track equipment and maintenance schedules</p>
         </div>
     </div>
@@ -58,7 +57,7 @@
                     </div>
                 </div>
                 <div class="machinery-actions">
-                    <a href="@Url.Action("Edit", "Machinery", new { id = machinery.Id })" class="btn btn-sm btn-primary">
+                    <a href="@Url.Action("Edit", "Machinery", new { id = machinery.Id })" class="btn btn-sm btn-outline-primary">
                         <i class="fas fa-edit"></i> Edit
                     </a>
                     <form method="post" action="@Url.Action("Delete", "Machinery")" style="display: inline-block;">

@@ -18,7 +18,7 @@
     <div class="d-flex">
         @if (showSidebar)
         {
-            <nav class="sidebar@(User?.Identity?.IsAuthenticated == true ? " sidebar-expanded" : "")">
+            <nav class="sidebar">
                 <div class="sidebar-brand">
                     @await Html.PartialAsync("_Logo")
                     <span>AgroCore</span>
@@ -70,42 +70,58 @@
                 <div class="header-row">
                     <h1>@ViewData["Title"]</h1>
 
-                    @* Add button for common resource pages placed next to Home *@
-                    @if (new[] { "Plants", "Resources", "Machinery", "Marketplace" }.Contains(controller))
-                    {
-                        <a class="btn btn-success me-2" href="@Url.Action("Add", controller)">
-                            <i class="fas fa-plus"></i> Add
-                        </a>
-                    }
-
-                    <a href="@Url.Action("Index", "Home")" class="home-link ms-3" title="Home">
-                        <div class="home-icon"><i class="fas fa-home"></i></div>
-                    </a>
-
                     <div class="ms-auto nav-right">
-                        @if (User?.Identity?.IsAuthenticated == true)
+                        @if (new[] { "Plants", "Resources", "Machinery", "Marketplace" }.Contains(controller))
                         {
-                            var email = User.Identity?.Name ?? User.FindFirst("email")?.Value ?? "";
-                            var name = "User";
-                            if (!string.IsNullOrEmpty(email) && email.Contains("@"))
-                            {
-                                name = email.Split('@')[0];
-                                if (name.Length > 0)
-                                {
-                                    name = char.ToUpper(name[0]) + name.Substring(1);
-                                }
-                            }
-                            <span class="me-3">Welcome @name!</span>
-                            <a class="btn btn-outline me-2" href="@Url.Action("Index", "Dashboard")">Dashboard</a>
-                            <form asp-controller="Account" asp-action="Logout" method="post" style="display:inline-block;">
-                                @Html.AntiForgeryToken()
-                                <button type="submit" class="btn btn-cancel">Sign out</button>
-                            </form>
+                            <!-- On these resource pages show only Add (if available) and Home at the far right -->
+                            <a class="btn btn-success me-2" href="@Url.Action("Add", controller)">
+                                <i class="fas fa-plus"></i> Add
+                            </a>
+                            <a href="@Url.Action("Index", "Home")" class="home-link ms-3" title="Home">
+                                <div class="home-icon"><i class="fas fa-home"></i></div>
+                            </a>
                         }
                         else
                         {
-                            <a href="@Url.Action("Login","Account")" class="btn btn-link">Login</a>
-                            <a href="@Url.Action("Register","Account")" class="btn btn-register ms-2">Register</a>
+                            @if (User?.Identity?.IsAuthenticated == true)
+                            {
+                                var email = User.Identity?.Name ?? User.FindFirst("email")?.Value ?? "";
+                                var name = "User";
+                                if (!string.IsNullOrEmpty(email) && email.Contains("@"))
+                                {
+                                    name = email.Split('@')[0];
+                                    if (name.Length > 0)
+                                    {
+                                        name = char.ToUpper(name[0]) + name.Substring(1);
+                                    }
+                                }
+                                // Show Admin when user is in role Admin or username/email matches admin patterns
+                                if (User.IsInRole("Admin") || name.Equals("admin", StringComparison.OrdinalIgnoreCase) || email.StartsWith("admin", StringComparison.OrdinalIgnoreCase) || email.Equals("admin@gmail.com", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    name = "Admin";
+                                }
+                                <span class="me-3">Welcome @name!</span>
+                                @* Show Dashboard/Sign out only on the public Home page, not on Dashboard itself *@
+                                @if (controller == "Home")
+                                {
+                                    <a class="btn btn-outline me-2" href="@Url.Action("Index", "Dashboard")">Dashboard</a>
+                                    <form asp-controller="Account" asp-action="Logout" method="post" style="display:inline-block;">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-signout">Sign out</button>
+                                    </form>
+                                }
+                                <a href="@Url.Action("Index", "Home")" class="home-link ms-3" title="Home">
+                                    <div class="home-icon"><i class="fas fa-home"></i></div>
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("Login","Account")" class="btn btn-link">Login</a>
+                                <a href="@Url.Action("Register","Account")" class="btn btn-register ms-2">Register</a>
+                                <a href="@Url.Action("Index", "Home")" class="home-link ms-3" title="Home">
+                                    <div class="home-icon"><i class="fas fa-home"></i></div>
+                                </a>
+                            }
                         }
                     </div>
                 </div>

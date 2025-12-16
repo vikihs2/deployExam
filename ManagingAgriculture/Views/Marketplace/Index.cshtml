@@ -12,40 +12,42 @@
     </div>
 
     <div class="marketplace-filters">
-        <form class="d-flex gap-2" onsubmit="return false;">
+        <form onsubmit="return false;">
             <input type="text" name="q" value="@(ViewBag.Query ?? "")" class="marketplace-search form-control" placeholder="Search equipment..." />
             @{
                 var selectedCat = (ViewBag.SelectedCategory as string) ?? "All";
             }
-            <select name="category" class="marketplace-category form-select">
-                @if (selectedCat == "All")
-                {
-                    <option value="All" selected>All</option>
-                }
-                else
-                {
-                    <option value="All">All</option>
-                }
-
-                @{
-                    var cats = (ViewBag.Categories as IEnumerable<string>) ?? Enumerable.Empty<string>();
-                    var extras = new[] { "Parts", "Tools" };
-                    foreach (var c in cats.Union(extras))
+            <div class="select-wrap">
+                <select name="category" class="marketplace-category form-select">
+                    @if (selectedCat == "All")
                     {
-                        if (selectedCat == c)
+                        <option value="All" selected>All</option>
+                    }
+                    else
+                    {
+                        <option value="All">All</option>
+                    }
+
+                    @{
+                        var cats = (ViewBag.Categories as IEnumerable<string>) ?? Enumerable.Empty<string>();
+                        var extras = new[] { "Parts", "Tools" };
+                        foreach (var c in cats.Union(extras))
                         {
-                            <option value="@c" selected>@c</option>
-                        }
-                        else
-                        {
-                            <option value="@c">@c</option>
+                            if (selectedCat == c)
+                            {
+                                <option value="@c" selected>@c</option>
+                            }
+                            else
+                            {
+                                <option value="@c">@c</option>
+                            }
                         }
                     }
-                }
-            </select>
-            <button type="submit" class="btn btn-outline-secondary">Filter</button>
+                </select>
+                <span class="select-indicator">▾</span>
+            </div>
         </form>
-    </div>
+    </div> 
 
     <div id="marketplace-grid">
         @await Html.PartialAsync("_Grid", (object)Model)

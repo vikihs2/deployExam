@@ -50,15 +50,28 @@
         .card p{color:#6b6b6b;font-size:13px}
 
         /* CTA dark strip */
-        .cta{background:var(--home-layer-upper);color:#fff;padding:48px 20px;text-align:center}
+        .cta{background:#342d26;color:#fff;padding:48px 20px;text-align:center}
         .cta h2{font-family:'Georgia',serif;font-size:24px;margin-bottom:12px}
         .cta p{opacity:0.9;margin-bottom:16px}
         .cta .cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-        /* CTA: use gold/yellow for visual emphasis */
+        /* CTA: green theme on home */
         .cta .btn-primary{background:var(--brand-green);border:none;padding:10px 18px;border-radius:6px;color:#fff;text-decoration:none}
         .cta .btn-primary:hover{background:var(--brand-green-dark)}
-        .cta .btn-outline{background:transparent;border:1px solid rgba(255,255,255,0.2);color:#fff;padding:10px 16px;border-radius:6px;text-decoration:none}
-        .cta .btn-outline:hover{background:rgba(255,255,255,0.08)}
+        .cta .btn-outline{background:transparent;border:1px solid var(--brand-green);color:var(--brand-green);padding:10px 16px;border-radius:6px;text-decoration:none}
+        .cta .btn-outline:hover{background:var(--brand-green);color:#fff}
+
+        /* hero accent color for last words */
+        .hero h1 .accent{ color: var(--brand-green); }
+
+        /* style Dashboard & Sign out JUST on the home page */
+        .top-nav .nav-right .btn-outline, .top-nav .nav-right .btn-cancel {
+            background: var(--brand-green);
+            border-color: var(--brand-green);
+            color: #fff;
+        }
+        .top-nav .nav-right .btn-outline:hover, .top-nav .nav-right .btn-cancel:hover{
+            background: var(--brand-green-dark);
+        }
 
         /* Top nav */
         .top-nav{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;position:fixed;left:0;right:0;top:0;z-index:100;background:rgba(0,0,0,0.25);-webkit-backdrop-filter: blur(6px);backdrop-filter: blur(6px);color:#fff}
@@ -67,6 +80,16 @@
         .brand{font-weight:700;color:#fff;margin-left:6px}
         .nav-right{display:flex;align-items:center;gap:10px}
         .btn-login{background:transparent;border:none;color:#fff}
+
+        /* Home page: style Dashboard & Sign out to match home CTA (only on home) */
+        .top-nav .nav-right .btn-outline, .top-nav .nav-right .btn-cancel {
+            background: var(--brand-green);
+            border-color: var(--brand-green);
+            color: #fff;
+        }
+        .top-nav .nav-right .btn-outline:hover, .top-nav .nav-right .btn-cancel:hover{
+            background: var(--brand-green-dark);
+        }
 
         /* Footer */
         .site-footer{background:#2b201b;color:rgba(255,255,255,0.95);padding:28px 16px}

@@ -68,6 +68,8 @@ document.addEventListener('DOMContentLoaded', function () {
 	sidebar.classList.add('sidebar-shrink');
 	if (main) main.classList.add('main-content-shrink');
 
+	let _collapseTimeout = null;
+
 	sidebar.addEventListener('mouseenter', () => {
 		sidebar.classList.remove('sidebar-shrink');
 		sidebar.classList.add('sidebar-expanded');
@@ -77,5 +79,22 @@ document.addEventListener('DOMContentLoaded', function () {
 		sidebar.classList.add('sidebar-shrink');
 		sidebar.classList.remove('sidebar-expanded');
 		if (main) { main.classList.add('main-content-shrink'); main.classList.remove('main-content-expanded'); }
+	});
+
+	// When user clicks inside the sidebar, briefly keep it expanded so it doesn't "snap" or get stuck
+	sidebar.addEventListener('click', (e) => {
+		clearTimeout(_collapseTimeout);
+		sidebar.classList.remove('sidebar-shrink');
+		sidebar.classList.add('sidebar-expanded');
+		if (main) { main.classList.remove('main-content-shrink'); main.classList.add('main-content-expanded'); }
+
+		// After a short delay, allow it to collapse again if the cursor isn't hovering
+		_collapseTimeout = setTimeout(() => {
+			if (!sidebar.matches(':hover')) {
+				sidebar.classList.add('sidebar-shrink');
+				sidebar.classList.remove('sidebar-expanded');
+				if (main) { main.classList.add('main-content-shrink'); main.classList.remove('main-content-expanded'); }
+			}
+		}, 700);
 	});
 });

@@ -115,5 +115,5 @@ C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\bin\Debug\net9.0\runtimes\osx-x64\native\libSystem.IO.Ports.Native.dylib
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\bin\Debug\net9.0\runtimes\unix\lib\net9.0\System.IO.Ports.dll
 C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\bin\Debug\net9.0\runtimes\win\lib\net9.0\System.IO.Ports.dll
-C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\compressed\o22admou70-to98tcgt3o.gz
-C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\compressed\gas34c1qis-zcdcnj0ulz.gz
+C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\compressed\o22admou70-ueluj8en06.gz
+C:\Users\Viktor\Desktop\diplomna.rabota\managingAgriculture\Managing-agriculture\ManagingAgriculture\obj\Debug\net9.0\compressed\gas34c1qis-ykbnoakxpm.gz

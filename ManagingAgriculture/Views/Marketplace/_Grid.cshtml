@@ -61,8 +61,8 @@
                 </div>
 
                 <div class="listing-contact-row">
-                    <span class="btn btn-contact" title="Seller phone"> <i class="fas fa-phone"></i> <span class="seller-phone">@listing.SellerPhone</span></span>
-                    <a href="@Url.Action("Edit", "Marketplace", new { id = listing.Id })" class="btn btn-sm btn-primary action-btn">
+                    <span class="seller-phone"><i class="fas fa-phone"></i> @listing.SellerPhone</span>
+                    <a href="@Url.Action("Edit", "Marketplace", new { id = listing.Id })" class="btn btn-sm btn-outline-primary action-btn">
                         <i class="fas fa-edit"></i> Edit
                     </a>
                     <form method="post" action="@Url.Action("Delete", "Marketplace")" style="display: inline-block;">
