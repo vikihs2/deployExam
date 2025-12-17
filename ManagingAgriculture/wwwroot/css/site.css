@@ -11,7 +11,7 @@
   --brand-green: #2d6a4f; /* global brand green set to requested */
   --brand-green-dark: #1b4332; /* darker variant */
   --home-layer-upper: #1b4332; /* dark overlay for hero/footer as requested */
-  --home-layer-bottom: #1b4332;
+  --home-layer-bottom: #1c1711;
 } 
 
 /* Override Bootstrap success button to match brand green */
@@ -24,17 +24,18 @@
   --bs-btn-border-color: var(--brand-green-dark);
 }
 
-/* Brand-specific button styles (save / success / add) */
-.btn-success, .btn-save, .btn-post, .btn-add-plant {
-  background-color: var(--brand-green) !important;
-  border-color: var(--brand-green) !important;
+/* Brand-specific button styles (save / success / add plant) */
+.btn-success, .btn-post, .btn-add-plant {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
   color: #fff !important;
 }
-.btn-success:hover, .btn-save:hover, .btn-post:hover, .btn-add-plant:hover {
+.btn-success:hover, .btn-post:hover, .btn-add-plant:hover {
   background-color: var(--brand-green-dark) !important;
   border-color: var(--brand-green-dark) !important;
   color: #fff !important;
 }
+/* Note: .btn-save intentionally uses blue (#004cff) per design */
 
 /* Edit buttons (outline primary) should be blue */
 .btn-outline-primary {
@@ -124,15 +125,21 @@ input:focus, textarea:focus, select:focus {
 }
 
 .sidebar.sidebar-expanded {
-  /* start visually collapsed; expand on hover to restore previous behavior */
-  width: 70px;
+  width: 250px;
   padding: 20px;
 }
 
-/* When expanded and hovered, open to full width */
-.sidebar.sidebar-expanded:hover {
-  width: 250px;
+/* Shrunk state (explicit) */
+.sidebar.sidebar-shrink {
+  width: 70px;
+  padding: 20px 8px;
+  justify-content: center;
+  padding: 12px 0;
 }
+
+/* Hover fallback: expand the sidebar on mouse hover (CSS-only fallback if JS doesn't run) */
+.sidebar:hover { width: 250px; }
+.sidebar:hover ~ .main-content { margin-left: 250px; }
 
 .sidebar-brand {
   display: flex;
@@ -145,11 +152,35 @@ input:focus, textarea:focus, select:focus {
   white-space: nowrap;
   opacity: 0;
   transition: opacity 0.3s ease;
+  padding-left: 15px; /* align the brand text with the menu items */
 }
 
 .sidebar.sidebar-expanded .sidebar-brand {
   opacity: 1;
 }
+
+/* When we show text-only brand make sure it aligns and stays readable */
+.sidebar-brand .brand-text { font-weight:700; font-size:20px }
+.sidebar-brand .brand-emoji { display:none; font-size:22px; align-items:center; justify-content:center }
+.sidebar:not(.sidebar-expanded) .sidebar-brand { justify-content:center }
+.sidebar:not(.sidebar-expanded) .sidebar-brand .brand-text { display:none }
+.sidebar:not(.sidebar-expanded) .sidebar-brand .brand-emoji { display:inline-flex }
+.sidebar.sidebar-expanded .sidebar-brand .brand-emoji { display:none }
+
+/* Show a small emoji in the top nav when sidebar is collapsed */
+.sidebar:not(.sidebar-expanded) ~ .main-content .top-nav .top-brand-emoji { display:inline-flex }
+.sidebar:not(.sidebar-expanded) ~ .main-content .top-nav .brand { display:none }
+.top-nav .top-brand-emoji { display:none; font-size:20px; margin-right:8px }
+
+/* Home icon to match Add button color */
+.home-icon { background: var(--accent-green); color:#fff; border-radius:50%; width:36px; height:36px; display:inline-flex; align-items:center; justify-content:center; transition: background 0.15s ease }
+.home-icon i { font-size:16px }
+.home-link:hover .home-icon { background: var(--brand-green) }
+
+/* Ensure Add buttons use accent green and hover to brand green */
+.btn-add, .btn-add-plant, .btn-post-listing { background: var(--accent-green) !important; border-color: var(--accent-green) !important }
+.btn-add:hover, .btn-add-plant:hover, .btn-post-listing:hover { background: var(--brand-green) !important; border-color: var(--brand-green) !important }
+
 
 .sidebar-brand i {
   font-size: 28px;
@@ -210,6 +241,13 @@ input:focus, textarea:focus, select:focus {
   color: white;
 }
 
+/* Sidebar Dashboard link hover styles (match other menu-item hover) */
+.menu-item.dashboard-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.menu-item.dashboard-link i, .menu-item.dashboard-link span { color: #fff !important }
+
+
 .menu-item i {
   font-size: 18px;
   width: 20px;
@@ -223,9 +261,11 @@ input:focus, textarea:focus, select:focus {
   padding: 12px 0;
 }
 
-/* Adjust main content margin while sidebar is collapsed vs hovered */
-.main-content-expanded { margin-left: 70px; }
-.sidebar.sidebar-expanded:hover ~ .main-content { margin-left: 250px; }
+/* Adjust main content margin while sidebar is collapsed vs expanded */
+/* expanded state moves content to make room for wide sidebar */
+.sidebar.sidebar-expanded ~ .main-content { margin-left: 250px; }
+/* shrunk state keeps content closer */
+.main-content-shrink, .main-content { margin-left: 70px; }
 
 .sidebar.sidebar-shrink .sidebar-brand {
   justify-content: center;
@@ -258,8 +298,11 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* Home page layered colors */
-.cta { background: var(--home-layer-upper); }
+.cta { background: #262018; }
 .site-footer { background: var(--home-layer-bottom); }
+
+
+
 
 /* Marketplace badge for 'new' */
 .listing-badge.new { background: rgba(191,64,191,0.12); color:#BF40BF; border:1px solid rgba(191,64,191,0.18); }
@@ -324,6 +367,30 @@ input:focus, textarea:focus, select:focus {
 /* Global cancel/save button styles */
 .btn-cancel { background: transparent; border: 1px solid var(--border-color); color: var(--text-primary); padding: 6px 10px; border-radius:6px }
 .btn-save, .btn-post { background: var(--brand-green); color:#fff; padding:6px 10px; border-radius:6px }
+
+/* Dashboard button styles (top header) - use accent green to match Add */
+.btn-dashboard { background: var(--accent-green) !important; border-color: var(--accent-green) !important; color:#fff !important; padding:6px 10px; border-radius:6px }
+.btn-dashboard:hover { background: var(--brand-green) !important; border-color:var(--brand-green) !important; color:#fff !important }
+
+/* Sign out uses the default cancel style — keep sign-out uncolored by using `.btn-cancel` */
+/* .btn-signout rules removed to revert to previous visual behavior */
+
+
+/* Add button style (use for Add links/buttons across index pages) */
+.btn-add { background: var(--accent-green) !important; border-color: var(--accent-green) !important; color: #fff; border: none; padding: 8px 12px; border-radius:6px; display:inline-flex; align-items:center; gap:8px }
+.btn-add:hover { background: var(--brand-green) !important; border-color: var(--brand-green) !important; color:#fff }
+.btn-sm.btn-add { padding:4px 8px }
+
+/* Sidebar sign-out: remove the grey background and border to match requested neutral appearance */
+.sidebar .btn-cancel { background: transparent !important; border: none !important; color: #fff !important; box-shadow:none !important }
+.sidebar .btn-cancel i { margin-right:6px }
+
+/* Marketplace listing contact row layout */
+.listing-contact-row { display:flex; align-items:center; gap:8px; margin-top:12px }
+.listing-contact-row .action-buttons { display:flex; gap:8px }
+.listing-contact-row .seller-phone { margin-left:auto; color:var(--text-primary); display:inline-flex; align-items:center; gap:8px }
+.listing-contact-row .action-buttons .action-btn { margin:0 }
+
 .btn-sm.btn-save, .btn-sm.btn-post { padding:4px 8px }
 
 .top-header h1 {
@@ -617,7 +684,8 @@ input:focus, textarea:focus, select:focus {
 }
 
 .btn-add-plant {
-  background-color: var(--brand-green);
+  background-color: var(--accent-green);
+  border-color: var(--accent-green);
   color: white;
   border: none;
   padding: 12px 24px;
@@ -632,7 +700,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 .btn-add-plant:hover {
-  background-color: var(--brand-green-dark);
+  background-color: var(--brand-green);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(36, 88, 58, 0.25);
 }
@@ -1537,7 +1605,7 @@ input:focus, textarea:focus, select:focus {
   }
 }
 .btn-post-listing {
-  background-color: var(--secondary-color);
+  background-color: var(--accent-green);
   color: white;
   border: none;
   padding: 12px 24px;
@@ -1551,7 +1619,7 @@ input:focus, textarea:focus, select:focus {
   transition: all 0.3s ease;
 }
 .btn-post-listing:hover {
-  background-color: var(--primary-color);
+  background-color: var(--brand-green);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(64, 145, 108, 0.3);
 }

@@ -51,6 +51,13 @@
                     </div>
                 </div>
 
+                <!-- Engine Hours -->
+                <div class="mb-3">
+                    <label asp-for="EngineHours" class="form-label">Engine Hours (h)</label>
+                    <input asp-for="EngineHours" class="form-control non-negative" type="number" step="0.1" min="0" placeholder="0.0" value='@(Model?.EngineHours?.ToString("N1") ?? "0.0")' />
+                    <span asp-validation-for="EngineHours" class="text-danger"></span>
+                </div>
+
                 <!-- Current Status -->
                 <div class="mb-3">
                     <label asp-for="Status" class="form-label">Current Condition</label>

@@ -43,6 +43,8 @@
                     <p class="listing-desc">@listing.Description</p>
                 }
 
+                <div class="listing-engine-hours">Engine Hours: @(listing.EngineHours.HasValue ? listing.EngineHours.Value.ToString("N1") : "0.0") h</div> 
+
                 <div class="listing-sale">
                     <span class="sale-label">@listingTypeLabel</span>
                     @if ((listing.SalePrice ?? 0) > 0)
@@ -61,16 +63,18 @@
                 </div>
 
                 <div class="listing-contact-row">
+                    <div class="action-buttons">
+                        <a href="@Url.Action("Edit", "Marketplace", new { id = listing.Id })" class="btn btn-sm btn-outline-primary action-btn">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <form method="post" action="@Url.Action("Delete", "Marketplace")" style="display: inline-block;">
+                            <input type="hidden" name="id" value="@listing.Id" />
+                            <button type="submit" class="btn btn-sm btn-danger action-btn" onclick="return confirm('Are you sure?')">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </form>
+                    </div>
                     <span class="seller-phone"><i class="fas fa-phone"></i> @listing.SellerPhone</span>
-                    <a href="@Url.Action("Edit", "Marketplace", new { id = listing.Id })" class="btn btn-sm btn-outline-primary action-btn">
-                        <i class="fas fa-edit"></i> Edit
-                    </a>
-                    <form method="post" action="@Url.Action("Delete", "Marketplace")" style="display: inline-block;">
-                        <input type="hidden" name="id" value="@listing.Id" />
-                        <button type="submit" class="btn btn-sm btn-danger action-btn" onclick="return confirm('Are you sure?')">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                    </form>
                 </div>
             </div>
         </div>

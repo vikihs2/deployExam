@@ -20,12 +20,12 @@
         {
             <nav class="sidebar">
                 <div class="sidebar-brand">
-                    @await Html.PartialAsync("_Logo")
-                    <span>AgroCore</span>
+                    <div class="brand-emoji" aria-hidden="true">🌱</div>
+                    <span class="brand-text">AgroCore</span>
                 </div>
                 <div class="sidebar-menu">
                     <p class="menu-title">Main Menu</p>
-                    <a href="@Url.Action("Index", "Dashboard")" class="menu-item">
+                    <a href="@Url.Action("Index", "Dashboard")" class="menu-item dashboard-link">
                         <i class="fas fa-home"></i>
                         <span>Dashboard</span>
                     </a>
@@ -55,7 +55,7 @@
                     {
                         <form asp-controller="Account" asp-action="Logout" method="post" class="menu-item" style="display:flex;align-items:center;gap:8px;">
                             @Html.AntiForgeryToken()
-                            <button type="submit" class="signout-btn" style="background:none;border:none;display:flex;align-items:center;gap:8px;color:inherit;padding:0;">
+                            <button type="submit" class="btn btn-cancel" style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:6px;">
                                 <i class="fas fa-sign-out-alt"></i>
                                 <span class="signout-text">Sign out</span>
                             </button>
@@ -74,7 +74,7 @@
                         @if (new[] { "Plants", "Resources", "Machinery", "Marketplace" }.Contains(controller))
                         {
                             <!-- On these resource pages show only Add (if available) and Home at the far right -->
-                            <a class="btn btn-success me-2" href="@Url.Action("Add", controller)">
+                            <a class="btn btn-add me-2" href="@Url.Action("Add", controller)">
                                 <i class="fas fa-plus"></i> Add
                             </a>
                             <a href="@Url.Action("Index", "Home")" class="home-link ms-3" title="Home">
@@ -104,10 +104,10 @@
                                 @* Show Dashboard/Sign out only on the public Home page, not on Dashboard itself *@
                                 @if (controller == "Home")
                                 {
-                                    <a class="btn btn-outline me-2" href="@Url.Action("Index", "Dashboard")">Dashboard</a>
+                                    <a class="btn btn-dashboard me-2" href="@Url.Action("Index", "Dashboard")">Dashboard</a>
                                     <form asp-controller="Account" asp-action="Logout" method="post" style="display:inline-block;">
                                         @Html.AntiForgeryToken()
-                                        <button type="submit" class="btn btn-signout">Sign out</button>
+                                        <button type="submit" class="btn btn-cancel">Sign out</button>
                                     </form>
                                 }
                                 <a href="@Url.Action("Index", "Home")" class="home-link ms-3" title="Home">
@@ -116,9 +116,7 @@
                             }
                             else
                             {
-                                <a href="@Url.Action("Login","Account")" class="btn btn-link">Login</a>
-                                <a href="@Url.Action("Register","Account")" class="btn btn-register ms-2">Register</a>
-                                <a href="@Url.Action("Index", "Home")" class="home-link ms-3" title="Home">
+                                    <a href="@Url.Action("Index", "Home")" class="home-link ms-3" title="Home">
                                     <div class="home-icon"><i class="fas fa-home"></i></div>
                                 </a>
                             }

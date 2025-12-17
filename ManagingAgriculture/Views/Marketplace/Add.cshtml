@@ -68,6 +68,13 @@
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
 
+                <!-- Engine Hours (optional for machinery listings) -->
+                <div class="mb-3">
+                    <label asp-for="EngineHours" class="form-label">Engine Hours (h) <small class="text-muted">(optional)</small></label>
+                    <input asp-for="EngineHours" class="form-control non-negative" type="number" step="0.1" min="0" placeholder="e.g., 123.4" value='@(Model?.EngineHours?.ToString("N1") ?? "0.0")' />
+                    <span asp-validation-for="EngineHours" class="text-danger"></span>
+                </div>
+
                 <!-- Listing Type and Pricing -->
                 <hr class="my-4" />
                 <h5 class="mb-3">Listing Type & Pricing</h5>

@@ -47,6 +47,10 @@
                         <span class="info-label">Last Service</span>
                         <span class="info-value">@(machinery.LastServiceDate?.ToShortDateString() ?? "N/A")</span>
                     </div>
+                    <div>
+                        <span class="info-label">Engine Hours</span>
+                        <span class="info-value">@((machinery.EngineHours.HasValue ? machinery.EngineHours.Value.ToString("N1") : "0.0")) h</span>
+                    </div>
                 </div>
                 <div class="next-service-box @urgencyClass">
                     <i class="fas fa-calendar"></i>

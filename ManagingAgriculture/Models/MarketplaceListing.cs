@@ -67,5 +67,11 @@ namespace ManagingAgriculture.Models
 
 		/// <summary>Last update date</summary>
 		public DateTime UpdatedDate { get; set; }
+
+		/// <summary>Engine hours for machinery listings (motor hours / operating hours)</summary>
+		[Display(Name = "Engine Hours")]
+		[Range(0, 9999999, ErrorMessage = "Engine hours cannot be negative")]
+		[Column(TypeName = "decimal(10,1)")]
+		public decimal? EngineHours { get; set; }
 	}
 }

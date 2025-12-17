@@ -118,6 +118,13 @@ namespace ManagingAgriculture.Controllers
                 return View(machinery);
             }
 
+            // Additional validation: Engine hours must not be negative
+            if (machinery.EngineHours.HasValue && machinery.EngineHours.Value < 0)
+            {
+                ModelState.AddModelError(nameof(machinery.EngineHours), "Engine hours cannot be negative");
+                return View(machinery);
+            }
+
             // Assign new ID (max ID + 1)
             machinery.Id = _machineryList.Count > 0 ? _machineryList.Max(m => m.Id) + 1 : 1;
 
@@ -173,6 +180,13 @@ namespace ManagingAgriculture.Controllers
             // Validate model state
             if (!ModelState.IsValid)
             {
+                return View(machinery);
+            }
+
+            // Additional validation: Engine hours must not be negative
+            if (machinery.EngineHours.HasValue && machinery.EngineHours.Value < 0)
+            {
+                ModelState.AddModelError(nameof(machinery.EngineHours), "Engine hours cannot be negative");
                 return View(machinery);
             }
 
