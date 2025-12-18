@@ -1,6 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using ManagingAgriculture.Models;
+using ManagingAgriculture.Data;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System;
 
 namespace ManagingAgriculture.Controllers
 {
@@ -11,65 +17,26 @@ namespace ManagingAgriculture.Controllers
     [Authorize]
     public class MachineryController : Controller
     {
-        /// <summary>
-        /// In-memory data store for machinery collection.
-        /// This is a prototype implementation using a static List.
-        /// In production, this would be replaced with Entity Framework Core database access.
-        /// </summary>
-        private static List<Machinery> _machineryList = new()
+        private readonly ApplicationDbContext _context;
+
+        public MachineryController(ApplicationDbContext context)
         {
-            new Machinery
-            {
-                Id = 1,
-                Name = "John Deere 5075E",
-                Type = "Tractor",
-                Status = "Excellent",
-                PurchaseDate = new DateTime(2022, 3, 15),
-                LastServiceDate = new DateTime(2025, 11, 5),
-                NextServiceDate = new DateTime(2025, 12, 5),
-                PurchasePrice = 45000,
-                CreatedDate = new DateTime(2022, 3, 15),
-                UpdatedDate = new DateTime(2025, 11, 5)
-            },
-            new Machinery
-            {
-                Id = 2,
-                Name = "Kubota M5-091",
-                Type = "Tractor",
-                Status = "Good",
-                PurchaseDate = new DateTime(2021, 6, 20),
-                LastServiceDate = new DateTime(2025, 10, 15),
-                NextServiceDate = new DateTime(2025, 11, 15),
-                PurchasePrice = 38000,
-                CreatedDate = new DateTime(2021, 6, 20),
-                UpdatedDate = new DateTime(2025, 10, 15)
-            },
-            new Machinery
-            {
-                Id = 3,
-                Name = "Claas Lexion 780",
-                Type = "Combine Harvester",
-                Status = "Fair",
-                PurchaseDate = new DateTime(2019, 8, 10),
-                LastServiceDate = new DateTime(2025, 9, 1),
-                NextServiceDate = new DateTime(2025, 12, 1),
-                PurchasePrice = 85000,
-                CreatedDate = new DateTime(2019, 8, 10),
-                UpdatedDate = new DateTime(2025, 9, 1)
-            }
-        };
+            _context = context;
+        }
 
         /// <summary>
         /// Displays list of all machinery in the farm inventory.
         /// Returns machinery sorted by status (Excellent first).
         /// </summary>
         /// <returns>View with IEnumerable of Machinery</returns>
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             ViewData["Title"] = "Machinery Management";
 
+            var machineryList = await _context.Machinery.ToListAsync();
+
             // Sort machinery by status priority for better visibility
-            var machinery = _machineryList.OrderBy(m => m.Status switch
+            var sortedMachinery = machineryList.OrderBy(m => m.Status switch
             {
                 "Excellent" => 1,
                 "Good" => 2,
@@ -78,16 +45,13 @@ namespace ManagingAgriculture.Controllers
                 _ => 5
             }).ToList();
 
-            return View(machinery);
+            return View(sortedMachinery);
         }
 
-        // Expose the in-memory list so other controllers can reference user machinery
-        public static List<Machinery> GetAll() => _machineryList;
-
         [HttpGet]
-        public IActionResult DetailsApi(int id)
+        public async Task<IActionResult> DetailsApi(int id)
         {
-            var mach = _machineryList.FirstOrDefault(m => m.Id == id);
+            var mach = await _context.Machinery.FindAsync(id);
             if (mach == null) return NotFound();
             return Json(new { id = mach.Id, name = mach.Name, type = mach.Type, status = mach.Status });
         }
@@ -110,7 +74,8 @@ namespace ManagingAgriculture.Controllers
         /// <param name="machinery">Machinery object populated from form submission</param>
         /// <returns>Redirects to Index on success, returns view with model on validation failure</returns>
         [HttpPost]
-        public IActionResult Add(Machinery machinery)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Add(Machinery machinery)
         {
             // Validate model state
             if (!ModelState.IsValid)
@@ -125,15 +90,13 @@ namespace ManagingAgriculture.Controllers
                 return View(machinery);
             }
 
-            // Assign new ID (max ID + 1)
-            machinery.Id = _machineryList.Count > 0 ? _machineryList.Max(m => m.Id) + 1 : 1;
-
             // Set timestamps for audit trail
             machinery.CreatedDate = DateTime.Now;
             machinery.UpdatedDate = DateTime.Now;
 
-            // Add to collection
-            _machineryList.Add(machinery);
+            // Add to database
+            _context.Machinery.Add(machinery);
+            await _context.SaveChangesAsync();
 
             // Redirect to machinery list view
             return RedirectToAction(nameof(Index));
@@ -146,10 +109,10 @@ namespace ManagingAgriculture.Controllers
         /// <param name="id">ID of machinery to display</param>
         /// <returns>View with Machinery model if found, or NotFound if machinery doesn't exist</returns>
         [HttpGet]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             // Find machinery by ID
-            var machinery = _machineryList.FirstOrDefault(m => m.Id == id);
+            var machinery = await _context.Machinery.FindAsync(id);
 
             if (machinery == null)
             {
@@ -167,12 +130,10 @@ namespace ManagingAgriculture.Controllers
         /// <param name="machinery">Updated Machinery object from form submission</param>
         /// <returns>Redirects to Index on success, returns view with model on validation failure</returns>
         [HttpPost]
-        public IActionResult Edit(int id, Machinery machinery)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, Machinery machinery)
         {
-            // Find machinery in collection
-            var existingMachinery = _machineryList.FirstOrDefault(m => m.Id == id);
-
-            if (existingMachinery == null)
+            if (id != machinery.Id)
             {
                 return NotFound();
             }
@@ -190,14 +151,32 @@ namespace ManagingAgriculture.Controllers
                 return View(machinery);
             }
 
-            // Preserve creation date and ID
-            machinery.Id = id;
-            machinery.CreatedDate = existingMachinery.CreatedDate;
-            machinery.UpdatedDate = DateTime.Now;
+            try
+            {
+                var existingMachinery = await _context.Machinery.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id);
+                if (existingMachinery == null)
+                {
+                    return NotFound();
+                }
 
-            // Update record in collection
-            var index = _machineryList.FindIndex(m => m.Id == id);
-            _machineryList[index] = machinery;
+                // Preserve creation date
+                machinery.CreatedDate = existingMachinery.CreatedDate;
+                machinery.UpdatedDate = DateTime.Now;
+
+                _context.Update(machinery);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!MachineryExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
             // Redirect to machinery list view
             return RedirectToAction(nameof(Index));
@@ -210,18 +189,25 @@ namespace ManagingAgriculture.Controllers
         /// <param name="id">ID of machinery to delete</param>
         /// <returns>Redirects to Index after deletion</returns>
         [HttpPost]
-        public IActionResult Delete(int id)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
         {
-            // Find and remove machinery from collection
-            var machinery = _machineryList.FirstOrDefault(m => m.Id == id);
+            // Find and remove machinery from database
+            var machinery = await _context.Machinery.FindAsync(id);
 
             if (machinery != null)
             {
-                _machineryList.Remove(machinery);
+                _context.Machinery.Remove(machinery);
+                await _context.SaveChangesAsync();
             }
 
             // Redirect to machinery list view
             return RedirectToAction(nameof(Index));
+        }
+
+        private bool MachineryExists(int id)
+        {
+            return _context.Machinery.Any(e => e.Id == id);
         }
     }
 }

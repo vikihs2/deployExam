@@ -1,42 +1,47 @@
 @model ManagingAgriculture.Models.Resource
 @{
     ViewData["Title"] = "Edit Resource";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="page-header">
-    <h2>Edit Resource</h2>
-    <p class="subtitle">Edit inventory item</p>
-</div>
-
-<form asp-action="Edit" method="post">
-    @Html.AntiForgeryToken()
-    <input type="hidden" name="id" value="@Model.Id" />
-    <div class="mb-3">
-        <label asp-for="Name" class="form-label">Name</label>
-        <input asp-for="Name" class="form-control" />
-    </div>
-    <div class="mb-3">
-        <label asp-for="Category" class="form-label">Category</label>
-        <input asp-for="Category" class="form-control" />
-    </div>
-    <div class="mb-3">
-        <label asp-for="Quantity" class="form-label">Quantity</label>
-        <input asp-for="Quantity" class="form-control" />
-    </div>
-    <div class="mb-3">
-        <label asp-for="Unit" class="form-label">Unit</label>
-        <input asp-for="Unit" class="form-control" />
-    </div>
-    <div class="mb-3">
-        <label asp-for="LowStockThreshold" class="form-label">Low Stock Threshold</label>
-        <input asp-for="LowStockThreshold" class="form-control" />
-    </div>
-    <div class="mb-3">
-        <label asp-for="Supplier" class="form-label">Supplier</label>
-        <input asp-for="Supplier" class="form-control" />
-    </div>
-        <div class="d-flex gap-2">
-            <button type="submit" class="btn btn-save"><i class="fas fa-save"></i> Save</button>
-            <a href="@Url.Action("Index","Resources")" class="btn btn-cancel"><i class="fas fa-times"></i> Cancel</a>
+<div class="container mt-4">
+    <div class="card mx-auto" style="max-width:720px;">
+        <div class="card-body">
+            <h3 class="card-title mb-3">Edit Resource</h3>
+            <form asp-action="Edit" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id" value="@Model.Id" />
+                
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label">Name</label>
+                    <input asp-for="Name" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Category" class="form-label">Category</label>
+                    <input asp-for="Category" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Quantity" class="form-label">Quantity</label>
+                    <input asp-for="Quantity" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Unit" class="form-label">Unit</label>
+                    <input asp-for="Unit" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="LowStockThreshold" class="form-label">Low Stock Threshold</label>
+                    <input asp-for="LowStockThreshold" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Supplier" class="form-label">Supplier</label>
+                    <input asp-for="Supplier" class="form-control" />
+                </div>
+                
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="@Url.Action("Index","Resources")" class="btn btn-cancel"><i class="fas fa-times"></i> Cancel</a>
+                    <button type="submit" class="btn btn-save"><i class="fas fa-save"></i> Save Changes</button>
+                </div>
+            </form>
         </div>
-</form>
+    </div>
+</div>

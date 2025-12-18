@@ -4,6 +4,10 @@ namespace ManagingAgriculture.Models
 {
     public class ContactForm
     {
+        [Key]
+        public int Id { get; set; }
+
+        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
         [Required]
         [Display(Name = "Full Name")]
         public string FullName { get; set; } = string.Empty;

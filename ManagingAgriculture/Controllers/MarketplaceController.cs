@@ -1,9 +1,12 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using ManagingAgriculture.Models;
+using ManagingAgriculture.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace ManagingAgriculture.Controllers
 {
@@ -14,93 +17,41 @@ namespace ManagingAgriculture.Controllers
     [Authorize]
     public class MarketplaceController : Controller
     {
-        /// <summary>
-        /// In-memory data store for marketplace listings collection.
-        /// This is a prototype implementation using a static List.
-        /// In production, this would be replaced with Entity Framework Core database access.
-        /// </summary>
-        private static List<MarketplaceListing> _listingsList = new()
+        private readonly ApplicationDbContext _context;
+
+        public MarketplaceController(ApplicationDbContext context)
         {
-            new MarketplaceListing
-            {
-                Id = 1,
-                ItemName = "Used John Deere Tractor",
-                Category = "Equipment",
-                ConditionStatus = "Good",
-                Description = "Well-maintained tractor with 2000 hours, ready for work",
-                SalePrice = 32000,
-                RentalPricePerDay = 0,
-                SellerName = "Farm Co. Ltd",
-                SellerPhone = "555-1234",
-                ImageUrl = "/images/tractor.jpg",
-                ListingType = "Sale",
-                ListingStatus = "Active",
-                CreatedDate = new DateTime(2025, 11, 10),
-                UpdatedDate = new DateTime(2025, 11, 10)
-            },
-            new MarketplaceListing
-            {
-                Id = 2,
-                ItemName = "Equipment Rental - Round Baler",
-                Category = "Equipment",
-                ConditionStatus = "Excellent",
-                Description = "Premium round baler available for seasonal rental",
-                SalePrice = 0,
-                RentalPricePerDay = 150,
-                SellerName = "John's Farm Services",
-                SellerPhone = "555-5678",
-                ImageUrl = "/images/baler.jpg",
-                ListingType = "Rent",
-                ListingStatus = "Active",
-                CreatedDate = new DateTime(2025, 11, 5),
-                UpdatedDate = new DateTime(2025, 11, 5)
-            },
-            new MarketplaceListing
-            {
-                Id = 3,
-                ItemName = "Organic Tomato Seeds - Heirloom",
-                Category = "Seeds",
-                ConditionStatus = "New",
-                Description = "Certified organic heirloom tomato seeds, 500g package, high germination rate",
-                SalePrice = 25,
-                RentalPricePerDay = 0,
-                SellerName = "Heritage Seeds Supply",
-                SellerPhone = "555-9012",
-                ImageUrl = "/images/seeds.jpg",
-                ListingType = "Sale",
-                ListingStatus = "Active",
-                CreatedDate = new DateTime(2025, 11, 8),
-                UpdatedDate = new DateTime(2025, 11, 8)
-            }
-        };
+            _context = context;
+        }
 
         /// <summary>
         /// Displays list of all marketplace listings.
         /// Returns listings filtered by active status, sorted by newest first.
         /// </summary>
         /// <returns>View with IEnumerable of MarketplaceListing</returns>
-        public IActionResult Index(string? category = null, string? q = null)
+        public async Task<IActionResult> Index(string? category = null, string? q = null)
         {
             ViewData["Title"] = "Marketplace";
 
             // Filter active listings and sort by creation date (newest first)
-            var listings = _listingsList
+            var query = _context.MarketplaceListings.AsQueryable()
                 .Where(l => l.ListingStatus == "Active");
 
             if (!string.IsNullOrWhiteSpace(category) && category != "All")
             {
-                listings = listings.Where(l => l.Category.Equals(category, StringComparison.OrdinalIgnoreCase));
+                query = query.Where(l => l.Category == category);
             }
 
             if (!string.IsNullOrWhiteSpace(q))
             {
                 var qLower = q.ToLower();
-                listings = listings.Where(l => (l.ItemName ?? "").ToLower().Contains(qLower) || (l.Description ?? "").ToLower().Contains(qLower));
+                query = query.Where(l => l.ItemName.ToLower().Contains(qLower) || (l.Description != null && l.Description.ToLower().Contains(qLower)));
             }
 
-            var results = listings.OrderByDescending(l => l.CreatedDate).ToList();
+            var results = await query.OrderByDescending(l => l.CreatedDate).ToListAsync();
 
-            ViewBag.Categories = _listingsList.Select(l => l.Category).Distinct().ToList();
+            // Get distinct categories for filter
+            ViewBag.Categories = await _context.MarketplaceListings.Select(l => l.Category).Distinct().ToListAsync();
             ViewBag.SelectedCategory = category ?? "All";
             ViewBag.Query = q ?? string.Empty;
 
@@ -111,22 +62,23 @@ namespace ManagingAgriculture.Controllers
         /// Returns filtered listings as a partial view for AJAX updates
         /// </summary>
         [HttpGet]
-        public IActionResult Filter(string? category = null, string? q = null)
+        public async Task<IActionResult> Filter(string? category = null, string? q = null)
         {
-            var listings = _listingsList.Where(l => l.ListingStatus == "Active");
+            var query = _context.MarketplaceListings.AsQueryable()
+                .Where(l => l.ListingStatus == "Active");
 
             if (!string.IsNullOrWhiteSpace(category) && category != "All")
             {
-                listings = listings.Where(l => l.Category.Equals(category, StringComparison.OrdinalIgnoreCase));
+                query = query.Where(l => l.Category == category);
             }
 
             if (!string.IsNullOrWhiteSpace(q))
             {
                 var qLower = q.ToLower();
-                listings = listings.Where(l => (l.ItemName ?? "").ToLower().Contains(qLower) || (l.Description ?? "").ToLower().Contains(qLower));
+                query = query.Where(l => l.ItemName.ToLower().Contains(qLower) || (l.Description != null && l.Description.ToLower().Contains(qLower)));
             }
 
-            var results = listings.OrderByDescending(l => l.CreatedDate).ToList();
+            var results = await query.OrderByDescending(l => l.CreatedDate).ToListAsync();
             return PartialView("_Grid", results);
         }
 
@@ -136,9 +88,9 @@ namespace ManagingAgriculture.Controllers
         /// </summary>
         /// <returns>View with empty MarketplaceListing model</returns>
         [HttpGet]
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
-            ViewBag.UserMachinery = MachineryController.GetAll();
+            ViewBag.UserMachinery = await _context.Machinery.ToListAsync();
             return View(new MarketplaceListing());
         }
 
@@ -149,28 +101,28 @@ namespace ManagingAgriculture.Controllers
         /// <param name="listing">MarketplaceListing object populated from form submission</param>
         /// <returns>Redirects to Index on success, returns view with model on validation failure</returns>
         [HttpPost]
-        public IActionResult Add(MarketplaceListing listing, int? selectedMachineryId)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Add(MarketplaceListing listing, int? selectedMachineryId)
         {
             // Validate model state
             if (!ModelState.IsValid)
             {
+                ViewBag.UserMachinery = await _context.Machinery.ToListAsync();
                 return View(listing);
             }
 
-            // If user chose existing machinery, prefill some listing fields
+            // If user chose existing machinery, prefill some listing fields and link it
             if (selectedMachineryId.HasValue)
             {
-                var mach = MachineryController.GetAll().FirstOrDefault(m => m.Id == selectedMachineryId.Value);
+                var mach = await _context.Machinery.FindAsync(selectedMachineryId.Value);
                 if (mach != null)
                 {
                     listing.ItemName = string.IsNullOrWhiteSpace(listing.ItemName) ? mach.Name : listing.ItemName;
                     listing.Description = string.IsNullOrWhiteSpace(listing.Description) ? $"{mach.Type} - {mach.Name}" : listing.Description;
                     listing.Category = string.IsNullOrWhiteSpace(listing.Category) ? "Equipment" : listing.Category;
+                    listing.MachineryId = mach.Id; // Link to machinery
                 }
             }
-
-            // Assign new ID (max ID + 1)
-            listing.Id = _listingsList.Count > 0 ? _listingsList.Max(l => l.Id) + 1 : 1;
 
             // Set timestamps for audit trail
             listing.CreatedDate = DateTime.Now;
@@ -179,8 +131,9 @@ namespace ManagingAgriculture.Controllers
             // Default listing to active status
             listing.ListingStatus = "Active";
 
-            // Add to collection
-            _listingsList.Add(listing);
+            // Add to database
+            _context.MarketplaceListings.Add(listing);
+            await _context.SaveChangesAsync();
 
             // Redirect to marketplace list view
             return RedirectToAction(nameof(Index));
@@ -193,10 +146,10 @@ namespace ManagingAgriculture.Controllers
         /// <param name="id">ID of listing to display</param>
         /// <returns>View with MarketplaceListing model if found, or NotFound if listing doesn't exist</returns>
         [HttpGet]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             // Find listing by ID
-            var listing = _listingsList.FirstOrDefault(l => l.Id == id);
+            var listing = await _context.MarketplaceListings.FindAsync(id);
 
             if (listing == null)
             {
@@ -214,12 +167,10 @@ namespace ManagingAgriculture.Controllers
         /// <param name="listing">Updated MarketplaceListing object from form submission</param>
         /// <returns>Redirects to Index on success, returns view with model on validation failure</returns>
         [HttpPost]
-        public IActionResult Edit(int id, MarketplaceListing listing)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, MarketplaceListing listing)
         {
-            // Find listing in collection
-            var existingListing = _listingsList.FirstOrDefault(l => l.Id == id);
-
-            if (existingListing == null)
+            if (id != listing.Id)
             {
                 return NotFound();
             }
@@ -230,14 +181,33 @@ namespace ManagingAgriculture.Controllers
                 return View(listing);
             }
 
-            // Preserve creation date and ID
-            listing.Id = id;
-            listing.CreatedDate = existingListing.CreatedDate;
-            listing.UpdatedDate = DateTime.Now;
+            try
+            {
+                var existingListing = await _context.MarketplaceListings.AsNoTracking().FirstOrDefaultAsync(l => l.Id == id);
+                if (existingListing == null)
+                {
+                    return NotFound();
+                }
 
-            // Update record in collection
-            var index = _listingsList.FindIndex(l => l.Id == id);
-            _listingsList[index] = listing;
+                // Preserve creation date
+                listing.CreatedDate = existingListing.CreatedDate;
+                listing.UpdatedDate = DateTime.Now;
+                listing.ListingStatus = existingListing.ListingStatus; // Preserve status unless explicitly changed (could add status dropdown to edit form)
+
+                _context.Update(listing);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ListingExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
             // Redirect to marketplace list view
             return RedirectToAction(nameof(Index));
@@ -250,18 +220,29 @@ namespace ManagingAgriculture.Controllers
         /// <param name="id">ID of listing to delete</param>
         /// <returns>Redirects to Index after deletion</returns>
         [HttpPost]
-        public IActionResult Delete(int id)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
         {
-            // Find and remove listing from collection
-            var listing = _listingsList.FirstOrDefault(l => l.Id == id);
+            // Find listing from database
+            var listing = await _context.MarketplaceListings.FindAsync(id);
 
             if (listing != null)
             {
-                _listingsList.Remove(listing);
+                // Soft delete or hard delete? Requirement says "Marks as sold/expired" in comment, but code was removing it.
+                // Let's stick to removing it for now to match previous behavior, or maybe just update status if that's preferred.
+                // The previous code was `_listingsList.Remove(listing)`, so it was a hard delete from the list.
+                // I will replicate hard delete for now.
+                _context.MarketplaceListings.Remove(listing);
+                await _context.SaveChangesAsync();
             }
 
             // Redirect to marketplace list view
             return RedirectToAction(nameof(Index));
+        }
+
+        private bool ListingExists(int id)
+        {
+            return _context.MarketplaceListings.Any(e => e.Id == id);
         }
     }
 }

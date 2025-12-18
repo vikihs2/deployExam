@@ -126,13 +126,14 @@
                 </div>
 
                 <!-- Form Actions -->
-                <div class="d-flex gap-2 mt-4">
-                    <button type="submit" class="btn btn-success">
-                        <i class="fas fa-save"></i> Save Changes
-                    </button>
-                    <a href="@Url.Action("Index", "Marketplace")" class="btn btn-secondary">
+                <!-- Form Actions -->
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="@Url.Action("Index", "Marketplace")" class="btn btn-cancel">
                         <i class="fas fa-times"></i> Cancel
                     </a>
+                    <button type="submit" class="btn btn-save">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
                 </div>
             </form>
         </div>

@@ -73,5 +73,14 @@ namespace ManagingAgriculture.Models
 		[Range(0, 9999999, ErrorMessage = "Engine hours cannot be negative")]
 		[Column(TypeName = "decimal(10,1)")]
 		public decimal? EngineHours { get; set; }
+
+		// ===== NAVIGATION PROPERTIES =====
+
+		/// <summary>Foreign key for the associated Machinery (optional)</summary>
+		public int? MachineryId { get; set; }
+
+		/// <summary>The associated Machinery item</summary>
+		[ForeignKey("MachineryId")]
+		public Machinery? Machinery { get; set; }
 	}
 }

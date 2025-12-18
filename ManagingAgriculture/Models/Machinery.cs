@@ -61,5 +61,8 @@ namespace ManagingAgriculture.Models
 
 		/// <summary>Maintenance history records for this equipment</summary>
 		public ICollection<MaintenanceHistory>? MaintenanceHistory { get; set; }
+
+		/// <summary>Marketplace listings associated with this machinery</summary>
+		public ICollection<MarketplaceListing>? MarketplaceListings { get; set; }
 	}
 }
