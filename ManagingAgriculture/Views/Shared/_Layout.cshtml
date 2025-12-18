@@ -130,6 +130,40 @@
         </main>
     </div>
 
+    <!-- Bottom Navigation for Mobile -->
+    <nav class="bottom-nav">
+        <a href="@Url.Action("Index", "Dashboard")" class="nav-item @(controller == "Dashboard" ? "active" : "")">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="@Url.Action("Index", "Plants")" class="nav-item @(controller == "Plants" ? "active" : "")">
+            <i class="fas fa-leaf"></i>
+            <span>Plants</span>
+        </a>
+        <a href="@Url.Action("Index", "Resources")" class="nav-item @(controller == "Resources" ? "active" : "")">
+            <i class="fas fa-box"></i>
+            <span>Resources</span>
+        </a>
+        <a href="@Url.Action("Index", "Machinery")" class="nav-item @(controller == "Machinery" ? "active" : "")">
+            <i class="fas fa-cogs"></i>
+            <span>Machines</span>
+        </a>
+        <a href="@Url.Action("Index", "Marketplace")" class="nav-item @(controller == "Marketplace" ? "active" : "")">
+            <i class="fas fa-shopping-cart"></i>
+            <span>Market</span>
+        </a>
+        @if (User?.Identity?.IsAuthenticated == true)
+        {
+             <form asp-controller="Account" asp-action="Logout" method="post" class="nav-item" style="background:none;border:none;padding:0;">
+                @Html.AntiForgeryToken()
+                <button type="submit" style="background:none;border:none;color:inherit;display:flex;flex-direction:column;align-items:center;padding:0;">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Exit</span>
+                </button>
+            </form>
+        }
+    </nav>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
