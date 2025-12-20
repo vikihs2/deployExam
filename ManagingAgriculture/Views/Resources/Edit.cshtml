@@ -18,7 +18,14 @@
                 </div>
                 <div class="mb-3">
                     <label asp-for="Category" class="form-label">Category</label>
-                    <input asp-for="Category" class="form-control" />
+                    <select asp-for="Category" class="form-select">
+                        <option value="Fertilizer">Fertilizer</option>
+                        <option value="Seed">Seed</option>
+                        <option value="Chemical">Chemical</option>
+                        <option value="Water">Water</option>
+                        <option value="Fuel">Fuel</option>
+                        <option value="Other">Other</option>
+                    </select>
                 </div>
                 <div class="mb-3">
                     <label asp-for="Quantity" class="form-label">Quantity</label>
