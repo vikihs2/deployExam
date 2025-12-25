@@ -1,3 +1,4 @@
+@model ManagingAgriculture.ViewModels.DashboardViewModel
 @{
     ViewData["Title"] = "Dashboard";
 }
@@ -12,7 +13,7 @@
                 <h3>Active Plants</h3>
                 <i class="fas fa-leaf stat-icon"></i>
             </div>
-            <div class="stat-number">3</div>
+            <div class="stat-number">@Model.ActivePlantsCount</div>
             <div class="stat-label">Crops being tracked</div>
         </div>
 
@@ -21,7 +22,7 @@
                 <h3>Resources</h3>
                 <i class="fas fa-box stat-icon"></i>
             </div>
-            <div class="stat-number">5</div>
+            <div class="stat-number">@Model.ResourcesCount</div>
             <div class="stat-label">Items in inventory</div>
         </div>
 
@@ -30,16 +31,16 @@
                 <h3>Machinery</h3>
                 <i class="fas fa-cogs stat-icon"></i>
             </div>
-            <div class="stat-number">3</div>
+            <div class="stat-number">@Model.MachineryCount</div>
             <div class="stat-label">Equipment units</div>
         </div>
 
-        <div class="stat-card alert-card">
+        <div class="stat-card @(Model.LowStockCount > 0 ? "alert-card" : "")">
             <div class="stat-header">
                 <h3>Low Stock Alerts</h3>
                 <i class="fas fa-exclamation-triangle stat-icon"></i>
             </div>
-            <div class="stat-number">1</div>
+            <div class="stat-number">@Model.LowStockCount</div>
             <div class="stat-label">Items need restock</div>
         </div>
     </div>
@@ -53,53 +54,31 @@
         <p class="section-subtitle">Monitor your growing plants and upcoming tasks</p>
 
         <div class="crops-list">
-            <div class="crop-item">
-                <div class="crop-name">
-                    <h4>Tomato Garden A</h4>
-                    <span class="crop-type">Tomato</span>
-                </div>
-                <div class="crop-progress">
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" style="width: 65%;"></div>
+            @if (Model.ActiveCrops != null && Model.ActiveCrops.Any())
+            {
+                foreach (var plant in Model.ActiveCrops)
+                {
+                    <div class="crop-item">
+                        <div class="crop-name">
+                            <h4>@plant.Name</h4>
+                            <span class="crop-type">@plant.PlantType</span>
+                        </div>
+                        <div class="crop-progress">
+                            <div class="progress-bar-container">
+                                <div class="progress-bar" style="width: @(plant.GrowthStagePercent)%;"></div>
+                            </div>
+                        </div>
+                        <div class="crop-info">
+                            <span class="next-task">Next: @(string.IsNullOrEmpty(plant.NextTask) ? "No task scheduled" : plant.NextTask)</span>
+                            <span class="growth-rate">@plant.GrowthStagePercent% Growth</span>
+                        </div>
                     </div>
-                </div>
-                <div class="crop-info">
-                    <span class="next-task">Next: Fertilize in 3 days</span>
-                    <span class="growth-rate">65% Growth</span>
-                </div>
-            </div>
-
-            <div class="crop-item">
-                <div class="crop-name">
-                    <h4>Corn Field B</h4>
-                    <span class="crop-type">Corn</span>
-                </div>
-                <div class="crop-progress">
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" style="width: 85%;"></div>
-                    </div>
-                </div>
-                <div class="crop-info">
-                    <span class="next-task">Next: Harvest in 6 days</span>
-                    <span class="growth-rate">85% Growth</span>
-                </div>
-            </div>
-
-            <div class="crop-item">
-                <div class="crop-name">
-                    <h4>Wheat Field C</h4>
-                    <span class="crop-type">Wheat</span>
-                </div>
-                <div class="crop-progress">
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" style="width: 45%;"></div>
-                    </div>
-                </div>
-                <div class="crop-info">
-                    <span class="next-task">Next: Water tomorrow</span>
-                    <span class="growth-rate">45% Growth</span>
-                </div>
-            </div>
+                }
+            }
+            else
+            {
+                <p class="text-muted">No active crops found. <a href="@Url.Action("Add", "Plants")">Add a new plant</a> to get started.</p>
+            }
         </div>
     </div>
 </div>

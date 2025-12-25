@@ -1,40 +1,59 @@
 :root {
-  --primary-color: #2d6a4f; /* primary action color requested for home */
-  --secondary-color: #74c69d; /* soft accent */
-  --light-bg: #f8f9fa; /* neutral light backgrounds */
+  --primary-color: #2d6a4f;
+  /* primary action color requested for home */
+  --secondary-color: #74c69d;
+  /* soft accent */
+  --light-bg: #f8f9fa;
+  /* neutral light backgrounds */
   --card-bg: #ffffff;
   --text-primary: #212121;
   --text-secondary: #757575;
   --border-color: #e9ecef;
   --alert-color: #ff9800;
   --accent-green: #74c69d;
-  --brand-green: #2d6a4f; /* global brand green set to requested */
-  --brand-green-dark: #1b4332; /* darker variant */
-  --home-layer-upper: #1b4332; /* dark overlay for hero/footer as requested */
+  --brand-green: #2d6a4f;
+  /* global brand green set to requested */
+  --brand-green-dark: #1b4332;
+  /* darker variant */
+  --home-layer-upper: #1b4332;
+  /* dark overlay for hero/footer as requested */
   --home-layer-bottom: #1c1711;
-} 
+}
 
 /* Override Bootstrap success button to match brand green */
-.btn-success, .btn-post, .btn-add-plant {
+.btn-success,
+.btn-post,
+.btn-add-plant {
   --bs-btn-bg: var(--brand-green);
   --bs-btn-border-color: var(--brand-green);
 }
-.btn-success:hover, .btn-success:focus, .btn-post:hover, .btn-post:focus, .btn-add-plant:hover {
+
+.btn-success:hover,
+.btn-success:focus,
+.btn-post:hover,
+.btn-post:focus,
+.btn-add-plant:hover {
   --bs-btn-bg: var(--brand-green-dark);
   --bs-btn-border-color: var(--brand-green-dark);
 }
 
 /* Brand-specific button styles (save / success / add plant) */
-.btn-success, .btn-post, .btn-add-plant {
+.btn-success,
+.btn-post,
+.btn-add-plant {
   background-color: var(--primary-color) !important;
   border-color: var(--primary-color) !important;
   color: #fff !important;
 }
-.btn-success:hover, .btn-post:hover, .btn-add-plant:hover {
+
+.btn-success:hover,
+.btn-post:hover,
+.btn-add-plant:hover {
   background-color: var(--brand-green-dark) !important;
   border-color: var(--brand-green-dark) !important;
   color: #fff !important;
 }
+
 /* Note: .btn-save intentionally uses blue (#004cff) per design */
 
 /* Edit buttons (outline primary) should be blue */
@@ -42,7 +61,9 @@
   color: #004cff !important;
   border-color: #004cff !important;
 }
-.btn-outline-primary:hover, .btn-outline-primary:focus {
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
   background-color: #004cff !important;
   color: #fff !important;
   border-color: #004cff !important;
@@ -54,7 +75,10 @@
   border-color: #004cff !important;
   color: #fff !important;
 }
-.btn-save:hover { background:#0039d9 !important; }
+
+.btn-save:hover {
+  background: #0039d9 !important;
+}
 
 /* Cancel button explicit style */
 .btn-cancel {
@@ -62,7 +86,10 @@
   border-color: #748291 !important;
   color: #fff !important;
 }
-.btn-cancel:hover { opacity:0.95 }
+
+.btn-cancel:hover {
+  opacity: 0.95
+}
 
 /* Danger (delete) explicit color */
 .btn-danger {
@@ -72,7 +99,10 @@
 }
 
 /* Generic outline helper (keep default neutral look) */
-.btn-outline { color: var(--text-primary); border-color: rgba(0,0,0,0.06); }
+.btn-outline {
+  color: var(--text-primary);
+  border-color: rgba(0, 0, 0, 0.06);
+}
 
 
 html {
@@ -95,7 +125,8 @@ body {
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   background-color: var(--light-bg);
-  padding-bottom: 70px; /* Add padding for bottom nav on mobile */
+  padding-bottom: 70px;
+  /* Add padding for bottom nav on mobile */
 }
 
 @media (min-width: 768px) {
@@ -109,7 +140,9 @@ body {
 }
 
 /* Form Input Focus Override */
-input:focus, textarea:focus, select:focus {
+input:focus,
+textarea:focus,
+select:focus {
   border-color: var(--accent-green) !important;
   box-shadow: 0 0 0 0.2rem rgba(6, 169, 107, 0.25) !important;
 }
@@ -129,12 +162,14 @@ input:focus, textarea:focus, select:focus {
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   z-index: 999;
-  display: none; /* Hidden by default on mobile */
+  display: none;
+  /* Hidden by default on mobile */
 }
 
 @media (min-width: 768px) {
   .sidebar {
-    display: block; /* Visible on desktop */
+    display: block;
+    /* Visible on desktop */
   }
 }
 
@@ -152,8 +187,13 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* Hover fallback: expand the sidebar on mouse hover (CSS-only fallback if JS doesn't run) */
-.sidebar:hover { width: 250px; }
-.sidebar:hover ~ .main-content { margin-left: 250px; }
+.sidebar:hover {
+  width: 250px;
+}
+
+.sidebar:hover~.main-content {
+  margin-left: 250px;
+}
 
 .sidebar-brand {
   display: flex;
@@ -166,7 +206,8 @@ input:focus, textarea:focus, select:focus {
   white-space: nowrap;
   opacity: 0;
   transition: opacity 0.3s ease;
-  padding-left: 15px; /* align the brand text with the menu items */
+  padding-left: 15px;
+  /* align the brand text with the menu items */
 }
 
 .sidebar.sidebar-expanded .sidebar-brand {
@@ -174,26 +215,84 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* When we show text-only brand make sure it aligns and stays readable */
-.sidebar-brand .brand-text { font-weight:700; font-size:20px }
-.sidebar-brand .brand-emoji { display:none; font-size:22px; align-items:center; justify-content:center }
-.sidebar:not(.sidebar-expanded) .sidebar-brand { justify-content:center }
-.sidebar:not(.sidebar-expanded) .sidebar-brand .brand-text { display:none }
-.sidebar:not(.sidebar-expanded) .sidebar-brand .brand-emoji { display:inline-flex }
-.sidebar.sidebar-expanded .sidebar-brand .brand-emoji { display:none }
+.sidebar-brand .brand-text {
+  font-weight: 700;
+  font-size: 20px
+}
+
+.sidebar-brand .brand-emoji {
+  display: none;
+  font-size: 22px;
+  align-items: center;
+  justify-content: center
+}
+
+.sidebar:not(.sidebar-expanded) .sidebar-brand {
+  justify-content: center
+}
+
+.sidebar:not(.sidebar-expanded) .sidebar-brand .brand-text {
+  display: none
+}
+
+.sidebar:not(.sidebar-expanded) .sidebar-brand .brand-emoji {
+  display: inline-flex
+}
+
+.sidebar.sidebar-expanded .sidebar-brand .brand-emoji {
+  display: none
+}
 
 /* Show a small emoji in the top nav when sidebar is collapsed */
-.sidebar:not(.sidebar-expanded) ~ .main-content .top-nav .top-brand-emoji { display:inline-flex }
-.sidebar:not(.sidebar-expanded) ~ .main-content .top-nav .brand { display:none }
-.top-nav .top-brand-emoji { display:none; font-size:20px; margin-right:8px }
+.sidebar:not(.sidebar-expanded)~.main-content .top-nav .top-brand-emoji {
+  display: inline-flex
+}
+
+.sidebar:not(.sidebar-expanded)~.main-content .top-nav .brand {
+  display: none
+}
+
+.top-nav .top-brand-emoji {
+  display: none;
+  font-size: 20px;
+  margin-right: 8px
+}
 
 /* Home icon to match Add button color */
-.home-icon { background: var(--accent-green); color:#fff; border-radius:50%; width:36px; height:36px; display:inline-flex; align-items:center; justify-content:center; transition: background 0.15s ease }
-.home-icon i { font-size:16px }
-.home-link:hover .home-icon { background: var(--brand-green) }
+.home-icon {
+  background: var(--accent-green);
+  color: #fff;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease
+}
+
+.home-icon i {
+  font-size: 16px
+}
+
+.home-link:hover .home-icon {
+  background: var(--brand-green)
+}
 
 /* Ensure Add buttons use accent green and hover to brand green */
-.btn-add, .btn-add-plant, .btn-post-listing { background: var(--accent-green) !important; border-color: var(--accent-green) !important }
-.btn-add:hover, .btn-add-plant:hover, .btn-post-listing:hover { background: var(--brand-green) !important; border-color: var(--brand-green) !important }
+.btn-add,
+.btn-add-plant,
+.btn-post-listing {
+  background: var(--accent-green) !important;
+  border-color: var(--accent-green) !important
+}
+
+.btn-add:hover,
+.btn-add-plant:hover,
+.btn-post-listing:hover {
+  background: var(--brand-green) !important;
+  border-color: var(--brand-green) !important
+}
 
 
 .sidebar-brand i {
@@ -259,7 +358,11 @@ input:focus, textarea:focus, select:focus {
 .menu-item.dashboard-link:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
-.menu-item.dashboard-link i, .menu-item.dashboard-link span { color: #fff !important }
+
+.menu-item.dashboard-link i,
+.menu-item.dashboard-link span {
+  color: #fff !important
+}
 
 
 .menu-item i {
@@ -277,12 +380,24 @@ input:focus, textarea:focus, select:focus {
 
 /* Adjust main content margin while sidebar is collapsed vs expanded */
 /* expanded state moves content to make room for wide sidebar */
-.sidebar.sidebar-expanded ~ .main-content { margin-left: 250px; }
+.sidebar.sidebar-expanded~.main-content {
+  margin-left: 250px;
+}
+
 /* shrunk state keeps content closer */
-.main-content-shrink, .main-content { margin-left: 0; } /* Default 0 for mobile */
+.main-content-shrink,
+.main-content {
+  margin-left: 0;
+}
+
+/* Default 0 for mobile */
 
 @media (min-width: 768px) {
-  .main-content-shrink, .main-content { margin-left: 70px; }
+
+  .main-content-shrink,
+  .main-content {
+    margin-left: 70px;
+  }
 }
 
 .sidebar.sidebar-shrink .sidebar-brand {
@@ -302,7 +417,8 @@ input:focus, textarea:focus, select:focus {
 }
 
 .main-content-expanded {
-  margin-left: 0; /* Mobile default */
+  margin-left: 0;
+  /* Mobile default */
 }
 
 @media (min-width: 768px) {
@@ -312,7 +428,8 @@ input:focus, textarea:focus, select:focus {
 }
 
 .main-content-shrink {
-  margin-left: 0; /* Mobile default */
+  margin-left: 0;
+  /* Mobile default */
 }
 
 @media (min-width: 768px) {
@@ -328,47 +445,144 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* Home page layered colors */
-.cta { background: #262018; }
-.site-footer { background: var(--home-layer-bottom); }
+.cta {
+  background: #262018;
+}
+
+.site-footer {
+  background: var(--home-layer-bottom);
+}
 
 
 
 
 /* Marketplace badge for 'new' */
-.listing-badge.new { background: rgba(191,64,191,0.12); color:#BF40BF; border:1px solid rgba(191,64,191,0.18); }
+.listing-badge.new {
+  background: rgba(191, 64, 191, 0.12);
+  color: #BF40BF;
+  border: 1px solid rgba(191, 64, 191, 0.18);
+}
+
 /* Generic 'new' badge style (used in other lists like machinery) */
-.status-badge.new { background: rgba(191,64,191,0.12); color:#BF40BF; border:1px solid rgba(191,64,191,0.18); } 
+.status-badge.new {
+  background: rgba(191, 64, 191, 0.12);
+  color: #BF40BF;
+  border: 1px solid rgba(191, 64, 191, 0.18);
+}
 
 /* Marketplace search box - take remaining width */
-.marketplace-filters { padding: 0 30px 20px 30px; }
-.marketplace-filters form { display:flex; gap:12px; align-items:center; }
-.marketplace-search { flex:1; min-width:0; max-width:none; }
-.marketplace-category { width:160px; }
-.select-wrap { position:relative; display:inline-block; }
-.select-wrap .select-indicator { position:absolute; right:12px; top:50%; transform:translateY(-50%); pointer-events:none; color:rgba(0,0,0,0.45); font-size:14px }
+.marketplace-filters {
+  padding: 0 30px 20px 30px;
+}
 
-@media (max-width:768px){
-  .marketplace-filters form{flex-direction:column;align-items:stretch}
-  .marketplace-category{width:100%}
-  .marketplace-filters { padding: 0 15px 15px 15px; }
+.marketplace-filters form {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.marketplace-search {
+  flex: 1;
+  min-width: 0;
+  max-width: none;
+}
+
+.marketplace-category {
+  width: 160px;
+}
+
+.select-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.select-wrap .select-indicator {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: rgba(0, 0, 0, 0.45);
+  font-size: 14px
+}
+
+@media (max-width:768px) {
+  .marketplace-filters form {
+    flex-direction: column;
+    align-items: stretch
+  }
+
+  .marketplace-category {
+    width: 100%
+  }
+
+  .marketplace-filters {
+    padding: 0 15px 15px 15px;
+  }
 }
 
 
 /* Action button styles and layout */
-.action-row { display:flex; align-items:center; gap:8px }
-.action-row .btn-cancel { background:transparent;color:var(--text-primary); border:1px solid var(--border-color); }
-.action-row .btn-save, .action-row .btn-post { background:var(--brand-green); color:#fff }
-.action-btn { display:inline-flex; gap:8px; align-items:center }
+.action-row {
+  display: flex;
+  align-items: center;
+  gap: 8px
+}
+
+.action-row .btn-cancel {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.action-row .btn-save,
+.action-row .btn-post {
+  background: var(--brand-green);
+  color: #fff
+}
+
+.action-btn {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center
+}
 
 /* Logo emoji sizing for small contexts */
-.auth-logo { font-size:20px; display:inline-flex; align-items:center; justify-content:center; text-shadow:none; -webkit-text-stroke:0; vertical-align:middle; line-height:1; margin:0; }
-.logo-badge .auth-logo { font-size:20px; line-height:1; }
-.brand { display:inline-flex; align-items:center; }
+.auth-logo {
+  font-size: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-shadow: none;
+  -webkit-text-stroke: 0;
+  vertical-align: middle;
+  line-height: 1;
+  margin: 0;
+}
+
+.logo-badge .auth-logo {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+}
 
 /* When sidebar collapsed show emoji only, hide text */
-.sidebar:not(.sidebar-expanded) .sidebar-brand { opacity:1; justify-content:center }
-.sidebar:not(.sidebar-expanded) .sidebar-brand span { display:none }
-.sidebar:not(.sidebar-expanded) .auth-logo { font-size:24px }
+.sidebar:not(.sidebar-expanded) .sidebar-brand {
+  opacity: 1;
+  justify-content: center
+}
+
+.sidebar:not(.sidebar-expanded) .sidebar-brand span {
+  display: none
+}
+
+.sidebar:not(.sidebar-expanded) .auth-logo {
+  font-size: 24px
+}
 
 /* Remove white header background and divider on resource pages to avoid the white rectangle.
    Also include the resources header variant used in Resources/Index */
@@ -384,6 +598,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 @media (max-width: 768px) {
+
   .plants-container .page-header,
   .resources-container .page-header,
   .resources-container .resources-header,
@@ -395,45 +610,129 @@ input:focus, textarea:focus, select:focus {
 }
 
 /* Ensure images used inside the logo align and don't get cropped or misaligned */
-.auth-logo img { display:block; width:28px; height:auto; vertical-align:middle }
-.sidebar-brand span { vertical-align:middle }
+.auth-logo img {
+  display: block;
+  width: 28px;
+  height: auto;
+  vertical-align: middle
+}
+
+.sidebar-brand span {
+  vertical-align: middle
+}
 
 /* Ensure the main content doesn't show a narrow white band under header */
-.main-content { background: transparent }
+.main-content {
+  background: transparent
+}
 
 /* Remove double nav effect - ensure top-header has no duplicate borders or gaps */
-.top-header { border-bottom: none; }
+.top-header {
+  border-bottom: none;
+}
 
 
 
 /* Global cancel/save button styles */
-.btn-cancel { background: transparent; border: 1px solid var(--border-color); color: var(--text-primary); padding: 6px 10px; border-radius:6px }
-.btn-save, .btn-post { background: var(--brand-green); color:#fff; padding:6px 10px; border-radius:6px }
+.btn-cancel {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 6px 10px;
+  border-radius: 6px
+}
+
+.btn-save,
+.btn-post {
+  background: var(--brand-green);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 6px
+}
 
 /* Dashboard button styles (top header) - use accent green to match Add */
-.btn-dashboard { background: var(--accent-green) !important; border-color: var(--accent-green) !important; color:#fff !important; padding:6px 10px; border-radius:6px }
-.btn-dashboard:hover { background: var(--brand-green) !important; border-color:var(--brand-green) !important; color:#fff !important }
+.btn-dashboard {
+  background: var(--accent-green) !important;
+  border-color: var(--accent-green) !important;
+  color: #fff !important;
+  padding: 6px 10px;
+  border-radius: 6px
+}
+
+.btn-dashboard:hover {
+  background: var(--brand-green) !important;
+  border-color: var(--brand-green) !important;
+  color: #fff !important
+}
 
 /* Sign out uses the default cancel style — keep sign-out uncolored by using `.btn-cancel` */
 /* .btn-signout rules removed to revert to previous visual behavior */
 
 
 /* Add button style (use for Add links/buttons across index pages) */
-.btn-add { background: var(--accent-green) !important; border-color: var(--accent-green) !important; color: #fff; border: none; padding: 8px 12px; border-radius:6px; display:inline-flex; align-items:center; gap:8px }
-.btn-add:hover { background: var(--brand-green) !important; border-color: var(--brand-green) !important; color:#fff }
-.btn-sm.btn-add { padding:4px 8px }
+.btn-add {
+  background: var(--accent-green) !important;
+  border-color: var(--accent-green) !important;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px
+}
+
+.btn-add:hover {
+  background: var(--brand-green) !important;
+  border-color: var(--brand-green) !important;
+  color: #fff
+}
+
+.btn-sm.btn-add {
+  padding: 4px 8px
+}
 
 /* Sidebar sign-out: remove the grey background and border to match requested neutral appearance */
-.sidebar .btn-cancel { background: transparent !important; border: none !important; color: #fff !important; box-shadow:none !important }
-.sidebar .btn-cancel i { margin-right:6px }
+.sidebar .btn-cancel {
+  background: transparent !important;
+  border: none !important;
+  color: #fff !important;
+  box-shadow: none !important
+}
+
+.sidebar .btn-cancel i {
+  margin-right: 6px
+}
 
 /* Marketplace listing contact row layout */
-.listing-contact-row { display:flex; align-items:center; gap:8px; margin-top:12px }
-.listing-contact-row .action-buttons { display:flex; gap:8px }
-.listing-contact-row .seller-phone { margin-left:auto; color:var(--text-primary); display:inline-flex; align-items:center; gap:8px }
-.listing-contact-row .action-buttons .action-btn { margin:0 }
+.listing-contact-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px
+}
 
-.btn-sm.btn-save, .btn-sm.btn-post { padding:4px 8px }
+.listing-contact-row .action-buttons {
+  display: flex;
+  gap: 8px
+}
+
+.listing-contact-row .seller-phone {
+  margin-left: auto;
+  color: var(--text-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px
+}
+
+.listing-contact-row .action-buttons .action-btn {
+  margin: 0
+}
+
+.btn-sm.btn-save,
+.btn-sm.btn-post {
+  padding: 4px 8px
+}
 
 .top-header h1 {
   margin: 0;
@@ -455,7 +754,7 @@ input:focus, textarea:focus, select:focus {
   display: none;
 }
 
-.sidebar:not(.sidebar-expanded) ~ .main-content .logo-icon {
+.sidebar:not(.sidebar-expanded)~.main-content .logo-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -650,23 +949,30 @@ input:focus, textarea:focus, select:focus {
   font-weight: 600;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+.form-floating>.form-control-plaintext::placeholder,
+.form-floating>.form-control::placeholder {
   color: var(--bs-secondary-color);
   text-align: end;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+.form-floating>.form-control-plaintext:focus::placeholder,
+.form-floating>.form-control:focus::placeholder {
   text-align: start;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .sidebar {
-    display: none; /* Hide sidebar on mobile */
+    display: none;
+    /* Hide sidebar on mobile */
   }
 
   .main-content {
@@ -764,7 +1070,8 @@ input:focus, textarea:focus, select:focus {
 @media (max-width: 768px) {
   .plants-grid {
     padding: 0;
-    grid-template-columns: 1fr; /* Single column on mobile */
+    grid-template-columns: 1fr;
+    /* Single column on mobile */
   }
 }
 
@@ -852,7 +1159,8 @@ input:focus, textarea:focus, select:focus {
 
 /* Bottom Navigation */
 .bottom-nav {
-  display: none; /* Hidden on desktop */
+  display: none;
+  /* Hidden on desktop */
   position: fixed;
   bottom: 0;
   left: 0;
@@ -867,7 +1175,8 @@ input:focus, textarea:focus, select:focus {
 
 @media (max-width: 768px) {
   .bottom-nav {
-    display: flex; /* Visible on mobile */
+    display: flex;
+    /* Visible on mobile */
   }
 }
 
@@ -892,6 +1201,7 @@ input:focus, textarea:focus, select:focus {
 .bottom-nav .nav-item.active i {
   color: var(--primary-color);
 }
+
 /* =========================================
    RESOURCES PAGE STYLES
    ========================================= */
@@ -933,9 +1243,9 @@ input:focus, textarea:focus, select:focus {
 }
 
 .tab-btn.active {
-  background: var(--primary-color);
+  background: var(--accent-green);
   color: white;
-  border-color: var(--primary-color);
+  border-color: var(--accent-green);
 }
 
 .resources-grid {
@@ -948,7 +1258,7 @@ input:focus, textarea:focus, select:focus {
   background: var(--card-bg);
   border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   border: 1px solid var(--border-color);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: flex;
@@ -957,7 +1267,7 @@ input:focus, textarea:focus, select:focus {
 
 .resource-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .resource-header {
@@ -1031,7 +1341,8 @@ input:focus, textarea:focus, select:focus {
   margin-left: 4px;
 }
 
-.stock-info, .supplier-info {
+.stock-info,
+.supplier-info {
   display: flex;
   justify-content: space-between;
   font-size: 13px;
@@ -1040,17 +1351,20 @@ input:focus, textarea:focus, select:focus {
   border-bottom: 1px solid var(--border-color);
 }
 
-.stock-info:last-child, .supplier-info:last-child {
+.stock-info:last-child,
+.supplier-info:last-child {
   border-bottom: none;
   margin-bottom: 0;
   padding-bottom: 0;
 }
 
-.low-stock-label, .supplier-label {
+.low-stock-label,
+.supplier-label {
   color: var(--text-secondary);
 }
 
-.low-stock-value, .supplier-name {
+.low-stock-value,
+.supplier-name {
   font-weight: 500;
   color: var(--text-primary);
 }
@@ -1085,14 +1399,14 @@ input:focus, textarea:focus, select:focus {
   background: var(--card-bg);
   border-radius: 12px;
   padding: 24px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   border: 1px solid var(--border-color);
   transition: all 0.2s ease;
 }
 
 .machinery-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .machinery-header {
@@ -1132,10 +1446,25 @@ input:focus, textarea:focus, select:focus {
   color: var(--text-secondary);
 }
 
-.status-badge.excellent { background: rgba(40, 167, 69, 0.1); color: #28a745; }
-.status-badge.good { background: rgba(23, 162, 184, 0.1); color: #17a2b8; }
-.status-badge.fair { background: rgba(255, 193, 7, 0.1); color: #ffc107; }
-.status-badge.poor { background: rgba(220, 53, 69, 0.1); color: #dc3545; }
+.status-badge.excellent {
+  background: rgba(40, 167, 69, 0.1);
+  color: #28a745;
+}
+
+.status-badge.good {
+  background: rgba(23, 162, 184, 0.1);
+  color: #17a2b8;
+}
+
+.status-badge.fair {
+  background: rgba(255, 193, 7, 0.1);
+  color: #ffc107;
+}
+
+.status-badge.poor {
+  background: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+}
 
 .machinery-info-row {
   display: grid;
@@ -1195,9 +1524,20 @@ input:focus, textarea:focus, select:focus {
   opacity: 0.8;
 }
 
-.urgency-normal { background: rgba(40, 167, 69, 0.08); color: #28a745; }
-.urgency-soon { background: rgba(255, 193, 7, 0.08); color: #d39e00; }
-.urgency-overdue { background: rgba(220, 53, 69, 0.08); color: #dc3545; }
+.urgency-normal {
+  background: rgba(40, 167, 69, 0.08);
+  color: #28a745;
+}
+
+.urgency-soon {
+  background: rgba(255, 193, 7, 0.08);
+  color: #d39e00;
+}
+
+.urgency-overdue {
+  background: rgba(220, 53, 69, 0.08);
+  color: #dc3545;
+}
 
 .machinery-actions {
   display: flex;
@@ -1230,10 +1570,11 @@ input:focus, textarea:focus, select:focus {
 
 .marketplace-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
 }
 
-.marketplace-img, .marketplace-img-placeholder {
+.marketplace-img,
+.marketplace-img-placeholder {
   width: 100%;
   height: 200px;
   object-fit: cover;
@@ -1365,7 +1706,7 @@ input:focus, textarea:focus, select:focus {
   background: var(--card-bg);
   border-radius: 12px;
   padding: 24px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   border: 1px solid var(--border-color);
   position: relative;
   overflow: hidden;
@@ -1409,24 +1750,53 @@ input:focus, textarea:focus, select:focus {
   text-transform: uppercase;
 }
 
-.soil-badge.optimal { background: rgba(40, 167, 69, 0.1); color: #28a745; }
-.soil-badge.normal { background: rgba(23, 162, 184, 0.1); color: #17a2b8; }
-.soil-badge.warning { background: rgba(255, 193, 7, 0.1); color: #ffc107; }
+.soil-badge.optimal {
+  background: rgba(40, 167, 69, 0.1);
+  color: #28a745;
+}
 
-.status-online { color: #28a745; display: flex; align-items: center; gap: 8px; font-size: 20px; }
-.status-online i { font-size: 12px; animation: pulse 2s infinite; }
+.soil-badge.normal {
+  background: rgba(23, 162, 184, 0.1);
+  color: #17a2b8;
+}
+
+.soil-badge.warning {
+  background: rgba(255, 193, 7, 0.1);
+  color: #ffc107;
+}
+
+.status-online {
+  color: #28a745;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 20px;
+}
+
+.status-online i {
+  font-size: 12px;
+  animation: pulse 2s infinite;
+}
 
 @keyframes pulse {
-  0% { opacity: 1; }
-  50% { opacity: 0.5; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 .soil-readings-section {
   background: var(--card-bg);
   border-radius: 12px;
   padding: 30px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   border: 1px solid var(--border-color);
 }
 
