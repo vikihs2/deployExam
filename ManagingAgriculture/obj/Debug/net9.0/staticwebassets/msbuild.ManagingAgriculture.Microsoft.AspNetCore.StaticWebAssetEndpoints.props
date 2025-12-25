@@ -24,6 +24,18 @@
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-Jtxf9L\u002B5ITKRc1gIRl4VbUpGkRNfOBXjYTdhJD4facM="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"5430"},{"Name":"Content-Type","Value":"image/x-icon"},{"Name":"ETag","Value":"\u0022Jtxf9L\u002B5ITKRc1gIRl4VbUpGkRNfOBXjYTdhJD4facM=\u0022"},{"Name":"Last-Modified","Value":"Fri, 14 Nov 2025 08:00:03 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/ManagingAgriculture/images/companies/d7121d15-a7ff-435e-a1a4-ed5ea0a6d770.jlba5qfg9b.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\companies\d7121d15-a7ff-435e-a1a4-ed5ea0a6d770.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"jlba5qfg9b"},{"Name":"integrity","Value":"sha256-yel4qW7QF4yttHTXJERlAeCsKtoUgN9031vSEXScPZ0="},{"Name":"label","Value":"_content/ManagingAgriculture/images/companies/d7121d15-a7ff-435e-a1a4-ed5ea0a6d770.jpg"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"2449265"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022yel4qW7QF4yttHTXJERlAeCsKtoUgN9031vSEXScPZ0=\u0022"},{"Name":"Last-Modified","Value":"Thu, 25 Dec 2025 10:34:29 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/ManagingAgriculture/images/companies/d7121d15-a7ff-435e-a1a4-ed5ea0a6d770.jpg">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\companies\d7121d15-a7ff-435e-a1a4-ed5ea0a6d770.jpg'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-yel4qW7QF4yttHTXJERlAeCsKtoUgN9031vSEXScPZ0="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"2449265"},{"Name":"Content-Type","Value":"image/jpeg"},{"Name":"ETag","Value":"\u0022yel4qW7QF4yttHTXJERlAeCsKtoUgN9031vSEXScPZ0=\u0022"},{"Name":"Last-Modified","Value":"Thu, 25 Dec 2025 10:34:29 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/ManagingAgriculture/images/homeBackground.fwuyn7fadd.webp">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\homeBackground.webp'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>

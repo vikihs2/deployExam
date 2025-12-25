@@ -15,6 +15,11 @@ namespace ManagingAgriculture.Models
 		[Key]
 		public int Id { get; set; }
 
+        public int? CompanyId { get; set; }
+        public Company? Company { get; set; }
+        
+        public string? OwnerUserId { get; set; }
+
 		/// <summary>Name of the resource (e.g., 'NPK Fertilizer 20-20-20', 'Corn Seeds')</summary>
 		[Required]
 		[StringLength(100)]

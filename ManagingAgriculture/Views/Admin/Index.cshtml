@@ -1,0 +1,122 @@
+@model IEnumerable<ManagingAgriculture.Models.ContactForm>
+@{
+    ViewData["Title"] = "System Admin";
+}
+
+<div class="dashboard-container">
+    <div class="page-header">
+        <div>
+            <h2>👨‍💼 System Admin</h2>
+            <p class="subtitle">Platform Control Center</p>
+        </div>
+    </div>
+
+    <div class="alert alert-warning">
+        System Overview: All systems operational.
+    </div>
+
+    <!-- Contact Messages -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Support Messages</h5>
+        </div>
+        <div class="card-body p-0">
+             <div class="table-responsive">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th>From</th>
+                            <th>Email</th>
+                            <th>Message</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            foreach (var msg in Model)
+                            {
+                                <tr>
+                                    <td>@msg.FullName</td>
+                                    <td>@msg.Email</td>
+                                    <td>@msg.Message</td>
+                                    <td>@msg.CreatedDate.ToShortDateString()</td>
+                                    <td>
+                                        @if (msg.IsReplied)
+                                        {
+                                            <span class="badge bg-success">Replied</span>
+                                        }
+                                        else
+                                        {
+                                            <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#replyModal" data-id="@msg.Id" data-email="@msg.Email">
+                                                Reply
+                                            </button>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr><td colspan="5" class="text-center text-muted">No messages found.</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+                            <tr><td colspan="5" class="text-center text-muted">No messages found.</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Reply Modal -->
+<div class="modal fade" id="replyModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-action="ReplyToMessage" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title">Reply to Message</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="replyMsgId" />
+                    <div class="mb-3">
+                        <label class="form-label">To:</label>
+                        <input type="text" class="form-control" id="replyEmail" readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Message:</label>
+                        <textarea class="form-control" name="replyContent" rows="4" required placeholder="Type your reply here..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Send Reply</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var replyModal = document.getElementById('replyModal');
+        replyModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var id = button.getAttribute('data-id');
+            var email = button.getAttribute('data-email');
+            
+            var modalIdInput = replyModal.querySelector('#replyMsgId');
+            var modalEmailInput = replyModal.querySelector('#replyEmail');
+            
+            modalIdInput.value = id;
+            modalEmailInput.value = email;
+        });
+    </script>
+}

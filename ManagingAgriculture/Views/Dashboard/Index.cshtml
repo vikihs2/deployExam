@@ -1,10 +1,74 @@
 @model ManagingAgriculture.ViewModels.DashboardViewModel
+@using ManagingAgriculture.Models
 @{
     ViewData["Title"] = "Dashboard";
 }
 
 <div class="dashboard-container">
-    <p class="subtitle">Overview of your farm operations</p>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+             <p class="subtitle mb-0">Overview of your farm operations</p>
+             @if (User.Identity.IsAuthenticated && ViewBag.CompanyName != null)
+             {
+                 <div class="d-flex align-items-center mt-2">
+                    @if (ViewBag.CompanyLogo != null)
+                    {
+                         <img src="@ViewBag.CompanyLogo" alt="Logo" class="rounded-circle me-2 border" style="width: 50px; height: 50px; object-fit: cover;" />
+                    }
+                    <h2 class="text-success mb-0"><i class="fas fa-building" style="@(ViewBag.CompanyLogo != null ? "display:none;" : "")"></i> @ViewBag.CompanyName</h2>
+                 </div>
+             }
+        </div>
+        
+        <div class="d-flex gap-2">
+            <a asp-controller="Inbox" asp-action="Index" class="btn btn-warning text-dark">
+                <i class="fas fa-envelope"></i> Check Inbox
+            </a>
+
+            @if (User.IsInRole("Boss"))
+            {
+                <a href="@Url.Action("Index", "Boss")" class="btn text-white" style="background-color: var(--brand-green);">Back to Boss Panel</a>
+            }
+            @if (User.IsInRole("SystemAdmin"))
+            {
+                <a href="@Url.Action("Index", "Admin")" class="btn btn-dark">Back to Admin Panel</a>
+            }
+            @if (User.IsInRole("ITSupport"))
+            {
+                <a href="@Url.Action("Index", "ITSupport")" class="btn btn-info text-white">Back to IT Panel</a>
+            }
+        </div>
+    </div>
+
+    <!-- Job Offers Section -->
+    @if (ViewBag.PendingInvites != null && ((List<CompanyInvitation>)ViewBag.PendingInvites).Count > 0)
+    {
+        <div class="alert alert-info">
+            <h4><i class="fas fa-briefcase"></i> Job Offers</h4>
+            <p>You have been invited to join a company!</p>
+            <div class="list-group">
+                @foreach (var invite in (List<CompanyInvitation>)ViewBag.PendingInvites)
+                {
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>@(invite.Company != null ? invite.Company.Name : "A Company")</strong>
+                            <span class="badge bg-primary ms-2">@invite.Role</span>
+                        </div>
+                        <div class="d-flex gap-2">
+                             <form asp-action="AcceptInvite" method="post">
+                                 <input type="hidden" name="inviteId" value="@invite.Id" />
+                                 <button type="submit" class="btn btn-success btn-sm">Accept</button>
+                             </form>
+                             <form asp-action="DeclineInvite" method="post">
+                                 <input type="hidden" name="inviteId" value="@invite.Id" />
+                                 <button type="submit" class="btn btn-danger btn-sm">Decline</button>
+                             </form>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
 
     <!-- Statistics Cards -->
     <div class="stats-grid">

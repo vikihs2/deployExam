@@ -19,5 +19,11 @@ namespace ManagingAgriculture.Models
         [Required]
         [StringLength(2000)]
         public string Message { get; set; } = string.Empty;
+
+        // Reply Fields
+        public string? ReplyMessage { get; set; }
+        public bool IsReplied { get; set; } = false;
+        public DateTime? RepliedDate { get; set; }
+        public string? RepliedBy { get; set; } // "Admin" or "IT" or UserID
     }
 }

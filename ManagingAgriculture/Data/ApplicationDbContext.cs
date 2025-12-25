@@ -11,6 +11,8 @@ namespace ManagingAgriculture.Data
         {
         }
 
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<CompanyInvitation> CompanyInvitations { get; set; }
         public DbSet<Plant> Plants { get; set; }
         public DbSet<Resource> Resources { get; set; }
         public DbSet<Machinery> Machinery { get; set; }

@@ -15,6 +15,11 @@ namespace ManagingAgriculture.Models
 		[Key]
 		public int Id { get; set; }
 
+        public int? CompanyId { get; set; }
+        public Company? Company { get; set; }
+
+        public string? OwnerUserId { get; set; }
+
 		/// <summary>Name/model of the equipment (e.g., 'John Deere 5075E')</summary>
 		[Required]
 		[StringLength(100)]

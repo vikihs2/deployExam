@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "U7eO2BtLOBu0D1QQJ4dBdys54s4a57epCM3yIokPtbk=",
+  "Hash": "xK4zREB4IdC5tMU6qx2hL2R918E3IKflRt3kAc+6k3Q=",
   "Source": "ManagingAgriculture",
   "BasePath": "_content/ManagingAgriculture",
   "Mode": "Default",
@@ -1359,6 +1359,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\images\\companies\\d7121d15-a7ff-435e-a1a4-ed5ea0a6d770.jpg",
+      "SourceId": "ManagingAgriculture",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\",
+      "BasePath": "_content/ManagingAgriculture",
+      "RelativePath": "images/companies/d7121d15-a7ff-435e-a1a4-ed5ea0a6d770#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "jlba5qfg9b",
+      "Integrity": "yel4qW7QF4yttHTXJERlAeCsKtoUgN9031vSEXScPZ0=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\companies\\d7121d15-a7ff-435e-a1a4-ed5ea0a6d770.jpg"
     },
     {
       "Identity": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\images\\homeBackground.webp",
@@ -3320,6 +3341,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-wfFuuYm+Lh6RbCeeiUqxw334b/hIOkp5j9eokGUM1Y0="
+        }
+      ]
+    },
+    {
+      "Route": "images/companies/d7121d15-a7ff-435e-a1a4-ed5ea0a6d770.jlba5qfg9b.jpg",
+      "AssetFile": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\images\\companies\\d7121d15-a7ff-435e-a1a4-ed5ea0a6d770.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2449265"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"yel4qW7QF4yttHTXJERlAeCsKtoUgN9031vSEXScPZ0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 25 Dec 2025 10:34:29 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "jlba5qfg9b"
+        },
+        {
+          "Name": "label",
+          "Value": "images/companies/d7121d15-a7ff-435e-a1a4-ed5ea0a6d770.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-yel4qW7QF4yttHTXJERlAeCsKtoUgN9031vSEXScPZ0="
+        }
+      ]
+    },
+    {
+      "Route": "images/companies/d7121d15-a7ff-435e-a1a4-ed5ea0a6d770.jpg",
+      "AssetFile": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\images\\companies\\d7121d15-a7ff-435e-a1a4-ed5ea0a6d770.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2449265"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"yel4qW7QF4yttHTXJERlAeCsKtoUgN9031vSEXScPZ0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 25 Dec 2025 10:34:29 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-yel4qW7QF4yttHTXJERlAeCsKtoUgN9031vSEXScPZ0="
         }
       ]
     },

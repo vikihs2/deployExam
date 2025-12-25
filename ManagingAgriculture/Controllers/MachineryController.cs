@@ -18,10 +18,12 @@ namespace ManagingAgriculture.Controllers
     public class MachineryController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager;
 
-        public MachineryController(ApplicationDbContext context)
+        public MachineryController(ApplicationDbContext context, Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         /// <summary>
@@ -31,21 +33,23 @@ namespace ManagingAgriculture.Controllers
         /// <returns>View with IEnumerable of Machinery</returns>
         public async Task<IActionResult> Index()
         {
-            ViewData["Title"] = "Machinery Management";
+            ViewData["Title"] = "Machinery";
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) return Challenge();
 
-            var machineryList = await _context.Machinery.ToListAsync();
-
-            // Sort machinery by status priority for better visibility
-            var sortedMachinery = machineryList.OrderBy(m => m.Status switch
+            List<Machinery> machineryList;
+            if (user.CompanyId != null)
             {
-                "Excellent" => 1,
-                "Good" => 2,
-                "Fair" => 3,
-                "Poor" => 4,
-                _ => 5
-            }).ToList();
+                machineryList = await _context.Machinery
+                    .Where(m => m.CompanyId == user.CompanyId || (m.CompanyId == null && m.OwnerUserId == user.Id))
+                    .ToListAsync();
+            }
+            else
+            {
+                machineryList = await _context.Machinery.Where(m => m.OwnerUserId == user.Id).ToListAsync();
+            }
 
-            return View(sortedMachinery);
+            return View(machineryList);
         }
 
         [HttpGet]

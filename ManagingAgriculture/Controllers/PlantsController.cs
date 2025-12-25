@@ -13,16 +13,33 @@ namespace ManagingAgriculture.Controllers
     public class PlantsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager;
 
-        public PlantsController(ApplicationDbContext context)
+        public PlantsController(ApplicationDbContext context, Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> Index()
         {
             ViewData["Title"] = "Plant Tracking";
-            var plants = await _context.Plants.ToListAsync();
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) return Challenge();
+
+            List<Plant> plants;
+            if (user.CompanyId != null)
+            {
+                // Show Company plants AND Personal plants (legacy data migration view)
+                plants = await _context.Plants
+                    .Where(p => p.CompanyId == user.CompanyId || (p.CompanyId == null && p.OwnerUserId == user.Id))
+                    .ToListAsync();
+            }
+            else
+            {
+                plants = await _context.Plants.Where(p => p.OwnerUserId == user.Id).ToListAsync();
+            }
+            
             return View(plants);
         }
 
@@ -40,6 +57,8 @@ namespace ManagingAgriculture.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
+            var user = await _userManager.GetUserAsync(User);
+            
             var plant = new Plant
             {
                 Name = model.Name,
@@ -55,7 +74,9 @@ namespace ManagingAgriculture.Controllers
                 AvgTemperatureCelsius = model.AvgTemperatureCelsius,
                 WateringFrequencyDays = model.WateringFrequencyDays,
                 CreatedDate = System.DateTime.UtcNow,
-                UpdatedDate = System.DateTime.UtcNow
+                UpdatedDate = System.DateTime.UtcNow,
+                CompanyId = user.CompanyId,
+                OwnerUserId = user.CompanyId == null ? user.Id : null
             };
 
             _context.Plants.Add(plant);
@@ -67,10 +88,19 @@ namespace ManagingAgriculture.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
+            var user = await _userManager.GetUserAsync(User);
             var plant = await _context.Plants.FindAsync(id);
-            if (plant == null)
+
+            if (plant == null) return NotFound();
+
+            // Authorization Check
+            if (user.CompanyId != null)
             {
-                return NotFound();
+                if (plant.CompanyId != user.CompanyId) return Forbid();
+            }
+            else
+            {
+                if (plant.OwnerUserId != user.Id) return Forbid();
             }
 
             var model = new PlantCreateViewModel
@@ -89,7 +119,7 @@ namespace ManagingAgriculture.Controllers
                 WateringFrequencyDays = plant.WateringFrequencyDays
             };
 
-            ViewBag.Id = plant.Id; // Pass ID to view for form submission
+            ViewBag.Id = plant.Id;
             return View(model);
         }
 
@@ -100,10 +130,19 @@ namespace ManagingAgriculture.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
+            var user = await _userManager.GetUserAsync(User);
             var plant = await _context.Plants.FindAsync(id);
-            if (plant == null)
+
+            if (plant == null) return NotFound();
+
+             // Authorization Check
+            if (user.CompanyId != null)
             {
-                return NotFound();
+                if (plant.CompanyId != user.CompanyId) return Forbid();
+            }
+            else
+            {
+                if (plant.OwnerUserId != user.Id) return Forbid();
             }
 
             plant.Name = model.Name;
@@ -130,9 +169,20 @@ namespace ManagingAgriculture.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
+            var user = await _userManager.GetUserAsync(User);
             var plant = await _context.Plants.FindAsync(id);
             if (plant != null)
             {
+                 // Authorization Check
+                if (user.CompanyId != null)
+                {
+                    if (plant.CompanyId != user.CompanyId) return Forbid();
+                }
+                else
+                {
+                    if (plant.OwnerUserId != user.Id) return Forbid();
+                }
+
                 _context.Plants.Remove(plant);
                 await _context.SaveChangesAsync();
             }

@@ -20,5 +20,11 @@ namespace ManagingAgriculture.Models
         [Compare("Password")]
         [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; } = string.Empty;
+
+        [Display(Name = "Register as a Company (Boss)")]
+        public bool RegisterAsCompany { get; set; }
+
+        [Display(Name = "Company Name")]
+        public string? CompanyName { get; set; }
     }
 }

@@ -1,0 +1,42 @@
+@{
+    ViewData["Title"] = "Boss Dashboard";
+}
+
+<div class="dashboard-container">
+    <div class="page-header">
+        <div>
+            <h2>👑 Boss Panel</h2>
+            <p class="subtitle">Manage everything in your company</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Company Settings</h5>
+                    <p class="card-text">Manage company details.</p>
+                    <a asp-action="ManageCompany" class="btn btn-primary">Manage Company</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Employees</h5>
+                    <p class="card-text">Invite and manage staff.</p>
+                    <a asp-action="ManageStaff" class="btn btn-primary">Manage Staff</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+             <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Farm Operations</h5>
+                    <p class="card-text">Full access to all resources.</p>
+                    <a href="/Dashboard" class="btn btn-success">Go to Main Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

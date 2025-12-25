@@ -1,0 +1,116 @@
+@model IEnumerable<ManagingAgriculture.Models.ApplicationUser>
+@{
+    ViewData["Title"] = "Manage Staff";
+}
+
+<div class="dashboard-container">
+    <h2>👥 Manage Staff</h2>
+    
+    <div class="card mb-4 mt-3">
+        <div class="card-header bg-success text-white">
+            <h5 class="mb-0">Invite New Staff</h5>
+        </div>
+        <div class="card-body">
+            <form asp-action="InviteStaff" method="post" class="row g-3">
+                <div class="col-md-6">
+                    <input type="email" name="email" class="form-control" placeholder="Enter Email Address" required>
+                </div>
+                <div class="col-md-4">
+                    <select name="role" class="form-select">
+                        <option value="Manager">Manager</option>
+                        <option value="Employee">Employee</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-outline-success w-100">Add / Invite</button>
+                </div>
+            </form>
+             <small class="text-muted mt-2">
+                If the user exists, they will be added immediately. If not, they will be added when they register with this email.
+            </small>
+        </div>
+    </div>
+
+    <!-- Current Staff -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Current Team</h5>
+        </div>
+        <div class="card-body p-0">
+            <table class="table mb-0">
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Username</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var staff in Model)
+                    {
+                        <tr>
+                            <td>@staff.Email</td>
+                            <td>@staff.UserName</td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    @{
+                                        var userManager = Context.RequestServices.GetService(typeof(Microsoft.AspNetCore.Identity.UserManager<ManagingAgriculture.Models.ApplicationUser>)) as Microsoft.AspNetCore.Identity.UserManager<ManagingAgriculture.Models.ApplicationUser>;
+                                        if (userManager != null)
+                                        {
+                                            var roles = await userManager.GetRolesAsync(staff);
+                                            var role = roles.FirstOrDefault();
+                                            <span class="badge bg-secondary me-2 align-self-center">@role</span>
+                                        }
+                                    }
+                                
+                                    <form asp-action="PromoteStaff" method="post" class="d-inline">
+                                        <input type="hidden" name="userId" value="@staff.Id" />
+                                        <input type="hidden" name="newRole" value="Manager" />
+                                        <button type="submit" class="btn btn-sm btn-outline-warning text-dark" title="Promote to Manager">Promote</button>
+                                    </form>
+                                    
+                                    <form asp-action="RemoveStaff" method="post" class="d-inline ms-1">
+                                        <input type="hidden" name="userId" value="@staff.Id" />
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to fire this employee?');">Fire</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Pending Invitations -->
+    <div class="card">
+        <div class="card-header bg-warning text-dark">
+            <h5 class="mb-0">Pending Invitations</h5>
+        </div>
+        <div class="card-body p-0">
+            <table class="table mb-0">
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var invite in (List<ManagingAgriculture.Models.CompanyInvitation>)ViewBag.Invitations)
+                    {
+                        <tr>
+                            <td>@invite.Email</td>
+                            <td>@invite.Role</td>
+                            <td><span class="badge bg-warning">Pending Registration</span></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div class="mt-3">
+        <a asp-action="Index" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+</div>

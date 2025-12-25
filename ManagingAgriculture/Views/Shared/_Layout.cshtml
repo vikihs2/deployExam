@@ -1,3 +1,5 @@
+@inject Microsoft.AspNetCore.Identity.UserManager<ManagingAgriculture.Models.ApplicationUser> UserManager
+@inject ManagingAgriculture.Data.ApplicationDbContext DbContext
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +15,17 @@
         var controller = ViewContext.RouteData.Values["controller"]?.ToString();
         var action = ViewContext.RouteData.Values["action"]?.ToString();
         var showSidebar = !(controller == "Home" && action == "Contact");
+
+        string companyName = "";
+        if (User?.Identity?.IsAuthenticated == true)
+        {
+            var user = await UserManager.GetUserAsync(User);
+            if (user != null && user.CompanyId != null)
+            {
+                var company = await DbContext.Companies.FindAsync(user.CompanyId);
+                companyName = company?.Name;
+            }
+        }
     }
 
     <div class="d-flex">

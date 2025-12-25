@@ -10,11 +10,13 @@ namespace ManagingAgriculture.Controllers
     {
         private readonly IConfiguration _config;
         private readonly ILogger<HomeController> _logger;
+        private readonly ManagingAgriculture.Data.ApplicationDbContext _context;
 
-        public HomeController(IConfiguration config, ILogger<HomeController> logger)
+        public HomeController(IConfiguration config, ILogger<HomeController> logger, ManagingAgriculture.Data.ApplicationDbContext context)
         {
             _config = config;
             _logger = logger;
+            _context = context;
         }
         public IActionResult Index()
         {
@@ -33,12 +35,17 @@ namespace ManagingAgriculture.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Contact(Models.ContactForm form)
+        public async Task<IActionResult> Contact(Models.ContactForm form)
         {
             if (!ModelState.IsValid)
             {
                 return View(form);
             }
+
+            // Save to Database
+            form.CreatedDate = System.DateTime.UtcNow;
+            _context.ContactForms.Add(form);
+            await _context.SaveChangesAsync();
 
             var smtpHost = _config["Smtp:Host"];
 

@@ -36,8 +36,28 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Viktor/Desktop/diplomna.rabota/managingAgriculture/Managing-agriculture/ManagingAgriculture/Views/Admin/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Viktor/Desktop/diplomna.rabota/managingAgriculture/Managing-agriculture/ManagingAgriculture/Views/Boss/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9zc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Viktor/Desktop/diplomna.rabota/managingAgriculture/Managing-agriculture/ManagingAgriculture/Views/Boss/ManageCompany.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9zc1xNYW5hZ2VDb21wYW55LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Viktor/Desktop/diplomna.rabota/managingAgriculture/Managing-agriculture/ManagingAgriculture/Views/Boss/ManageStaff.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9zc1xNYW5hZ2VTdGFmZi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Viktor/Desktop/diplomna.rabota/managingAgriculture/Managing-agriculture/ManagingAgriculture/Views/Dashboard/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Viktor/Desktop/diplomna.rabota/managingAgriculture/Managing-agriculture/ManagingAgriculture/Views/Employee/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Viktor/Desktop/diplomna.rabota/managingAgriculture/Managing-agriculture/ManagingAgriculture/Views/Home/Contact.cshtml]
@@ -52,6 +72,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleF9iYWNrdXBfMjAyNS0xMi0wOS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Viktor/Desktop/diplomna.rabota/managingAgriculture/Managing-agriculture/ManagingAgriculture/Views/Inbox/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5ib3hcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Viktor/Desktop/diplomna.rabota/managingAgriculture/Managing-agriculture/ManagingAgriculture/Views/ITSupport/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSVRTdXBwb3J0XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Viktor/Desktop/diplomna.rabota/managingAgriculture/Managing-agriculture/ManagingAgriculture/Views/Machinery/Add.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFjaGluZXJ5XEFkZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -62,6 +90,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Viktor/Desktop/diplomna.rabota/managingAgriculture/Managing-agriculture/ManagingAgriculture/Views/Machinery/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFjaGluZXJ5XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Viktor/Desktop/diplomna.rabota/managingAgriculture/Managing-agriculture/ManagingAgriculture/Views/Manager/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFuYWdlclxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Viktor/Desktop/diplomna.rabota/managingAgriculture/Managing-agriculture/ManagingAgriculture/Views/Marketplace/Add.cshtml]

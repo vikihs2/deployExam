@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System;
+using Microsoft.AspNetCore.Identity; // Added for UserManager
 
 namespace ManagingAgriculture.Controllers
 {
@@ -14,10 +15,12 @@ namespace ManagingAgriculture.Controllers
     public class ResourcesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager; // Added for UserManager
 
-        public ResourcesController(ApplicationDbContext context)
+        public ResourcesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager) // Modified constructor
         {
             _context = context;
+            _userManager = userManager; // Initialized UserManager
         }
 
         /// <summary>
@@ -26,8 +29,19 @@ namespace ManagingAgriculture.Controllers
         public async Task<IActionResult> Index(string? category = null)
         {
             ViewData["Title"] = "Resource Management";
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) return Challenge();
             
             var query = _context.Resources.AsQueryable();
+
+            if (user.CompanyId != null)
+            {
+                 query = query.Where(r => r.CompanyId == user.CompanyId || (r.CompanyId == null && r.OwnerUserId == user.Id));
+            }
+            else
+            {
+                 query = query.Where(r => r.OwnerUserId == user.Id);
+            }
             
             // Filter by category if provided
             if (!string.IsNullOrEmpty(category) && category != "all")

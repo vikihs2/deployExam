@@ -30,6 +30,9 @@ namespace ManagingAgriculture.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -40,6 +43,12 @@ namespace ManagingAgriculture.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -76,6 +85,8 @@ namespace ManagingAgriculture.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CompanyId");
+
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -85,6 +96,70 @@ namespace ManagingAgriculture.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("ManagingAgriculture.Models.Company", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CreatedByUserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LogoPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Companies");
+                });
+
+            modelBuilder.Entity("ManagingAgriculture.Models.CompanyInvitation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsUsed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("CompanyInvitations");
                 });
 
             modelBuilder.Entity("ManagingAgriculture.Models.ContactForm", b =>
@@ -106,10 +181,22 @@ namespace ManagingAgriculture.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsReplied")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Message")
                         .IsRequired()
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
+
+                    b.Property<string>("RepliedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("RepliedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ReplyMessage")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -123,6 +210,9 @@ namespace ManagingAgriculture.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -140,6 +230,9 @@ namespace ManagingAgriculture.Migrations
 
                     b.Property<DateTime?>("NextServiceDate")
                         .HasColumnType("date");
+
+                    b.Property<string>("OwnerUserId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("PurchaseDate")
                         .HasColumnType("date");
@@ -161,6 +254,8 @@ namespace ManagingAgriculture.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("Machinery");
                 });
@@ -282,6 +377,9 @@ namespace ManagingAgriculture.Migrations
                     b.Property<decimal?>("AvgTemperatureCelsius")
                         .HasColumnType("decimal(5,2)");
 
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -308,6 +406,9 @@ namespace ManagingAgriculture.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OwnerUserId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PlantType")
@@ -339,6 +440,8 @@ namespace ManagingAgriculture.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CompanyId");
+
                     b.ToTable("Plants");
                 });
 
@@ -355,6 +458,9 @@ namespace ManagingAgriculture.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -365,6 +471,9 @@ namespace ManagingAgriculture.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("OwnerUserId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Quantity")
                         .HasColumnType("decimal(10,2)");
@@ -382,6 +491,8 @@ namespace ManagingAgriculture.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("Resources");
                 });
@@ -430,6 +541,9 @@ namespace ManagingAgriculture.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -445,12 +559,17 @@ namespace ManagingAgriculture.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("OwnerUserId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SensorType")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("Sensors");
                 });
@@ -615,6 +734,35 @@ namespace ManagingAgriculture.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("ManagingAgriculture.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("ManagingAgriculture.Models.Company", "Company")
+                        .WithMany("Employees")
+                        .HasForeignKey("CompanyId");
+
+                    b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("ManagingAgriculture.Models.CompanyInvitation", b =>
+                {
+                    b.HasOne("ManagingAgriculture.Models.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("ManagingAgriculture.Models.Machinery", b =>
+                {
+                    b.HasOne("ManagingAgriculture.Models.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId");
+
+                    b.Navigation("Company");
+                });
+
             modelBuilder.Entity("ManagingAgriculture.Models.MaintenanceHistory", b =>
                 {
                     b.HasOne("ManagingAgriculture.Models.Machinery", "Machinery")
@@ -636,6 +784,24 @@ namespace ManagingAgriculture.Migrations
                     b.Navigation("Machinery");
                 });
 
+            modelBuilder.Entity("ManagingAgriculture.Models.Plant", b =>
+                {
+                    b.HasOne("ManagingAgriculture.Models.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId");
+
+                    b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("ManagingAgriculture.Models.Resource", b =>
+                {
+                    b.HasOne("ManagingAgriculture.Models.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId");
+
+                    b.Navigation("Company");
+                });
+
             modelBuilder.Entity("ManagingAgriculture.Models.ResourceUsage", b =>
                 {
                     b.HasOne("ManagingAgriculture.Models.Plant", "Plant")
@@ -651,6 +817,15 @@ namespace ManagingAgriculture.Migrations
                     b.Navigation("Plant");
 
                     b.Navigation("Resource");
+                });
+
+            modelBuilder.Entity("ManagingAgriculture.Models.Sensor", b =>
+                {
+                    b.HasOne("ManagingAgriculture.Models.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId");
+
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("ManagingAgriculture.Models.SensorReading", b =>
@@ -713,6 +888,11 @@ namespace ManagingAgriculture.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ManagingAgriculture.Models.Company", b =>
+                {
+                    b.Navigation("Employees");
                 });
 
             modelBuilder.Entity("ManagingAgriculture.Models.Machinery", b =>

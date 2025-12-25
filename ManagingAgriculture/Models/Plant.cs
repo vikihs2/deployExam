@@ -15,6 +15,13 @@ namespace ManagingAgriculture.Models
 		[Key]
 		public int Id { get; set; }
 
+		/// <summary>Company ownership (if part of a company)</summary>
+		public int? CompanyId { get; set; }
+		public Company? Company { get; set; }
+
+		/// <summary>User ownership (if freelancer)</summary>
+		public string? OwnerUserId { get; set; }
+
 		/// <summary>Name of the plant (e.g., 'Tomato Garden A')</summary>
 		[Required]
 		[StringLength(100)]

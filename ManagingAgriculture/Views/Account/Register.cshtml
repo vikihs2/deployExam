@@ -57,6 +57,19 @@
             <input asp-for="ConfirmPassword" type="password" placeholder="••••••••" />
             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
 
+            <div style="margin-top:15px; margin-bottom:15px;">
+                <label style="display:flex; align-items:center; gap:8px;">
+                    <input asp-for="RegisterAsCompany" type="checkbox" id="chkCompany" style="width:auto; margin:0;" /> 
+                    Register as Company Owner (Boss)
+                </label>
+            </div>
+
+            <div id="companyFields" style="display:none;">
+                <label>Company Name</label>
+                <input asp-for="CompanyName" placeholder="My Farm Ltd." />
+                <span asp-validation-for="CompanyName" class="text-danger"></span>
+            </div>
+
             <button type="submit" class="btn-block">Create Account</button>
         </form>
 
@@ -69,5 +82,16 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#chkCompany').change(function() {
+                if($(this).is(':checked')) {
+                    $('#companyFields').slideDown();
+                } else {
+                    $('#companyFields').slideUp();
+                }
+            });
+        });
+    </script>
 </body>
 </html>

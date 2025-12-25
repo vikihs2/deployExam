@@ -27,17 +27,18 @@ builder.Services.AddSingleton<ArduinoService>();
 var app = builder.Build();
 
 // Seed admin user
+// Seed Roles and Users
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-    var adminEmail = "admin@gmail.com";
-    var adminUser = await userManager.FindByEmailAsync(adminEmail);
-    if (adminUser == null)
+    try 
     {
-        adminUser = new ApplicationUser { UserName = "admin", Email = adminEmail, EmailConfirmed = true };
-        var res = await userManager.CreateAsync(adminUser, "admin1234");
-        // ignore errors for now; user exists will be handled
+        await DbInitializer.Initialize(services);
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while seeding the database.");
     }
 }
 
