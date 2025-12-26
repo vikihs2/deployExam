@@ -48,7 +48,7 @@ namespace ManagingAgriculture.Controllers
                 ActivePlantsCount = await Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.CountAsync(plantsQuery.Where(p => p.Status != "Harvested")),
                 ResourcesCount = await Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.CountAsync(resourcesQuery),
                 MachineryCount = await Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.CountAsync(machineryQuery),
-                LowStockCount = await Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.CountAsync(resourcesQuery.Where(r => r.Quantity < r.LowStockThreshold)),
+                LowStockCount = await Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.CountAsync(resourcesQuery.Where(r => r.Quantity <= r.LowStockThreshold)),
                 ActiveCrops = await Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync(plantsQuery
                     .Where(p => p.Status != "Harvested")
                     .OrderByDescending(p => p.CreatedDate)

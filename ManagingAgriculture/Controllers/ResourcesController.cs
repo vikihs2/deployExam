@@ -72,6 +72,13 @@ namespace ManagingAgriculture.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
+            var user = await _userManager.GetUserAsync(User);
+            if (user != null)
+            {
+                model.OwnerUserId = user.Id;
+                model.CompanyId = user.CompanyId; // Null if freelancer
+            }
+
             model.CreatedDate = DateTime.Now;
             model.UpdatedDate = DateTime.Now;
             
@@ -104,6 +111,11 @@ namespace ManagingAgriculture.Controllers
 
                 model.CreatedDate = existing.CreatedDate;
                 model.UpdatedDate = DateTime.Now;
+                model.OwnerUserId = existing.OwnerUserId;
+                model.CompanyId = existing.CompanyId;
+                
+                // Detach existing to avoid tracking conflict
+                _context.Entry(existing).State = EntityState.Detached;
 
                 _context.Update(model);
                 await _context.SaveChangesAsync();

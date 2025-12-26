@@ -94,10 +94,17 @@ namespace ManagingAgriculture.Controllers
                 return View(machinery);
             }
 
+            var user = await _userManager.GetUserAsync(User);
+            if (user != null)
+            {
+                machinery.OwnerUserId = user.Id;
+                machinery.CompanyId = user.CompanyId;
+            }
+
             // Set timestamps for audit trail
             machinery.CreatedDate = DateTime.Now;
             machinery.UpdatedDate = DateTime.Now;
-
+            
             // Add to database
             _context.Machinery.Add(machinery);
             await _context.SaveChangesAsync();
@@ -163,9 +170,14 @@ namespace ManagingAgriculture.Controllers
                     return NotFound();
                 }
 
-                // Preserve creation date
+                // Preserve creation date and ownership
                 machinery.CreatedDate = existingMachinery.CreatedDate;
                 machinery.UpdatedDate = DateTime.Now;
+                machinery.OwnerUserId = existingMachinery.OwnerUserId;
+                machinery.CompanyId = existingMachinery.CompanyId;
+
+                // Detach existing to avoid tracking conflict
+                _context.Entry(existingMachinery).State = EntityState.Detached;
 
                 _context.Update(machinery);
                 await _context.SaveChangesAsync();
