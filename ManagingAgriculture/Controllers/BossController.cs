@@ -84,27 +84,19 @@ namespace ManagingAgriculture.Controllers
             var currentUser = await _userManager.GetUserAsync(User);
             if (currentUser == null || currentUser.CompanyId == null) return Challenge();
 
-            var existingUser = await _userManager.FindByEmailAsync(email);
-            if (existingUser != null)
+            // Always create an invitation, even if user exists.
+            // They must accept it via their Dashboard to join the company.
+            var existingInvite = await _context.CompanyInvitations
+                .FirstOrDefaultAsync(i => i.Email == email && i.CompanyId == currentUser.CompanyId && !i.IsUsed);
+
+            if (existingInvite == null)
             {
-                // User exists: Update them
-                existingUser.CompanyId = currentUser.CompanyId;
-                await _userManager.UpdateAsync(existingUser);
-                
-                // Remove old roles and add new one
-                var roles = await _userManager.GetRolesAsync(existingUser);
-                await _userManager.RemoveFromRolesAsync(existingUser, roles);
-                await _userManager.AddToRoleAsync(existingUser, role);
-            }
-            else
-            {
-                // Create Invitation
                 var invite = new CompanyInvitation
                 {
                     Email = email,
                     CompanyId = currentUser.CompanyId.Value,
                     Role = role,
-                    Token = Guid.NewGuid().ToString() // Simple token, checking mainly email
+                    Token = Guid.NewGuid().ToString()
                 };
                 _context.CompanyInvitations.Add(invite);
                 await _context.SaveChangesAsync();

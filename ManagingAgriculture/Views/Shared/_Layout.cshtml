@@ -63,6 +63,14 @@
                         <span>Soil Humidity</span>
                     </a>
                     
+                    @if (User.IsInRole("SystemAdmin"))
+                    {
+                        <a href="@Url.Action("Index", "Admin")" class="menu-item" style="color:red">
+                            <i class="fas fa-user-shield"></i>
+                            <span>Admin Panel</span>
+                        </a>
+                    }
+                    
                     <p class="menu-title">Account</p>
                     @if (User?.Identity?.IsAuthenticated == true)
                     {

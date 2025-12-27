@@ -31,14 +31,21 @@ namespace ManagingAgriculture.Data
             }
 
             var adminEmail = "admin@gmail.com";
-            if (await userManager.FindByEmailAsync(adminEmail) == null)
+            var adminUser = await userManager.FindByEmailAsync(adminEmail);
+            if (adminUser == null)
             {
-                var adminUser = new ApplicationUser { UserName = "admin", Email = adminEmail, EmailConfirmed = true };
+                adminUser = new ApplicationUser { UserName = "admin", Email = adminEmail, EmailConfirmed = true };
                 var res = await userManager.CreateAsync(adminUser, "Admin123!"); 
-                if (res.Succeeded)
+                if (!res.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(adminUser, "SystemAdmin");
+                   // Log error or handle? For now, assume success or already exists.
                 }
+            }
+            
+            // ALWAYS ensure admin has the role
+            if (adminUser != null && !await userManager.IsInRoleAsync(adminUser, "SystemAdmin"))
+            {
+                await userManager.AddToRoleAsync(adminUser, "SystemAdmin");
             }
         }
     }
