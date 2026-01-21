@@ -22,6 +22,8 @@ namespace ManagingAgriculture.Data
         public DbSet<Sensor> Sensors { get; set; }
         public DbSet<SensorReading> SensorReadings { get; set; }
         public DbSet<ContactForm> ContactForms { get; set; }
+        public DbSet<TaskAssignment> TaskAssignments { get; set; }
+        public DbSet<LeaveRecord> LeaveRecords { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

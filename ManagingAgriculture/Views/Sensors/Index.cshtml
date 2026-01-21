@@ -61,7 +61,6 @@
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <script>
         // LIVE SENSOR FETCH
         function updateSensor() {
             fetch('/Sensors/GetWaterLevel')
@@ -69,15 +68,22 @@
                 .then(d => {
                     const percent = Math.min(100, Math.round((d.value / 1023) * 100));
                     document.getElementById('humidityValue').innerText = percent + '%';
-                    document.getElementById('lastUpdate').innerText =
-                        new Date().toLocaleTimeString();
+                    document.getElementById('humidityValue').classList.remove('text-danger', 'fs-6');
+                    document.getElementById('lastUpdate').innerText = new Date().toLocaleTimeString();
+                    
+                    // Update Status Badge
+                    document.querySelector('.status-online').innerHTML = '<i class="fas fa-circle text-success"></i> Online';
                 })
                 .catch(() => {
-                    document.getElementById('humidityValue').innerText = '--%';
+                    const el = document.getElementById('humidityValue');
+                    el.innerText = 'Arduino Not Connected';
+                    el.classList.add('text-danger', 'fs-6'); // Make text red and smaller
+                    
+                    document.querySelector('.status-online').innerHTML = '<i class="fas fa-circle text-danger"></i> Offline';
                 });
         }
 
-        setInterval(updateSensor, 1000);
+        setInterval(updateSensor, 2000); // Check every 2s
     </script>
 
     <script>

@@ -5,23 +5,51 @@
 }
 
 <div class="container mt-4">
-    <div class="card mx-auto" style="max-width:720px;">
+    <div class="card mx-auto shadow-sm" style="max-width:800px;">
+        <div class="card-header bg-success text-white">
+             <h3 class="card-title mb-0"><i class="fas fa-seedling"></i> Edit Plant</h3>
+        </div>
         <div class="card-body">
-            <h3 class="card-title mb-3">Edit Plant</h3>
+            
+            @if (ViewBag.AlgorithmScore != null)
+            {
+                <div class="alert @(ViewBag.AlgorithmScore >= 80 ? "alert-success" : ViewBag.AlgorithmScore >= 50 ? "alert-warning" : "alert-danger")">
+                    <strong>Growth Suitability Score: @ViewBag.AlgorithmScore%</strong><br/>
+                    <small>@ViewBag.AlgorithmMessage</small>
+                </div>
+            }
+
             <form asp-action="Edit" asp-route-id="@ViewBag.Id" method="post">
                 @Html.AntiForgeryToken()
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                <div class="mb-3">
-                    <label asp-for="Name" class="form-label"></label>
-                    <input asp-for="Name" class="form-control" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
-
-                <div class="mb-3">
-                    <label asp-for="CropType" class="form-label"></label>
-                    <input asp-for="CropType" class="form-control" />
-                    <span asp-validation-for="CropType" class="text-danger"></span>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Name" class="form-label fw-bold"></label>
+                        <input asp-for="Name" class="form-control" placeholder="e.g. My Tomato Garden" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="CropType" class="form-label fw-bold"></label>
+                        <!-- Searchable Dropdown using Datalist -->
+                        <input asp-for="CropType" list="cropList" class="form-control" placeholder="Type to search crop..." />
+                        <datalist id="cropList">
+                            @if(ViewBag.CropCategories != null)
+                            {
+                                foreach (var category in (Dictionary<string, List<string>>)ViewBag.CropCategories)
+                                {
+                                    <optgroup label="@category.Key">
+                                        @foreach(var crop in category.Value)
+                                        {
+                                            <option value="@crop">@category.Key - @crop</option>
+                                        }
+                                    </optgroup>
+                                }
+                            }
+                        </datalist>
+                        <span asp-validation-for="CropType" class="text-danger"></span>
+                    </div>
                 </div>
 
                 <div class="row">
@@ -36,33 +64,38 @@
                         <span asp-validation-for="ExpectedHarvest" class="text-danger"></span>
                     </div>
                 </div>
-
+                
+                <!-- Growth Stage is now calculated, but maybe user wants to see it or override? 
+                     User said: "growth stage % just if you start tracking it after you planted it otherwise its 0%".
+                     Controller calculates it. Let's make it ReadOnly or display only. -->
                 <div class="mb-3">
-                    <label asp-for="GrowthStage" class="form-label"></label>
-                    <input asp-for="GrowthStage" class="form-control" type="number" min="0" max="100" />
-                    <span asp-validation-for="GrowthStage" class="text-danger"></span>
+                    <label class="form-label">Current Growth Stage (Calculated)</label>
+                    <div class="progress" style="height: 25px;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: @Model.GrowthStage%;" aria-valuenow="@Model.GrowthStage" aria-valuemin="0" aria-valuemax="100">@Model.GrowthStage%</div>
+                    </div>
+                    <input type="hidden" asp-for="GrowthStage" />
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="NextTask" class="form-label"></label>
+                    <label asp-for="NextTask" class="form-label">Next Task (View Only / Memo)</label>
                     <input asp-for="NextTask" class="form-control" />
                     <span asp-validation-for="NextTask" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="Notes" class="form-label"></label>
+                    <label asp-for="Notes" class="form-label">Notes (View Only / Memo)</label>
                     <textarea asp-for="Notes" class="form-control" rows="3"></textarea>
                     <span asp-validation-for="Notes" class="text-danger"></span>
                 </div>
 
                 <hr class="my-4" />
-                <h5 class="mb-3">Agronomic Details</h5>
+                <h5 class="mb-3 text-secondary border-bottom pb-2">Environmental Inputs (For Growth Algorithm)</h5>
 
                 <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label asp-for="SoilType" class="form-label"></label>
-                        <select asp-for="SoilType" class="form-control">
-                            <option value="">-- Select Soil Type --</option>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="SoilType" class="form-label">Soil Type</label>
+                        <select asp-for="SoilType" class="form-select">
+                            <option value="">Select Soil...</option>
                             <option value="Clay">Clay</option>
                             <option value="Sandy">Sandy</option>
                             <option value="Loamy">Loamy</option>
@@ -70,49 +103,39 @@
                             <option value="Peaty">Peaty</option>
                             <option value="Chalky">Chalky</option>
                         </select>
-                        <span asp-validation-for="SoilType" class="text-danger"></span>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label asp-for="SunlightExposure" class="form-label"></label>
-                        <select asp-for="SunlightExposure" class="form-control">
-                            <option value="">-- Select Sunlight --</option>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="SunlightExposure" class="form-label">Sunlight</label>
+                        <select asp-for="SunlightExposure" class="form-select">
+                            <option value="">Select Exposure...</option>
                             <option value="Full Sun">Full Sun (6+ hrs)</option>
                             <option value="Partial Sun">Partial Sun (3-6 hrs)</option>
                             <option value="Partial Shade">Partial Shade (1-3 hrs)</option>
                             <option value="Full Shade">Full Shade (&lt;1 hr)</option>
                         </select>
-                        <span asp-validation-for="SunlightExposure" class="text-danger"></span>
                     </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <div class="form-check">
+                    <div class="col-md-4 mb-3 d-flex align-items-end">
+                        <div class="form-check mb-2">
                             <input asp-for="IsIndoor" class="form-check-input" type="checkbox" />
-                            <label asp-for="IsIndoor" class="form-check-label">
-                                Indoor Plant
-                            </label>
+                            <label asp-for="IsIndoor" class="form-check-label">Is Indoor Plant?</label>
                         </div>
-                        <span asp-validation-for="IsIndoor" class="text-danger"></span>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label asp-for="AvgTemperatureCelsius" class="form-label"></label>
-                        <input asp-for="AvgTemperatureCelsius" class="form-control" type="number" min="-50" max="60" step="0.5" placeholder="e.g. 22.5" />
-                        <span asp-validation-for="AvgTemperatureCelsius" class="text-danger"></span>
+                        <label asp-for="AvgTemperatureCelsius" class="form-label">Avg Temp (°C) (-50 to 60)</label>
+                        <input asp-for="AvgTemperatureCelsius" class="form-control" type="number" step="0.1" />
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label asp-for="WateringFrequencyDays" class="form-label"></label>
-                        <input asp-for="WateringFrequencyDays" class="form-control" type="number" min="0" max="365" placeholder="e.g. 2 days" />
-                        <span asp-validation-for="WateringFrequencyDays" class="text-danger"></span>
+                         <label asp-for="WateringFrequencyDays" class="form-label">Watering Freq (Days)</label>
+                         <input asp-for="WateringFrequencyDays" class="form-control" type="number" />
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-between">
-                    <a class="btn btn-cancel" href="@Url.Action("Index", "Plants")"><i class="fas fa-times"></i> Cancel</a>
-                    <button type="submit" class="btn btn-save"><i class="fas fa-save"></i> Save Changes</button>
+                <div class="d-flex justify-content-between mt-4">
+                    <a class="btn btn-outline-secondary" href="@Url.Action("Index", "Plants")">Back to List</a>
+                    <button type="submit" class="btn btn-primary px-4">Update Plant</button>
                 </div>
             </form>
         </div>

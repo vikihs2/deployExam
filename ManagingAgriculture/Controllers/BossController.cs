@@ -65,27 +65,28 @@ namespace ManagingAgriculture.Controllers
             if (user == null || user.CompanyId == null) return NotFound("Company not found.");
 
             // Get Employees and Managers (exclude self)
-            var staff = await _userManager.GetUsersInRoleAsync("Employee");
-            var managers = await _userManager.GetUsersInRoleAsync("Manager");
-            
-            // Filter by CompanyId (Note: GetUsersInRoleAsync does not filter by company, so we filter in memory or join)
-            // Efficient way: Query users directly
-            var companyUsers = _context.Users.Where(u => u.CompanyId == user.CompanyId && u.Id != user.Id).ToList();
+            // Efficient way: query Users directly to include new fields if needed
+            var companyUsers = await _context.Users
+                                     .Where(u => u.CompanyId == user.CompanyId && u.Id != user.Id)
+                                     .ToListAsync();
             
             // Also get pending invitations
-            ViewBag.Invitations = _context.CompanyInvitations.Where(i => i.CompanyId == user.CompanyId && !i.IsUsed).ToList();
-
+            ViewBag.Invitations = await _context.CompanyInvitations
+                                        .Where(i => i.CompanyId == user.CompanyId && !i.IsUsed)
+                                        .ToListAsync();
+            
+            // Get Task Assignments for context if needed, or separate view
+            // For now, let's keep ManageStaff simple and add tasks there or link to them
+            
             return View(companyUsers);
         }
 
         [HttpPost]
-        public async Task<IActionResult> InviteStaff(string email, string role)
+        public async Task<IActionResult> InviteStaff(string email, string role, decimal salary, int leaveDays)
         {
             var currentUser = await _userManager.GetUserAsync(User);
             if (currentUser == null || currentUser.CompanyId == null) return Challenge();
 
-            // Always create an invitation, even if user exists.
-            // They must accept it via their Dashboard to join the company.
             var existingInvite = await _context.CompanyInvitations
                 .FirstOrDefaultAsync(i => i.Email == email && i.CompanyId == currentUser.CompanyId && !i.IsUsed);
 
@@ -96,7 +97,9 @@ namespace ManagingAgriculture.Controllers
                     Email = email,
                     CompanyId = currentUser.CompanyId.Value,
                     Role = role,
-                    Token = Guid.NewGuid().ToString()
+                    Token = Guid.NewGuid().ToString(),
+                    Salary = salary, // New
+                    LeaveDays = leaveDays // New
                 };
                 _context.CompanyInvitations.Add(invite);
                 await _context.SaveChangesAsync();
@@ -106,14 +109,89 @@ namespace ManagingAgriculture.Controllers
         }
 
         [HttpPost]
+        public async Task<IActionResult> CancelInvitation(int id)
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null || currentUser.CompanyId == null) return Challenge();
+
+            var invite = await _context.CompanyInvitations.FindAsync(id);
+            if (invite != null && invite.CompanyId == currentUser.CompanyId)
+            {
+                _context.CompanyInvitations.Remove(invite);
+                await _context.SaveChangesAsync();
+            }
+             return RedirectToAction(nameof(ManageStaff));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateEmployeeDetails(string userId, decimal salary, int leaveDays, bool isSalaryPaid)
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            // Verify boss (Authorize attr handles role, logic checks company)
+            var emp = await _userManager.FindByIdAsync(userId);
+            
+            if (emp != null && emp.CompanyId == currentUser.CompanyId)
+            {
+                emp.Salary = salary;
+                // If leave days total is changed (e.g. raised from 20 to 25)
+                emp.LeaveDaysTotal = leaveDays;
+                emp.IsSalaryPaidInfo = isSalaryPaid;
+                
+                await _userManager.UpdateAsync(emp);
+            }
+            return RedirectToAction(nameof(ManageStaff));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AssignTask(string userId, string description)
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            var emp = await _userManager.FindByIdAsync(userId);
+            
+            if (emp != null && emp.CompanyId == currentUser.CompanyId)
+            {
+                var task = new TaskAssignment
+                {
+                    AssignedToUserId = userId,
+                    CompanyId = currentUser.CompanyId,
+                    Description = description,
+                    AssignedDate = DateTime.UtcNow,
+                    IsCompletedByEmployee = false,
+                    IsApprovedByBoss = false
+                };
+                _context.TaskAssignments.Add(task);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction(nameof(ManageStaff));
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> VerifyTask(int taskId)
+        {
+             var currentUser = await _userManager.GetUserAsync(User);
+             var task = await _context.TaskAssignments.FindAsync(taskId);
+             if (task != null && task.CompanyId == currentUser.CompanyId)
+             {
+                 task.IsApprovedByBoss = true;
+                 task.CompletedDate = DateTime.UtcNow;
+                 await _context.SaveChangesAsync();
+             }
+             return RedirectToAction(nameof(ManageStaff)); // Or Task View
+        }
+
+        [HttpPost]
         public async Task<IActionResult> RemoveStaff(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
             if (user != null)
             {
                 user.CompanyId = null;
+                // clear employment details
+                user.Salary = 0;
+                user.LeaveDaysUsed = 0; // Reset? Or Keep history? Reset seems safer for clean break.
+                
                 await _userManager.UpdateAsync(user);
-                // Optionally reset role to "User" or leave as is? Better to reset to User.
+                
                 var roles = await _userManager.GetRolesAsync(user);
                 await _userManager.RemoveFromRolesAsync(user, roles);
                 await _userManager.AddToRoleAsync(user, "User");
@@ -132,6 +210,109 @@ namespace ManagingAgriculture.Controllers
                 await _userManager.AddToRoleAsync(user, newRole);
             }
             return RedirectToAction(nameof(ManageStaff));
+        }
+        
+        // --- TASK MANAGEMENT ---
+
+        [HttpGet]
+        public async Task<IActionResult> GetEmployeeTasks(string userId)
+        {
+            var tasks = await _context.TaskAssignments
+                .Where(t => t.AssignedToUserId == userId)
+                .OrderByDescending(t => t.AssignedDate)
+                .Select(t => new {
+                    t.Id,
+                    t.Description,
+                    AssignedDate = t.AssignedDate.ToString("yyyy-MM-dd"),
+                    t.IsCompletedByEmployee,
+                    t.IsApprovedByBoss
+                })
+                .ToListAsync();
+
+            return Json(tasks);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ApproveTask(int taskId)
+        {
+            var task = await _context.TaskAssignments.FindAsync(taskId);
+            if (task == null) return NotFound();
+            
+            task.IsApprovedByBoss = true;
+            task.CompletedDate = DateTime.UtcNow;
+            
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        // --- DEMOTION ---
+        [HttpPost]
+        public async Task<IActionResult> DemoteStaff(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null) return NotFound();
+
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (user.CompanyId != currentUser.CompanyId) return Forbid();
+
+            // Check if is Manager
+            if (await _userManager.IsInRoleAsync(user, "Manager"))
+            {
+                await _userManager.RemoveFromRoleAsync(user, "Manager");
+                await _userManager.AddToRoleAsync(user, "Employee");
+            }
+
+            return RedirectToAction(nameof(ManageStaff));
+        }
+
+        // --- LEAVE MANAGEMENT (CALENDAR) ---
+        
+        [HttpGet]
+        public async Task<IActionResult> GetLeaveDates(string userId)
+        {
+            var leaves = await _context.LeaveRecords
+                .Where(l => l.UserId == userId)
+                .Select(l => new {
+                    title = "Leave",
+                    start = l.LeaveDate.ToString("yyyy-MM-dd"),
+                    color = "#dc3545", // Red for leave
+                    display = "background"
+                })
+                .ToListAsync();
+
+            return Json(leaves);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ToggleLeaveDate(string userId, DateTime date)
+        {
+             var user = await _userManager.FindByIdAsync(userId);
+             if (user == null) return NotFound();
+
+             var existingLeave = await _context.LeaveRecords
+                 .FirstOrDefaultAsync(l => l.UserId == userId && l.LeaveDate.Date == date.Date);
+
+             if (existingLeave != null)
+             {
+                 // Remove leave (Undo)
+                 _context.LeaveRecords.Remove(existingLeave);
+                 user.LeaveDaysUsed = Math.Max(0, user.LeaveDaysUsed - 1); 
+             }
+             else
+             {
+                 // Add leave
+                 var leave = new LeaveRecord
+                 {
+                     UserId = userId,
+                     LeaveDate = date,
+                     Reason = "Boss Assigned"
+                 };
+                 _context.LeaveRecords.Add(leave);
+                 user.LeaveDaysUsed++;
+             }
+
+             await _context.SaveChangesAsync();
+             return Ok(new { newUsed = user.LeaveDaysUsed });
         }
     }
 }

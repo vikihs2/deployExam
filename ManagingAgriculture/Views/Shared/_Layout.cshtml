@@ -92,6 +92,10 @@
                     <h1>@ViewData["Title"]</h1>
 
                     <div class="ms-auto nav-right">
+                        <button class="btn btn-outline-secondary me-3" id="themeToggle" title="Toggle Theme">
+                            <i class="fas fa-moon"></i>
+                        </button>
+
                         @if (new[] { "Plants", "Resources", "Machinery", "Marketplace" }.Contains(controller))
                         {
                             <!-- On these resource pages show only Add (if available) and Home at the far right -->
@@ -190,7 +194,36 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
     <script>
-        // Sidebar removed — no sidebar script required.
+        // Theme Toggle Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggle = document.getElementById('themeToggle');
+            const body = document.body;
+            const icon = toggle.querySelector('i');
+
+            // Check cookie
+            const getCookie = (name) => {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) return parts.pop().split(';').shift();
+            }
+
+            if (getCookie('theme') === 'dark') {
+                body.classList.add('dark-mode');
+                icon.classList.replace('fa-moon', 'fa-sun');
+            }
+
+            toggle.addEventListener('click', function() {
+                body.classList.toggle('dark-mode');
+                
+                if (body.classList.contains('dark-mode')) {
+                    document.cookie = "theme=dark; path=/; max-age=31536000"; // 1 year
+                    icon.classList.replace('fa-moon', 'fa-sun');
+                } else {
+                    document.cookie = "theme=light; path=/; max-age=31536000";
+                    icon.classList.replace('fa-sun', 'fa-moon');
+                }
+            });
+        });
     </script>
 </body>
 </html>

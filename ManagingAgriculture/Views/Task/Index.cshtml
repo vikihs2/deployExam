@@ -1,0 +1,77 @@
+@model IEnumerable<ManagingAgriculture.Models.TaskAssignment>
+@{
+    ViewData["Title"] = "My Tasks";
+}
+
+<div class="container-fluid dashboard-container">
+    <h2 class="mb-4">📋 My Given Tasks</h2>
+
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+             <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Task Description</th>
+                            <th>Date Assigned</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var task in Model)
+                        {
+                            <tr>
+                                <td>@task.Description</td>
+                                <td>@task.AssignedDate.ToString("MMM dd, yyyy")</td>
+                                <td>
+                                    @if (task.IsApprovedByBoss)
+                                    {
+                                        <span class="badge bg-success">
+                                            <i class="fas fa-check-circle"></i> Completed
+                                        </span>
+                                    }
+                                    else if (task.IsCompletedByEmployee)
+                                    {
+                                         <span class="badge bg-warning text-dark">
+                                            <i class="fas fa-clock"></i> Pending Approval
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                         <span class="badge bg-secondary">
+                                            <i class="fas fa-spinner"></i> In Progress
+                                        </span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (!task.IsCompletedByEmployee)
+                                    {
+                                        <form asp-action="CompleteTask" method="post">
+                                            <input type="hidden" name="id" value="@task.Id" />
+                                            <button type="submit" class="btn btn-sm btn-outline-success">
+                                                <i class="fas fa-check"></i> Mark as Done
+                                            </button>
+                                        </form>
+                                    }
+                                    else if (!task.IsApprovedByBoss)
+                                    {
+                                        <small class="text-muted">Waiting on Boss</small>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                        @if (!Model.Any())
+                        {
+                            <tr>
+                                <td colspan="4" class="text-center text-muted py-4">
+                                    No tasks assigned to you yet. Good job!
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+             </div>
+        </div>
+    </div>
+</div>

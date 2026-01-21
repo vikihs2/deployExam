@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "xK4zREB4IdC5tMU6qx2hL2R918E3IKflRt3kAc+6k3Q=",
+  "Hash": "aKKi/rBS0KdAOfhjYxmWJAD2NLnz0mNREDPEVZHgwwg=",
   "Source": "ManagingAgriculture",
   "BasePath": "_content/ManagingAgriculture",
   "Mode": "Default",
@@ -773,12 +773,12 @@
       "OriginalItemSpec": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\lib\\jquery\\dist\\jquery.min.js"
     },
     {
-      "Identity": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\obj\\Debug\\net9.0\\compressed\\o22admou70-8nurnzyssp.gz",
+      "Identity": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\obj\\Debug\\net9.0\\compressed\\o22admou70-cxjdh3umvh.gz",
       "SourceId": "ManagingAgriculture",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/ManagingAgriculture",
-      "RelativePath": "css/site#[.{fingerprint=8nurnzyssp}]?.css.gz",
+      "RelativePath": "css/site#[.{fingerprint=cxjdh3umvh}]?.css.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -787,8 +787,8 @@
       "RelatedAsset": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\css\\site.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "3tkrgzm9rw",
-      "Integrity": "6UGHgHjYU67L8zjFDkkrpyfhvbuVNbgrshpIE1qPCII=",
+      "Fingerprint": "drzk3tqwws",
+      "Integrity": "9/aP4MDnIh/ynwHu9K5maGj9UTK8GmoIDsGrorwynHw=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\css\\site.css"
@@ -1333,8 +1333,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "8nurnzyssp",
-      "Integrity": "5NZUTo4nSvgLrAIWEAi0lcI4ZU507Q3rQMSPTknrEGY=",
+      "Fingerprint": "cxjdh3umvh",
+      "Integrity": "IKN9Drntobw4hCH0+0Az/2hZiMZ2W0bGExRNsCBcI0A=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
@@ -2749,13 +2749,13 @@
   ],
   "Endpoints": [
     {
-      "Route": "css/site.8nurnzyssp.css",
-      "AssetFile": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\obj\\Debug\\net9.0\\compressed\\o22admou70-8nurnzyssp.gz",
+      "Route": "css/site.css",
+      "AssetFile": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\obj\\Debug\\net9.0\\compressed\\o22admou70-cxjdh3umvh.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000153515505"
+          "Quality": "0.000144634076"
         }
       ],
       "ResponseHeaders": [
@@ -2765,19 +2765,19 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "6513"
+          "Value": "6913"
         },
         {
           "Name": "ETag",
-          "Value": "\"6UGHgHjYU67L8zjFDkkrpyfhvbuVNbgrshpIE1qPCII=\""
+          "Value": "\"9/aP4MDnIh/ynwHu9K5maGj9UTK8GmoIDsGrorwynHw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 25 Dec 2025 08:10:41 GMT"
+          "Value": "Fri, 16 Jan 2026 07:54:01 GMT"
         },
         {
           "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
+          "Value": "no-cache"
         },
         {
           "Name": "Content-Encoding",
@@ -2793,26 +2793,18 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"5NZUTo4nSvgLrAIWEAi0lcI4ZU507Q3rQMSPTknrEGY=\""
+          "Value": "W/\"IKN9Drntobw4hCH0+0Az/2hZiMZ2W0bGExRNsCBcI0A=\""
         }
       ],
       "EndpointProperties": [
         {
-          "Name": "fingerprint",
-          "Value": "8nurnzyssp"
-        },
-        {
-          "Name": "label",
-          "Value": "css/site.css"
-        },
-        {
           "Name": "integrity",
-          "Value": "sha256-5NZUTo4nSvgLrAIWEAi0lcI4ZU507Q3rQMSPTknrEGY="
+          "Value": "sha256-IKN9Drntobw4hCH0+0Az/2hZiMZ2W0bGExRNsCBcI0A="
         }
       ]
     },
     {
-      "Route": "css/site.8nurnzyssp.css",
+      "Route": "css/site.css",
       "AssetFile": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\css\\site.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -2822,7 +2814,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "34447"
+          "Value": "36569"
         },
         {
           "Name": "Content-Type",
@@ -2830,11 +2822,156 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"5NZUTo4nSvgLrAIWEAi0lcI4ZU507Q3rQMSPTknrEGY=\""
+          "Value": "\"IKN9Drntobw4hCH0+0Az/2hZiMZ2W0bGExRNsCBcI0A=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 25 Dec 2025 08:10:41 GMT"
+          "Value": "Fri, 16 Jan 2026 07:54:01 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-IKN9Drntobw4hCH0+0Az/2hZiMZ2W0bGExRNsCBcI0A="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.css.gz",
+      "AssetFile": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\obj\\Debug\\net9.0\\compressed\\o22admou70-cxjdh3umvh.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6913"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"9/aP4MDnIh/ynwHu9K5maGj9UTK8GmoIDsGrorwynHw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 16 Jan 2026 07:54:01 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-9/aP4MDnIh/ynwHu9K5maGj9UTK8GmoIDsGrorwynHw="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.cxjdh3umvh.css",
+      "AssetFile": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\obj\\Debug\\net9.0\\compressed\\o22admou70-cxjdh3umvh.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000144634076"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "6913"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"9/aP4MDnIh/ynwHu9K5maGj9UTK8GmoIDsGrorwynHw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 16 Jan 2026 07:54:01 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"IKN9Drntobw4hCH0+0Az/2hZiMZ2W0bGExRNsCBcI0A=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "cxjdh3umvh"
+        },
+        {
+          "Name": "label",
+          "Value": "css/site.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-IKN9Drntobw4hCH0+0Az/2hZiMZ2W0bGExRNsCBcI0A="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.cxjdh3umvh.css",
+      "AssetFile": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\css\\site.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "36569"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"IKN9Drntobw4hCH0+0Az/2hZiMZ2W0bGExRNsCBcI0A=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 16 Jan 2026 07:54:01 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2844,7 +2981,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "8nurnzyssp"
+          "Value": "cxjdh3umvh"
         },
         {
           "Name": "label",
@@ -2852,13 +2989,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-5NZUTo4nSvgLrAIWEAi0lcI4ZU507Q3rQMSPTknrEGY="
+          "Value": "sha256-IKN9Drntobw4hCH0+0Az/2hZiMZ2W0bGExRNsCBcI0A="
         }
       ]
     },
     {
-      "Route": "css/site.8nurnzyssp.css.gz",
-      "AssetFile": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\obj\\Debug\\net9.0\\compressed\\o22admou70-8nurnzyssp.gz",
+      "Route": "css/site.cxjdh3umvh.css.gz",
+      "AssetFile": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\obj\\Debug\\net9.0\\compressed\\o22admou70-cxjdh3umvh.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2867,7 +3004,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "6513"
+          "Value": "6913"
         },
         {
           "Name": "Content-Type",
@@ -2875,11 +3012,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"6UGHgHjYU67L8zjFDkkrpyfhvbuVNbgrshpIE1qPCII=\""
+          "Value": "\"9/aP4MDnIh/ynwHu9K5maGj9UTK8GmoIDsGrorwynHw=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 25 Dec 2025 08:10:41 GMT"
+          "Value": "Fri, 16 Jan 2026 07:54:01 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2897,7 +3034,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "8nurnzyssp"
+          "Value": "cxjdh3umvh"
         },
         {
           "Name": "label",
@@ -2905,144 +3042,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-6UGHgHjYU67L8zjFDkkrpyfhvbuVNbgrshpIE1qPCII="
-        }
-      ]
-    },
-    {
-      "Route": "css/site.css",
-      "AssetFile": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\obj\\Debug\\net9.0\\compressed\\o22admou70-8nurnzyssp.gz",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip",
-          "Quality": "0.000153515505"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "6513"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"6UGHgHjYU67L8zjFDkkrpyfhvbuVNbgrshpIE1qPCII=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 25 Dec 2025 08:10:41 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"5NZUTo4nSvgLrAIWEAi0lcI4ZU507Q3rQMSPTknrEGY=\""
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-5NZUTo4nSvgLrAIWEAi0lcI4ZU507Q3rQMSPTknrEGY="
-        }
-      ]
-    },
-    {
-      "Route": "css/site.css",
-      "AssetFile": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\wwwroot\\css\\site.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "34447"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"5NZUTo4nSvgLrAIWEAi0lcI4ZU507Q3rQMSPTknrEGY=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 25 Dec 2025 08:10:41 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-5NZUTo4nSvgLrAIWEAi0lcI4ZU507Q3rQMSPTknrEGY="
-        }
-      ]
-    },
-    {
-      "Route": "css/site.css.gz",
-      "AssetFile": "C:\\Users\\Viktor\\Desktop\\diplomna.rabota\\managingAgriculture\\Managing-agriculture\\ManagingAgriculture\\obj\\Debug\\net9.0\\compressed\\o22admou70-8nurnzyssp.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "6513"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"6UGHgHjYU67L8zjFDkkrpyfhvbuVNbgrshpIE1qPCII=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 25 Dec 2025 08:10:41 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-6UGHgHjYU67L8zjFDkkrpyfhvbuVNbgrshpIE1qPCII="
+          "Value": "sha256-9/aP4MDnIh/ynwHu9K5maGj9UTK8GmoIDsGrorwynHw="
         }
       ]
     },
