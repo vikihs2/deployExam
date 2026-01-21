@@ -1,4 +1,4 @@
-name: CI-CD Deploy to SmarterASP
+name: Build and Deploy ASP.NET MVC
 
 on:
   push:
@@ -7,30 +7,30 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.0.x'
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
 
-      - name: Restore dependencies
-        run: dotnet restore
+    - name: Restore dependencies
+      run: dotnet restore Managing-agriculture.sln
 
-      - name: Build project
-        run: dotnet build --configuration Release --no-restore
+    - name: Build
+      run: dotnet build Managing-agriculture.sln --configuration Release --no-restore
 
-      - name: Publish project
-        run: dotnet publish -c Release -o publish
+    - name: Publish
+      run: dotnet publish Managing-agriculture/ManagingAgriculture.csproj -c Release -o publish
 
-      - name: Deploy to SmarterASP via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: publish/
+    - name: Deploy to SmarterASP via FTP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        local-dir: publish/
