@@ -25,7 +25,8 @@ jobs:
         run: dotnet build Managing-agriculture.sln --configuration Release --no-restore
 
       - name: Publish
-  run: dotnet publish ManagingAgriculture/ManagingAgriculture.csproj -c Release -o publish
+  run: dotnet publish Managing-agriculture.sln -c Release -o publish
+
 
       - name: Deploy to SmarterASP via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
